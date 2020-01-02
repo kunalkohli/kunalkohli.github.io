@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Leonids</title>
+    <description>A simple and awesome blog theme powered by jekyll.</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>2020-01-01</pubDate>
+    <lastBuildDate>Wed, 01 Jan 2020 21:05:11 -0500</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Creating Blog using Jekyll</title>
+        <description>&lt;p&gt;I always wanted a blog where I can put my ideas and projects I am doing and get feedback from people. I tried creating a rails app which would host my pages but due to lack of time I couldn’t give much time to it. Finally I found Jekyll (recommended to me by my lead @ Shopify) which not just lets you create blog website but also lets you host sites right from your GitHub repositories. There are a lot of websites out there which can help you create a blog by dragging and dropping elements but my idea of blog was not just to share my views with people but to also learn web development.&lt;/p&gt;
+
+&lt;p&gt;If you are interested in learning &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;, feel free to check this post and share your views.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;b&gt;Jekyll&lt;/b&gt; is a static site generator. You give it text written in your favorite markup language and it uses layouts to create a static website. You can tweak how you want the site URLs to look like, what data gets displayed on the site, and more. Jekyll does what you tell it to do — no more, no less. It doesn’t try to outsmart users by making bold assumptions, nor does it burden them with needless complexity and configuration. Put simply, Jekyll gets out of your way and allows you to concentrate on what truly matters: your content.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;install Jekyll - run this command in terminal to install jekyll (mac)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;      gem &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;jekyll bundler
+    &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Selecting theme for the blog &lt;br /&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;visit &lt;a href=&quot;https://jekyllthemes.io/jekyll-blog-themes&quot;&gt;Jekyll Themes&lt;/a&gt; to check all the themes available for use. you can also preview how a theme looks by clicking the theme and clicking live demo.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Once you have decide the theme, click on the github repo to get the link to copy the cloning link as shown in red below.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;img src=&quot;https://i.ibb.co/VWFmg86/Screen-Shot-2020-01-01-at-8-24-51-PM.png&quot; alt=&quot;drawing&quot; style=&quot;width:450px;height:170px;&quot; /&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;Now go to terminal and enter the below command:&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;          git clone &amp;lt;copied_link&amp;gt;
+        &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Once the repository has been cloned, do a cd into it and run the below command:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;    bundle &lt;span class=&quot;nb&quot;&gt;install
+    &lt;/span&gt;bundle &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;jekyll serve
+  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fire up a browser and open the below link:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;  
+    http://localhost:4000/
+  
+  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;To add things to the resume section, edit the following files:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;  
+    1. For about section : edit about.yml in _includes/sections/
+    2. For career section : edit careers.yml in _data/index/
+    3. For education section : edit education.yml in _data/index/
+    4. For projects section : edit projects.yml in _data/index/
+    5. For skills section : edit skills.yml in _data/index/&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;To change the image, blog name and add social media on the homepage, edit &lt;b&gt;_config.yml &lt;/b&gt; file.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;To add a new blog post, just add a blank markdown with the name of your choice inside &lt;b&gt;_posts/ &lt;/b&gt;, and then add content to it&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;run the server to see if the changes you did are visible on the page.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>2020-01-01</pubDate>
+        <link>http://localhost:4000/articles/2020-01/welcome-to-jekyll</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2020-01/welcome-to-jekyll</guid>
+        
+        
+        <category>tutorial</category>
+        
+        <category>code</category>
+        
+      </item>
+    
+  </channel>
+</rss>

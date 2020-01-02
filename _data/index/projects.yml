@@ -1,0 +1,18 @@
+- name: Neural Style Transfer
+  descr: "Neural style transfer is an optimization technique used to take two images—a content image and a style reference image (such as an artwork by a famous painter)—and blend them together so the output image looks like the content image, but “painted” in the style of the style reference image.
+        <br><br>
+        This repository takes two images: <br>
+        1. Content image -> The main image on which we need to apply the style. <br>
+        2. Style image -> The image from which we want to extract the style which will be applied to the content image. <br>
+        Finally we use a convolution neural network to extract style representations which will be applied to the content image representation."
+  image: pong.png
+  github: https://github.com/kunalkohli/NeuralStyleTransfer
+
+- name: Canadian Elections Sentiment Analysis
+  descr: "I am not very interested in politics, but Canadian elections were an event where I wanted to test how sentiments of people towards different political leaders change with each new controversy coming out.
+        <br><br>
+        This project uses very basic tools: <br>
+        1. tweepy to pull tweets related to our two main candidates 'Justin Trudeau' and 'Andrew Scheer'. <br> 
+        2. Running nltk,textblob,spacy etc to get sentiments of people's tweets towards two candidate."
+  image: pong.png
+  github: https://github.com/kunalkohli/CanadianElectionsSentimentAnalysis
