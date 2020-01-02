@@ -3,9 +3,9 @@
 # Site wide configuration
 ####################################
 #
-title: Leonids
+title: Kunal's Blog
 email:
-description: A simple and awesome blog theme powered by jekyll.
+description: Blog about my experiences with data and other technologies.
 url: # the base hostname & protocol for your site
 keywords: ["blog", "jekyll"]
 
