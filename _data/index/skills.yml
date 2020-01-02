@@ -1,0 +1,6 @@
+# skills section data
+
+label: Ability
+id : cs
+aspects: SQL, Python, Machine Learning, Spark, Performance Optimisations,Computer vision,  Web development, Rails 
+percentage: 95, 85, 80, 70, 60, 50, 45, 30 

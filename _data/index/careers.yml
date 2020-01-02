@@ -1,0 +1,21 @@
+# careers section data
+# if you don't have language feature(language.yml is empty), ignore "i18n" items
+- name: Shopify
+  link: https://www.shopify.ca/
+  date: July 2019 - <i class="fa fa-clock-o" aria-hidden="true" title="Until Now"></i>
+  job: Data Scientist
+
+- name: SharpestMinds
+  link: https://www.sharpestminds.com/
+  date: July 2019 - <i class="fa fa-clock-o" aria-hidden="true" title="Until Now"></i>
+  job: Data Science Mentor
+
+- name: Canadian Tire
+  link: https://corp.canadiantire.ca/English/home/default.aspx
+  date: April 2018 - July 2019
+  job: Data Scientist
+
+- name: Nokia
+  link: https://www.nokia.com/
+  date: July 2015 - August 2017
+  job: R&D Engineer
