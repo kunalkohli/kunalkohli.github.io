@@ -156,11 +156,10 @@ for i in range(0,1000):
 
 <p>I can run the above code using <code class="language-plaintext highlighter-rouge">time python sum.py</code> to get ideas on the time it took to execute the above code.</p>
 
-<p>For 1000 iterations, it takes <strong>0.03 sec</strong> on Mac pro with 32 GB ram and intel processor:</p>
-
-<p><img width="1012" alt="image" src="https://private-user-images.githubusercontent.com/32186649/263523461-d8310291-5177-4183-8825-4ae34a732662.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM0NjEtZDgzMTAyOTEtNTE3Ny00MTgzLTg4MjUtNGFlMzRhNzMyNjYyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiNDM2MzE5NjU5Y2NjZjc3NmZlYzQ4NzlkYzM4M2EyMDUzNzQxM2NlY2Y0ZTAxYTE4MzRkZDZiMmVkZjcxOWEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.D-Qz_W3oC3rRkCyoy6x16JDCBIJbXN4bvIgcSsYlsls" /> <br /><br />
+<p>For 1000 iterations, it takes <strong>0.03 sec</strong> on Mac pro with 32 GB ram and intel processor:
+<img src="https://ibb.co/M7RjJhk" alt="drawing" style="width:450px;height:170px;" /> <br /><br />
 Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code takes <strong>14.5 secs</strong> to run 🤯 🦥 🐢<br /><br />
-<img width="1012" alt="image" src="https://private-user-images.githubusercontent.com/32186649/263523587-f4a7d53c-b39b-4b3f-8003-fe21634c216b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM1ODctZjRhN2Q1M2MtYjM5Yi00YjNmLTgwMDMtZmUyMTYzNGMyMTZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQ0OGQ4ZGQ0ZmY2Mjc0ZGRhMmQ4ZTVlNzFlNTFmNWY2NjQ3NTllOGEwNDhiZTI2OWEzYTIzZGVjZGUxM2M0YTkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.TYF59X2p5zEk3sJxLUfr0sCWj4YSTcxxPiOSvw3EkU4" /></p>
+<img width="1012" alt="image" src="https://ibb.co/QQxTqzv" /></p>
 
 <h4 id="magic-of-jit">Magic of JIT</h4>
 
@@ -175,7 +174,7 @@ Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code
 </code></pre></div></div>
 
 <p>For 1000 iterations, it takes <strong>0.16 sec</strong> to run the same code with JIT (<strong>98.8% faster than python code without JIT</strong> 🚀🚀🏃🏃)<br /><br />
-<img width="738" alt="image" src="https://private-user-images.githubusercontent.com/32186649/263524513-6590c870-5408-44e9-8b96-6cbfb7872cc8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjQ1MTMtNjU5MGM4NzAtNTQwOC00NGU5LThiOTYtNmNiZmI3ODcyY2M4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWUxNDcyYWM5Mzg5YmVkNjQzZjMwMWY3ODRkYmRmZTNlNzMyYjZkNmJlNTA3MDM5YTYxNzU3NzJmZmMxMjkyOTImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.j-o3bfSfE3Z8SMuS6FrsU1aA189lCOAU7wxfQN4UV7A" /></p>
+<img width="738" alt="image" src="https://ibb.co/KNwHP2n" /></p>
 
 <p>We have seen the benefits of JIT in a language like python where it can help speed up the execution times signficantly, but there are some <strong>limitations of JIT</strong> which I wanted to share here as well:</p>
 

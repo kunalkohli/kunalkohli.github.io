@@ -6,7 +6,7 @@
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>2023-08-27</pubDate>
-    <lastBuildDate>Sun, 27 Aug 2023 07:53:06 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 27 Aug 2023 07:59:20 -0400</lastBuildDate>
     <generator>Jekyll v3.9.3</generator>
     
       <item>
@@ -33,11 +33,10 @@ for i in range(0,1000):
 
 &lt;p&gt;I can run the above code using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time python sum.py&lt;/code&gt; to get ideas on the time it took to execute the above code.&lt;/p&gt;
 
-&lt;p&gt;For 1000 iterations, it takes &lt;strong&gt;0.03 sec&lt;/strong&gt; on Mac pro with 32 GB ram and intel processor:&lt;/p&gt;
-
-&lt;p&gt;&lt;img width=&quot;1012&quot; alt=&quot;image&quot; src=&quot;https://private-user-images.githubusercontent.com/32186649/263523461-d8310291-5177-4183-8825-4ae34a732662.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM0NjEtZDgzMTAyOTEtNTE3Ny00MTgzLTg4MjUtNGFlMzRhNzMyNjYyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiNDM2MzE5NjU5Y2NjZjc3NmZlYzQ4NzlkYzM4M2EyMDUzNzQxM2NlY2Y0ZTAxYTE4MzRkZDZiMmVkZjcxOWEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.D-Qz_W3oC3rRkCyoy6x16JDCBIJbXN4bvIgcSsYlsls&quot; /&gt; &lt;br /&gt;&lt;br /&gt;
+&lt;p&gt;For 1000 iterations, it takes &lt;strong&gt;0.03 sec&lt;/strong&gt; on Mac pro with 32 GB ram and intel processor:
+&lt;img src=&quot;https://ibb.co/M7RjJhk&quot; alt=&quot;drawing&quot; style=&quot;width:450px;height:170px;&quot; /&gt; &lt;br /&gt;&lt;br /&gt;
 Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code takes &lt;strong&gt;14.5 secs&lt;/strong&gt; to run 🤯 🦥 🐢&lt;br /&gt;&lt;br /&gt;
-&lt;img width=&quot;1012&quot; alt=&quot;image&quot; src=&quot;https://private-user-images.githubusercontent.com/32186649/263523587-f4a7d53c-b39b-4b3f-8003-fe21634c216b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM1ODctZjRhN2Q1M2MtYjM5Yi00YjNmLTgwMDMtZmUyMTYzNGMyMTZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQ0OGQ4ZGQ0ZmY2Mjc0ZGRhMmQ4ZTVlNzFlNTFmNWY2NjQ3NTllOGEwNDhiZTI2OWEzYTIzZGVjZGUxM2M0YTkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.TYF59X2p5zEk3sJxLUfr0sCWj4YSTcxxPiOSvw3EkU4&quot; /&gt;&lt;/p&gt;
+&lt;img width=&quot;1012&quot; alt=&quot;image&quot; src=&quot;https://ibb.co/QQxTqzv&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;magic-of-jit&quot;&gt;Magic of JIT&lt;/h4&gt;
 
@@ -52,7 +51,7 @@ Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;For 1000 iterations, it takes &lt;strong&gt;0.16 sec&lt;/strong&gt; to run the same code with JIT (&lt;strong&gt;98.8% faster than python code without JIT&lt;/strong&gt; 🚀🚀🏃🏃)&lt;br /&gt;&lt;br /&gt;
-&lt;img width=&quot;738&quot; alt=&quot;image&quot; src=&quot;https://private-user-images.githubusercontent.com/32186649/263524513-6590c870-5408-44e9-8b96-6cbfb7872cc8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjQ1MTMtNjU5MGM4NzAtNTQwOC00NGU5LThiOTYtNmNiZmI3ODcyY2M4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWUxNDcyYWM5Mzg5YmVkNjQzZjMwMWY3ODRkYmRmZTNlNzMyYjZkNmJlNTA3MDM5YTYxNzU3NzJmZmMxMjkyOTImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.j-o3bfSfE3Z8SMuS6FrsU1aA189lCOAU7wxfQN4UV7A&quot; /&gt;&lt;/p&gt;
+&lt;img width=&quot;738&quot; alt=&quot;image&quot; src=&quot;https://ibb.co/KNwHP2n&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We have seen the benefits of JIT in a language like python where it can help speed up the execution times signficantly, but there are some &lt;strong&gt;limitations of JIT&lt;/strong&gt; which I wanted to share here as well:&lt;/p&gt;
 
