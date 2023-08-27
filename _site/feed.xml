@@ -6,14 +6,14 @@
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
     <pubDate>2023-08-27</pubDate>
-    <lastBuildDate>Sun, 27 Aug 2023 07:45:43 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 27 Aug 2023 07:53:06 -0400</lastBuildDate>
     <generator>Jekyll v3.9.3</generator>
     
       <item>
         <title>How JIT (and not git) impacts your code workflow</title>
-        <description>&lt;p&gt;JIT stands for &lt;strong&gt;“Just-In-Time”&lt;/strong&gt; compilation, which is a technique used by some programming languages and runtime environments to improve the performance of executing code. That would make sense to a developer but for non-developer, I think the definition can be a bit confusing so let me try to explain this in a simple way.&lt;/p&gt;
-
-&lt;p&gt;Imagine you have a code blob written in your fav programming language (&lt;em&gt;let’s say python for now&lt;/em&gt;). Now Python is an &lt;strong&gt;interpreted programming language&lt;/strong&gt;, which means that the source code is executed line by line by a Python interpreter at runtime. Your machine can only understand binary numbers so python interpreter helps bridge the gap between your python code and the machine.&lt;/p&gt;
+        <description>&lt;p&gt;JIT stands for &lt;strong&gt;“Just-In-Time”&lt;/strong&gt; compilation, which is a technique used by some programming languages and runtime environments to improve the performance of executing code. That would make sense to a developer but for non-developer, I think the definition can be a bit confusing so let me try to explain this in a simple way. 
+&lt;!--more--&gt;
+Imagine you have a code blob written in your fav programming language (&lt;em&gt;let’s say python for now&lt;/em&gt;). Now Python is an &lt;strong&gt;interpreted programming language&lt;/strong&gt;, which means that the source code is executed line by line by a Python interpreter at runtime. Your machine can only understand binary numbers so python interpreter helps bridge the gap between your python code and the machine.&lt;/p&gt;
 
 &lt;p&gt;Due to &lt;strong&gt;Python’s dynamic nature&lt;/strong&gt; and the way it handles data types, pure interpretation can result in relatively slower execution speeds compared to languages that are compiled to machine code directly (For example C, C++) which are signficantly faster to run. For more context on how compilation works, check this &lt;a href=&quot;https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d&quot;&gt;blog&lt;/a&gt;&lt;/p&gt;
 
