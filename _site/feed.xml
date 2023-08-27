@@ -1,13 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Leonids</title>
-    <description>A simple and awesome blog theme powered by jekyll.</description>
+    <title>Kunal&apos;s Blog</title>
+    <description>Blog about my experiences with data and other technologies.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>2020-01-01</pubDate>
-    <lastBuildDate>Wed, 01 Jan 2020 21:05:11 -0500</lastBuildDate>
-    <generator>Jekyll v3.8.5</generator>
+    <pubDate>2023-08-27</pubDate>
+    <lastBuildDate>Sun, 27 Aug 2023 07:45:43 -0400</lastBuildDate>
+    <generator>Jekyll v3.9.3</generator>
+    
+      <item>
+        <title>How JIT (and not git) impacts your code workflow</title>
+        <description>&lt;p&gt;JIT stands for &lt;strong&gt;“Just-In-Time”&lt;/strong&gt; compilation, which is a technique used by some programming languages and runtime environments to improve the performance of executing code. That would make sense to a developer but for non-developer, I think the definition can be a bit confusing so let me try to explain this in a simple way.&lt;/p&gt;
+
+&lt;p&gt;Imagine you have a code blob written in your fav programming language (&lt;em&gt;let’s say python for now&lt;/em&gt;). Now Python is an &lt;strong&gt;interpreted programming language&lt;/strong&gt;, which means that the source code is executed line by line by a Python interpreter at runtime. Your machine can only understand binary numbers so python interpreter helps bridge the gap between your python code and the machine.&lt;/p&gt;
+
+&lt;p&gt;Due to &lt;strong&gt;Python’s dynamic nature&lt;/strong&gt; and the way it handles data types, pure interpretation can result in relatively slower execution speeds compared to languages that are compiled to machine code directly (For example C, C++) which are signficantly faster to run. For more context on how compilation works, check this &lt;a href=&quot;https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d&quot;&gt;blog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Coming back to python(&lt;em&gt;our selected programming language&lt;/em&gt;) which is interpreted at run time, our computer has to translate the python code into machine readable code which can be very slow if we have to many recurring function calls or loops (&lt;em&gt;every function call has to be translated to machine code before executing&lt;/em&gt;).&lt;/p&gt;
+
+&lt;h3 id=&quot;demo-code-&quot;&gt;Demo code: 🧪💻💥&lt;/h3&gt;
+&lt;p&gt;Let me show the above issue with an example:&lt;/p&gt;
+
+&lt;p&gt;Imagine you have a very basic python code file (&lt;em&gt;say sum.py&lt;/em&gt;), which &lt;strong&gt;runs a loop to add 2 numbers in loop running 1000 times&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def sum(a,b):
+        return a+b
+
+for i in range(0,1000):
+        sum(i,i+1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I can run the above code using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time python sum.py&lt;/code&gt; to get ideas on the time it took to execute the above code.&lt;/p&gt;
+
+&lt;p&gt;For 1000 iterations, it takes &lt;strong&gt;0.03 sec&lt;/strong&gt; on Mac pro with 32 GB ram and intel processor:&lt;/p&gt;
+
+&lt;p&gt;&lt;img width=&quot;1012&quot; alt=&quot;image&quot; src=&quot;https://private-user-images.githubusercontent.com/32186649/263523461-d8310291-5177-4183-8825-4ae34a732662.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM0NjEtZDgzMTAyOTEtNTE3Ny00MTgzLTg4MjUtNGFlMzRhNzMyNjYyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiNDM2MzE5NjU5Y2NjZjc3NmZlYzQ4NzlkYzM4M2EyMDUzNzQxM2NlY2Y0ZTAxYTE4MzRkZDZiMmVkZjcxOWEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.D-Qz_W3oC3rRkCyoy6x16JDCBIJbXN4bvIgcSsYlsls&quot; /&gt; &lt;br /&gt;&lt;br /&gt;
+Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code takes &lt;strong&gt;14.5 secs&lt;/strong&gt; to run 🤯 🦥 🐢&lt;br /&gt;&lt;br /&gt;
+&lt;img width=&quot;1012&quot; alt=&quot;image&quot; src=&quot;https://private-user-images.githubusercontent.com/32186649/263523587-f4a7d53c-b39b-4b3f-8003-fe21634c216b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM1ODctZjRhN2Q1M2MtYjM5Yi00YjNmLTgwMDMtZmUyMTYzNGMyMTZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQ0OGQ4ZGQ0ZmY2Mjc0ZGRhMmQ4ZTVlNzFlNTFmNWY2NjQ3NTllOGEwNDhiZTI2OWEzYTIzZGVjZGUxM2M0YTkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.TYF59X2p5zEk3sJxLUfr0sCWj4YSTcxxPiOSvw3EkU4&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;magic-of-jit&quot;&gt;Magic of JIT&lt;/h4&gt;
+
+&lt;p&gt;JIT can significantly help improve python runtime performance. It uses a technique called “tracing JIT” to identify frequently executed code paths and optimize them. &lt;strong&gt;JIT can detect any recurring function during the execution&lt;/strong&gt; and store a compiled version on the fly. During the execution, JIT will start using the compiled function instead of parsing and interpreting the function during the loop.&lt;/p&gt;
+
+&lt;p&gt;In our example, JIT will detect that the function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sum(a,b)&lt;/code&gt; is being called in a loop multiple times. &lt;strong&gt;Why not compile it on the fly and use the compiled version for execution which might save some CPU cycles.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;jit-in-action-example&quot;&gt;JIT in action example:&lt;/h5&gt;
+&lt;p&gt;I am using pypy3 package to run JIT but you can try other packages too (Numba etc). To install pypy3 use the below command in mac:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install pypy3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For 1000 iterations, it takes &lt;strong&gt;0.16 sec&lt;/strong&gt; to run the same code with JIT (&lt;strong&gt;98.8% faster than python code without JIT&lt;/strong&gt; 🚀🚀🏃🏃)&lt;br /&gt;&lt;br /&gt;
+&lt;img width=&quot;738&quot; alt=&quot;image&quot; src=&quot;https://private-user-images.githubusercontent.com/32186649/263524513-6590c870-5408-44e9-8b96-6cbfb7872cc8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjQ1MTMtNjU5MGM4NzAtNTQwOC00NGU5LThiOTYtNmNiZmI3ODcyY2M4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWUxNDcyYWM5Mzg5YmVkNjQzZjMwMWY3ODRkYmRmZTNlNzMyYjZkNmJlNTA3MDM5YTYxNzU3NzJmZmMxMjkyOTImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.j-o3bfSfE3Z8SMuS6FrsU1aA189lCOAU7wxfQN4UV7A&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We have seen the benefits of JIT in a language like python where it can help speed up the execution times signficantly, but there are some &lt;strong&gt;limitations of JIT&lt;/strong&gt; which I wanted to share here as well:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;JIT has a higher memory overhead than usual runtime. Since we have to store the compiled code in the machine which takes up memory, running JIT on a code base with too many functions would need significantly high memory compared to normal python operations.&lt;/li&gt;
+  &lt;li&gt;JIT works well with long running programs. For programs with not a lot of loops/functions, the memory overhead of running JIT is not worth the effort.&lt;/li&gt;
+  &lt;li&gt;It doesn’t do Ahead-Of-Time Compilation (AOT) like C where a program is compiled before running. It compiles the code during runtime but there is no support to pre-compile the code in advance.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Overall, I think JIT can significantly boost the performance of your code base and if you have long running loops, you should conisder it. In Shopify, we use have seen signficant speedups in code compilation using &lt;a href=&quot;https://shopify.engineering/yjit-just-in-time-compiler-cruby&quot;&gt;YJIT&lt;/a&gt; which is similar to JIT.&lt;/p&gt;
+
+&lt;p&gt;For more context on JIT using pypy, check this &lt;a href=&quot;https://realpython.com/pypy-faster-python/&quot;&gt;blog&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For any questions, reach out on &lt;a href=&quot;https://www.linkedin.com/in/kunal-kohli-a8815b80/&quot;&gt;LinkedIn&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>2023-08-27</pubDate>
+        <link>http://localhost:4000/articles/2023-08/jit</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2023-08/jit</guid>
+        
+        
+        <category>web_perf</category>
+        
+      </item>
     
       <item>
         <title>Creating Blog using Jekyll</title>
@@ -91,14 +159,12 @@
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
 
 </description>
-        <pubDate>2020-01-01</pubDate>
+        <pubDate>2023-08-27</pubDate>
         <link>http://localhost:4000/articles/2020-01/welcome-to-jekyll</link>
         <guid isPermaLink="true">http://localhost:4000/articles/2020-01/welcome-to-jekyll</guid>
         
         
         <category>tutorial</category>
-        
-        <category>code</category>
         
       </item>
     

@@ -2,5 +2,5 @@
 
 label: Ability
 id : cs
-aspects: SQL, Python, Machine Learning, Spark, Performance Optimisations,Computer vision,  Web development, Rails 
-percentage: 95, 85, 80, 70, 60, 50, 45, 30 
+aspects: SQL, Python, Data Visualization, Econometric Analysis, Spark, Web Performance, Experimentation, Cloud computing, Rails (web dev), Machine Learning
+percentage: 80, 76, 74, 71, 70, 68, 67, 65, 63, 57

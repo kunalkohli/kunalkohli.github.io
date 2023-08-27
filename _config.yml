@@ -33,10 +33,10 @@ kramdown:
 ####################################
 #
 owner:
-  name: kunalable
+  name: Data Musings 
   avatar: kunal.png
   job: "Making stories with Data @Shopify"
-  bio: "Ideas and other geeky stuff"
+  # bio: "Ideas and other geeky stuff"
   email:
   disqus-shortname:
   twitter: _kunalkohli
