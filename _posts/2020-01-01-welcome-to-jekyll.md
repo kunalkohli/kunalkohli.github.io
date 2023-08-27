@@ -2,7 +2,7 @@
 layout: post
 title:  "Creating Blog using Jekyll"
 date:   2020-01-01 15:07:19
-categories: [tutorial, code]
+categories: [tutorial]
 comments: true
 ---
 I always wanted a blog where I can put my ideas and projects I am doing and get feedback from people. I tried creating a rails app which would host my pages but due to lack of time I couldn't give much time to it. Finally I found Jekyll (recommended to me by my lead @ Shopify) which not just lets you create blog website but also lets you host sites right from your GitHub repositories. There are a lot of websites out there which can help you create a blog by dragging and dropping elements but my idea of blog was not just to share my views with people but to also learn web development.
