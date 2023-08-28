@@ -3,7 +3,7 @@
 # Site wide configuration
 ####################################
 #
-title: Kunal's Blog
+title: Data Musings
 email:
 description: Blog about my experiences with data and other technologies.
 url: # the base hostname & protocol for your site
