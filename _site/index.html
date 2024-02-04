@@ -113,6 +113,53 @@
   <header class="post-header">
     <p class="post-meta">
       <span class="post-date">
+        3 FEB 2024
+      </span>
+      
+      •
+      
+        <a class="post-cat" href="http://localhost:4000/categories/#books">books</a>
+        
+        <span>/</span>
+        
+      
+        <a class="post-cat" href="http://localhost:4000/categories/#statistics">statistics</a>
+        
+        <span>/</span>
+        
+      
+        <a class="post-cat" href="http://localhost:4000/categories/#randomness">randomness</a>
+        
+      
+      
+    </p>
+    <h4>
+      <a href="http://localhost:4000/articles/2024-02/black-swan" class="post-title" title="Book Review - Black Swan by Nassim Taleb">Book Review - Black Swan by Nassim Taleb</a>
+      
+    </h4>
+
+    
+
+    </header>
+
+    
+    <div class="post-description">
+      <p>
+        <p>During the winter break I had a chance to read Black Swan by Nassim. In a world full of uncertainity, “The Black Swan” shines a light on new ideas, shaking up what we think we know about randomness and unpredictability. I would recommend anyone working in field dealing with randomness and complex events to read this book.</p>
+
+
+      </p>
+    </div>
+    
+
+    
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
         25 AUG 2023
       </span>
       
@@ -137,60 +184,6 @@
       <p>
         <p>JIT stands for <strong>“Just-In-Time”</strong> compilation, which is a technique used by some programming languages and runtime environments to improve the performance of executing code. That would make sense to a developer but for non-developer, I think the definition can be a bit confusing so let me try to explain this in a simple way.</p>
 
-<p>Imagine you have a code blob written in your fav programming language (<em>let’s say python for now</em>). Now Python is an <strong>interpreted programming language</strong>, which means that the source code is executed line by line by a Python interpreter at runtime. Your machine can only understand binary numbers so python interpreter helps bridge the gap between your python code and the machine.</p>
-
-<p>Due to <strong>Python’s dynamic nature</strong> and the way it handles data types, pure interpretation can result in relatively slower execution speeds compared to languages that are compiled to machine code directly (For example C, C++) which are signficantly faster to run. For more context on how compilation works, check this <a href="https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d">blog</a></p>
-
-<p>Coming back to python(<em>our selected programming language</em>) which is interpreted at run time, our computer has to translate the python code into machine readable code which can be very slow if we have to many recurring function calls or loops (<em>every function call has to be translated to machine code before executing</em>).</p>
-
-<h3 id="demo-code-">Demo code: 🧪💻💥</h3>
-<p>Let me show the above issue with an example:</p>
-
-<p>Imagine you have a very basic python code file (<em>say sum.py</em>), which <strong>runs a loop to add 2 numbers in loop running 1000 times</strong>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def sum(a,b):
-        return a+b
-
-for i in range(0,1000):
-        sum(i,i+1)
-</code></pre></div></div>
-
-<p>I can run the above code using <code class="language-plaintext highlighter-rouge">time python sum.py</code> to get ideas on the time it took to execute the above code.</p>
-
-<p>For 1000 iterations, it takes <strong>0.03 sec</strong> on Mac pro with 32 GB ram and intel processor:</p>
-
-<p><img width="1012" alt="image" src="https://private-user-images.githubusercontent.com/32186649/263523461-d8310291-5177-4183-8825-4ae34a732662.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM0NjEtZDgzMTAyOTEtNTE3Ny00MTgzLTg4MjUtNGFlMzRhNzMyNjYyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTdiNDM2MzE5NjU5Y2NjZjc3NmZlYzQ4NzlkYzM4M2EyMDUzNzQxM2NlY2Y0ZTAxYTE4MzRkZDZiMmVkZjcxOWEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.D-Qz_W3oC3rRkCyoy6x16JDCBIJbXN4bvIgcSsYlsls" /> <br /><br />
-Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code takes <strong>14.5 secs</strong> to run 🤯 🦥 🐢<br /><br />
-<img width="1012" alt="image" src="https://private-user-images.githubusercontent.com/32186649/263523587-f4a7d53c-b39b-4b3f-8003-fe21634c216b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjM1ODctZjRhN2Q1M2MtYjM5Yi00YjNmLTgwMDMtZmUyMTYzNGMyMTZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQ0OGQ4ZGQ0ZmY2Mjc0ZGRhMmQ4ZTVlNzFlNTFmNWY2NjQ3NTllOGEwNDhiZTI2OWEzYTIzZGVjZGUxM2M0YTkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.TYF59X2p5zEk3sJxLUfr0sCWj4YSTcxxPiOSvw3EkU4" /></p>
-
-<h4 id="magic-of-jit">Magic of JIT</h4>
-
-<p>JIT can significantly help improve python runtime performance. It uses a technique called “tracing JIT” to identify frequently executed code paths and optimize them. <strong>JIT can detect any recurring function during the execution</strong> and store a compiled version on the fly. During the execution, JIT will start using the compiled function instead of parsing and interpreting the function during the loop.</p>
-
-<p>In our example, JIT will detect that the function <code class="language-plaintext highlighter-rouge">sum(a,b)</code> is being called in a loop multiple times. <strong>Why not compile it on the fly and use the compiled version for execution which might save some CPU cycles.</strong></p>
-
-<h5 id="jit-in-action-example">JIT in action example:</h5>
-<p>I am using pypy3 package to run JIT but you can try other packages too (Numba etc). To install pypy3 use the below command in mac:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install pypy3
-</code></pre></div></div>
-
-<p>For 1000 iterations, it takes <strong>0.16 sec</strong> to run the same code with JIT (<strong>98.8% faster than python code without JIT</strong> 🚀🚀🏃🏃)<br /><br />
-<img width="738" alt="image" src="https://private-user-images.githubusercontent.com/32186649/263524513-6590c870-5408-44e9-8b96-6cbfb7872cc8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE2OTMxMzU2ODAsIm5iZiI6MTY5MzEzNTM4MCwicGF0aCI6Ii8zMjE4NjY0OS8yNjM1MjQ1MTMtNjU5MGM4NzAtNTQwOC00NGU5LThiOTYtNmNiZmI3ODcyY2M4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzA4MjclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMwODI3VDExMjMwMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWUxNDcyYWM5Mzg5YmVkNjQzZjMwMWY3ODRkYmRmZTNlNzMyYjZkNmJlNTA3MDM5YTYxNzU3NzJmZmMxMjkyOTImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.j-o3bfSfE3Z8SMuS6FrsU1aA189lCOAU7wxfQN4UV7A" /></p>
-
-<p>We have seen the benefits of JIT in a language like python where it can help speed up the execution times signficantly, but there are some <strong>limitations of JIT</strong> which I wanted to share here as well:</p>
-
-<ol>
-  <li>JIT has a higher memory overhead than usual runtime. Since we have to store the compiled code in the machine which takes up memory, running JIT on a code base with too many functions would need significantly high memory compared to normal python operations.</li>
-  <li>JIT works well with long running programs. For programs with not a lot of loops/functions, the memory overhead of running JIT is not worth the effort.</li>
-  <li>It doesn’t do Ahead-Of-Time Compilation (AOT) like C where a program is compiled before running. It compiles the code during runtime but there is no support to pre-compile the code in advance.</li>
-</ol>
-
-<p>Overall, I think JIT can significantly boost the performance of your code base and if you have long running loops, you should conisder it. In Shopify, we use have seen signficant speedups in code compilation using <a href="https://shopify.engineering/yjit-just-in-time-compiler-cruby">YJIT</a> which is similar to JIT.</p>
-
-<p>For more context on JIT using pypy, check this <a href="https://realpython.com/pypy-faster-python/">blog</a>.</p>
-
-<p>For any questions, reach out on <a href="https://www.linkedin.com/in/kunal-kohli-a8815b80/">LinkedIn</a></p>
 
       </p>
     </div>

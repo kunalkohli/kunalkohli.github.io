@@ -5,14 +5,63 @@
     <description>Blog about my experiences with data and other technologies.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>2023-08-27</pubDate>
-    <lastBuildDate>Sun, 27 Aug 2023 07:45:43 -0400</lastBuildDate>
+    <pubDate>2024-02-03</pubDate>
+    <lastBuildDate>Sat, 03 Feb 2024 21:55:06 -0500</lastBuildDate>
     <generator>Jekyll v3.9.3</generator>
+    
+      <item>
+        <title>Book Review - Black Swan by Nassim Taleb</title>
+        <description>&lt;p&gt;During the winter break I had a chance to read Black Swan by Nassim. In a world full of uncertainity, “The Black Swan” shines a light on new ideas, shaking up what we think we know about randomness and unpredictability. I would recommend anyone working in field dealing with randomness and complex events to read this book.&lt;/p&gt;
+
+&lt;!--more--&gt;
+&lt;p&gt;At its core, “The Black Swan” introduces the concept of highly improbable events that defy our expectations, yet wield immense impact on our lives and societies. These “black swan” events, characterized by their rarity and extreme consequences disrupt the &lt;strong&gt;illusion that these events would never happen to us and that the world is stable&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this blog, I’ll share 6 concept which I found very useful and see how they affect everything from money to history to disasters. “The Black Swan” warns us about &lt;strong&gt;ignoring rare stuff&lt;/strong&gt; and relying too much on plans that usually don’t work in the long run. I have added the page numbers for anyone interested in reading the concepts themself (&lt;strong&gt;paperback second edition&lt;/strong&gt;)&lt;/p&gt;
+
+&lt;h5 id=&quot;problem-of-induction-pg-40&quot;&gt;Problem of Induction (Pg 40):&lt;/h5&gt;
+&lt;p&gt;The “problem of induction,” &lt;strong&gt;challenges the reliability of making predictions based on past experiences or data&lt;/strong&gt;. Traditional methods of induction, which assume that the future will resemble the past, often fail to account for rare and unpredictable events, or “black swans.” This skepticism about induction highlights &lt;strong&gt;how tough it is to predict the future, especially in complex systems&lt;/strong&gt;. He explains this from a point of view of a Turkey which is fed every day which increases the bird’s belief that its a geenral rule of life to be fed everyday. On the Thanksgiving day, the bird has a revision of belief. He explains that &lt;strong&gt;as our feeling of safety increases over time, our risk of failing is also increasing which we tend to ignore&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;confirmation-bias-pg-57&quot;&gt;Confirmation Bias (Pg 57):&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Confirmation bias refers to our tendency to seek out and interpret information in a way that confirms our pre-existing beliefs or hypotheses&lt;/strong&gt;. Taleb argues that confirmation bias can lead us to overlook evidence that contradicts our views and can blind us to the possibility of rare and unexpected events, such as black swan events.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;In hypothesis testing, we tend to look for instances where the hypothesis we were looking for proved true&lt;/strong&gt;. Sometimes a lot of data can be meaningless; at other times one single piece of information can be very meaningful.&lt;/p&gt;
+
+&lt;h5 id=&quot;narrative-fallacy-pg-63&quot;&gt;Narrative Fallacy (Pg 63):&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Narrative fallacy refers to our inclination to create explanations for random or unpredictable events after they have happened&lt;/strong&gt;. Taleb suggests that humans have a natural tendency to seek meaning and causality in events, even when none truly exists. This tendency can lead us to oversimplify complex phenomena, ignore randomness, and underestimate the role of chance in shaping outcomes.&lt;/p&gt;
+
+&lt;p&gt;We like stories and we like to summarize and simplify things i.e. reduce dimensionality.&lt;/p&gt;
+
+&lt;h5 id=&quot;distortion-bias-silent-evidence-problem-pg-101&quot;&gt;Distortion Bias (Silent evidence problem) (Pg 101):&lt;/h5&gt;
+&lt;p&gt;Distortion bias is when we distort or misrepresent information to fit our existing beliefs or preferences. For example, if we think a certain diet pill works, we might only pay attention to stories that support that idea and ignore ones that say it doesn’t work. This can make us stick to our beliefs even when there’s evidence against them.&lt;/p&gt;
+
+&lt;h5 id=&quot;reference-point-argument-pg-119&quot;&gt;Reference point argument (Pg 119):&lt;/h5&gt;
+&lt;p&gt;The reference point argument means that our perceptions and judgments are heavily influenced by the reference points we use to evaluate outcomes. Humans tend to compare outcomes to a specific reference point or baseline, which can distort their perceptions of risk and reward.&lt;/p&gt;
+
+&lt;p&gt;For example, if someone invests in the stock market and their portfolio increases by 10%, they might perceive this as a positive outcome if their reference point is the initial investment amount. However, if their reference point is a higher level of return, such as 15%, they might perceive the 10% gain as a disappointment.&lt;/p&gt;
+
+&lt;h5 id=&quot;anchoring-pg-158&quot;&gt;Anchoring (Pg 158):&lt;/h5&gt;
+&lt;p&gt;Anchoring (&lt;em&gt;research from Daniel Kahneman and Amos&lt;/em&gt;) is a cognitive bias where individuals rely heavily on the first piece of information they encounter (the “anchor”) when making decisions or judgments. This initial piece of information then influences subsequent decisions, even if it’s unrelated or irrelevant to the decision at hand.&lt;/p&gt;
+
+&lt;p&gt;For example, imagine you’re negotiating the price of a used car. The seller suggests a price of $15,000, which becomes your anchor point. Even if you know the car is overpriced based on market research, the $15,000 figure may still influence your perception of what constitutes a fair price, leading you to make an offer that’s closer to the anchor than you otherwise would have.&lt;/p&gt;
+</description>
+        <pubDate>2024-02-03</pubDate>
+        <link>http://localhost:4000/articles/2024-02/black-swan</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2024-02/black-swan</guid>
+        
+        
+        <category>books</category>
+        
+        <category>statistics</category>
+        
+        <category>randomness</category>
+        
+      </item>
     
       <item>
         <title>How JIT (and not git) impacts your code workflow</title>
         <description>&lt;p&gt;JIT stands for &lt;strong&gt;“Just-In-Time”&lt;/strong&gt; compilation, which is a technique used by some programming languages and runtime environments to improve the performance of executing code. That would make sense to a developer but for non-developer, I think the definition can be a bit confusing so let me try to explain this in a simple way.&lt;/p&gt;
 
+&lt;!--more--&gt;
 &lt;p&gt;Imagine you have a code blob written in your fav programming language (&lt;em&gt;let’s say python for now&lt;/em&gt;). Now Python is an &lt;strong&gt;interpreted programming language&lt;/strong&gt;, which means that the source code is executed line by line by a Python interpreter at runtime. Your machine can only understand binary numbers so python interpreter helps bridge the gap between your python code and the machine.&lt;/p&gt;
 
 &lt;p&gt;Due to &lt;strong&gt;Python’s dynamic nature&lt;/strong&gt; and the way it handles data types, pure interpretation can result in relatively slower execution speeds compared to languages that are compiled to machine code directly (For example C, C++) which are signficantly faster to run. For more context on how compilation works, check this &lt;a href=&quot;https://medium.com/@bdov_/what-happens-when-you-type-gcc-main-c-a4454564e96d&quot;&gt;blog&lt;/a&gt;&lt;/p&gt;
@@ -68,7 +117,7 @@ Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code
 
 &lt;p&gt;For any questions, reach out on &lt;a href=&quot;https://www.linkedin.com/in/kunal-kohli-a8815b80/&quot;&gt;LinkedIn&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>2023-08-27</pubDate>
+        <pubDate>2024-02-03</pubDate>
         <link>http://localhost:4000/articles/2023-08/jit</link>
         <guid isPermaLink="true">http://localhost:4000/articles/2023-08/jit</guid>
         
@@ -159,7 +208,7 @@ Now, let’s crank the number of iteration to 100,000,000 (100 M), the same code
 &lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
 
 </description>
-        <pubDate>2023-08-27</pubDate>
+        <pubDate>2024-02-03</pubDate>
         <link>http://localhost:4000/articles/2020-01/welcome-to-jekyll</link>
         <guid isPermaLink="true">http://localhost:4000/articles/2020-01/welcome-to-jekyll</guid>
         
