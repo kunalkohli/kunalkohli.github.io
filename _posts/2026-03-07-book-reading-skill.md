@@ -2,7 +2,7 @@
 layout: post
 title:  "I Built an AI Skill to Make Me a Better Reader"
 date:   2026-03-07 22:00:00
-categories: [ai, productivity, books]
+categories: [ai, claude, llm, productivity, books]
 comments: true
 published: true
 ---
