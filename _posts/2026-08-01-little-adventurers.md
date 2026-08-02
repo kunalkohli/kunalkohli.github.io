@@ -8,7 +8,9 @@ published: true
 mermaid: true
 ---
 
-It started with a simple frustration. I wanted printable worksheets my kids could do away from a screen — real pencil-and-paper practice for numbers and letters. But every option was either a messy pile of random PDFs, or a subscription app that pulled kids *back onto* the tablet. I wanted the opposite: a little daily routine that celebrates finishing and then gets out of the way. So I built **Little Adventurers**.
+🎈✨ **Try it live → [Little Adventurers](https://little-adventurers.vercel.app)** ✨🎈
+
+It started with a simple frustration. I wanted printable worksheets my kids could do away from a screen — real pencil-and-paper practice for numbers and letters. But every option was either a messy pile of random PDFs, or a subscription app that pulled kids *back onto* the tablet. I wanted the opposite: a little daily routine that celebrates finishing and then gets out of the way. So I built [**Little Adventurers**](https://little-adventurers.vercel.app).
 
 <!--more-->
 
