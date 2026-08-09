@@ -20,6 +20,19 @@ The core loop is deliberately small. Each week is a themed "adventure" (Under th
 
 The design goal was **routine + reward without screen time**. The screen is only there to hand out the next sheet and to celebrate — the actual learning happens on paper.
 
+Here's the shape of what a kid actually gets each week. Everything printable is **freshly generated per kid** (their name, level and interests), so no two children get the same sheet:
+
+<div class="mermaid">
+flowchart TD
+  A["Each week: a themed adventure"] --> B["Printable worksheets<br/>generated fresh for each kid"]
+  B --> B1["Numbers"]
+  B --> B2["Writing and Words"]
+  B --> B3["Coloring and Painting"]
+  A --> C["Off-screen missions<br/>explore, imagine, life skill"]
+  A --> D["Code Lab (age 5+)"]
+  A --> E["Finish the week: points, stickers,<br/>and the next stop unlocks"]
+</div>
+
 ### How it's put together
 
 The whole thing is a single Next.js app. Pages are React Server Components that read straight from the database, and every action (finishing a task, buying something in the store, talking to the AI buddy) is a server action. There's no separate backend service to run.
@@ -41,10 +54,6 @@ I started with SQLite, which is perfect for local development but doesn't surviv
 The schema is intentionally boring: `families`, `kids`, `completions`, plus a few tables for the AI and the store. The key decision was to **derive almost everything at read time**. Points, badges, which week you're on, and pacing are all computed from the `completions` rows — no denormalized "score" column to drift out of sync. Finishing a task is one insert; everything else is a query.
 
 Worksheets are generated on the fly and **seeded** with a string unique to `kid + week + task`. That means the sheets are stable (reprint and you get the same page) but different for every kid, and I can regenerate infinite fresh practice just by changing the seed.
-
-### Hosting on Vercel
-
-Vercel made the deploy boring in the best way. Next.js is auto-detected, server components render on demand, and the native database driver is kept out of the bundle with one config line. Environment variables hold the database URL and the AI key, and cookies are marked secure only in production so localhost still works over plain HTTP. The free Hobby tier comfortably covers a project like this.
 
 ### The AI buddy — the fun part
 
@@ -75,6 +84,10 @@ sequenceDiagram
 Two details make this robust. First, the **calendar-week key** freezes the note and story for the whole week, so finishing tasks doesn't shuffle them around — they refresh next Monday. Second, the **prompt version** in the cache key means that when I improve a prompt, every old cached row is invalidated automatically just by bumping a number. Chat is the one thing that's never cached — it sends recent turns back as history so the buddy actually remembers the conversation — and if the model ever errors, a deterministic template steps in so the UI never breaks.
 
 To keep it genuinely useful, the note prompt asks for one *true, surprising fact* that ties the week's theme to the child's interests, anchored by real facts so it doesn't hallucinate.
+
+### Hosting on Vercel
+
+Vercel made the deploy boring in the best way. Next.js is auto-detected, server components render on demand, and the native database driver is kept out of the bundle with one config line. Environment variables hold the database URL and the AI key, and cookies are marked secure only in production so localhost still works over plain HTTP. The free Hobby tier comfortably covers a project like this.
 
 ### A store powered by points
 
