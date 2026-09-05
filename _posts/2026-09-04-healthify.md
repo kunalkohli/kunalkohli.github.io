@@ -16,17 +16,27 @@ So I did the obvious thing and asked a chatbot. It gave me a confident, well-wri
 
 <!--more-->
 
-### The number problem
+### 🧠 Why I wanted this
 
-Ask any general-purpose model for a ten-year cardiovascular risk and it will happily produce "roughly 8–12%". It sounds plausible. It's generated the same way as everything else it says — as text that fits the context.
+The thing that actually pushed me to build it wasn't health advice. It was **starting over every single time.**
 
-For most questions that's fine. For a number you might make decisions on, it's the worst possible failure mode: **wrong, specific, and confident.** You can't tell it apart from a right answer by looking at it.
+Every conversation with an AI begins from nothing. You re-explain who you are, what your family history is, that you don't eat fish, that you travel a week a month, that you already tried cutting carbs and it didn't stick. By the time you've set the scene you've lost the will to ask the question. Next week you do it again.
 
-The actual instruments exist and are public. The Pooled Cohort Equations, FINDRISC, the Framingham models — all published, all just arithmetic. So the design rule wrote itself:
+Health is the worst possible fit for that, because it's *entirely* longitudinal. What matters is your weight trend over a year, whether your blood pressure is drifting, what you actually eat most weeks, what your family history implies. None of that fits in a fresh chat window, and none of it is worth retyping.
+
+So I wanted something with three properties:
+
+- **It already knows me.** Profile, family history, labs, preferences — loaded before I ask anything.
+- **It remembers.** Tell it once that you won't eat fish and it never suggests salmon again.
+- **It's on my phone.** Not a tab I'll forget, not a subscription I'll cancel.
+
+The second thing I wanted came from a bad first experiment. I asked a general chatbot for a ten-year cardiovascular risk and it produced a confident, well-written, entirely invented number. That's the worst failure mode there is — wrong, specific, and impossible to distinguish from a right answer by looking at it.
+
+The actual instruments are public. The Pooled Cohort Equations, FINDRISC, Framingham — all published, all just arithmetic. So the rule became:
 
 > Deterministic maths produces every number. The model only explains it.
 
-Every risk figure in the app comes from a calculator implemented in plain TypeScript. The model can't compute one; it has to call a tool. And the system prompt forbids it from stating a figure that didn't come back from one.
+Every figure comes from a calculator written in plain TypeScript. The model can't compute one; it has to call a tool. And when a calculator *can't* honestly run — you're outside its validated age range, or you've never had a lipid panel — it returns `not_applicable` or `partial` with the exact tests you're missing, instead of estimating. That refusal turns out to be some of the most useful output in the app: a specific list to take to a doctor beats a fabricated percentage.
 
 <div class="mermaid">
 sequenceDiagram
@@ -43,29 +53,60 @@ sequenceDiagram
   Model-->>You: explanation, ranked by what you can change
 </div>
 
-The interesting consequence is what happens when a calculator *can't* run.
+While building it I pulled the Framingham coefficients from a reference implementation rather than from memory. My recollection of one constant was `23.98`; the real value is `23.9388`. Small enough to look right, large enough to move every cardiovascular number in the app. Exactly the kind of error an LLM makes fluently and a test catches instantly.
 
-### Refusing is a feature
+### 🔒 Why it all stays on the phone
 
-The ASCVD equations are validated for ages 40–79 and need a lipid panel. If you're 34, or you've never had bloodwork, there is no honest ten-year number. A language model asked this question will estimate anyway. The engine returns one of three things:
+Family medical history is about as sensitive as personal data gets, and the moment you put it on a server you've created something worth stealing. So there's no server.
 
-```
-ok            → here's the number, and every input used to get it
-partial       → can't compute; here are the exact tests you're missing
-not_applicable → this model doesn't apply to you, and here's why
-```
+There's no backend, no database, and no accounts. The app is a static site — the host hands your browser some JavaScript and never sees anything else. Your profile, family history, labs, journal and chat history live in the browser's IndexedDB, encrypted with AES-GCM behind a passphrase and Face ID.
 
-That last one produces some of the most useful output in the app:
+**Your risk scores are computed on the device and never transmitted.** That's the part I care most about: the actual calculations happen in JavaScript on your phone, so the numbers exist nowhere else.
 
-> The Pooled Cohort Equations are only validated for ages 40–79, and you're 34. No trustworthy 10-year number exists for you yet. What matters at your age is lifetime risk and the trajectory of your inputs — blood pressure, LDL, weight, activity, smoking.
+To be precise about what *does* leave, because this is the bit people usually hand-wave: when you send a chat message, the app builds a context document from your data and sends it along with your question to whichever AI provider you configured with your own key. That document contains your profile summary, your family history, and the computed risk results — the things the model needs to answer usefully. It isn't a token-level dump of your database, but it isn't a couple of anonymous statistics either, and I'd rather say so plainly than pretend otherwise. Point the app at a local model instead and even that stops.
 
-And when it's `partial`, it turns into a shopping list — *these four tests, and here's what each one unlocks*. Walking into an appointment with that is worth more than a fabricated percentage.
+I did briefly consider a hosted multi-user version. That idea survived about ten minutes. Storing other people's medical history means special-category data under GDPR, plausible HIPAA exposure, and a database genuinely worth attacking. A single-user app with no server has none of those problems.
 
-There's a test suite pinning this. Some of it checks published worked examples (a 55-year-old with total cholesterol 213, HDL 50, untreated systolic 120 should come out at 5.3% — if that drifts, a coefficient is wrong and so is everything else). But a good chunk of it just asserts that the engine **refuses correctly**: out of range, missing inputs, already diagnosed.
+### 💾 How the remembering works
 
-While building it I pulled the Framingham coefficients from a reference implementation rather than from memory. My recollection of one constant was `23.98`; the real value is `23.9388`. Small enough to look right, large enough to move every cardiovascular number in the app. That's exactly the kind of error an LLM makes fluently and a test catches instantly.
+This is the part that fixes the original complaint, so it's worth spelling out.
 
-### Family history is the whole point
+Two things can write a memory.
+
+**During a conversation**, the model has a `remember` tool. If you mention something durable — *"I don't eat fish"* — it can call it there and then.
+
+**After a conversation**, a second pass re-reads the transcript and pulls out anything worth keeping. Its prompt is deliberately narrow, and most of it is a list of things *not* to extract:
+
+- Anything already in your structured profile (age, weight, conditions, labs, family history) — that's stored properly elsewhere
+- Transient state — *"felt tired today"* is not a fact about you
+- Things the coach said, as opposed to things you said
+- Speculation you never actually confirmed
+
+What survives looks like *"cooks dinner but rarely breakfast — grabs coffee on the way to work"*, or *"travels for work roughly one week a month"*, each tagged as a preference, constraint, goal, history or context.
+
+Then the important bit: **neither path saves anything directly.** Both queue the fact, and you get a small card — *three new things I learned about you* — with keep or discard on each.
+
+<div class="mermaid">
+flowchart TD
+  A["You mention something in chat"] --> B{Two write paths}
+  B -->|during| C["Model calls remember()"]
+  B -->|after| D["Second pass distils<br/>the transcript"]
+  C --> E["Queued — not saved yet"]
+  D --> E
+  E --> F["You keep or discard<br/>each proposed fact"]
+  F -->|discard| G["Dropped"]
+  F -->|keep| H["Encrypted into the vault<br/>with everything else"]
+  H --> I["Loaded into the prompt on<br/>every future conversation"]
+  I --> A
+</div>
+
+The approval gate is the design decision I'd defend hardest here. An automatic memory store slowly fills with confident wrong inferences, and a bad "fact" doesn't announce itself — it silently skews every answer that follows, forever. Ten seconds of review is cheap. A coach that quietly believes something untrue about you is not.
+
+Approved facts are encrypted alongside the rest of your data, grouped by category into a short markdown document, and prepended to every future conversation. You can open the list in settings and delete anything that's gone stale.
+
+So the loop closes: you tell it once, it asks whether it understood you correctly, and then it knows.
+
+### 👪 Family history is the whole point
 
 The onboarding asks who in your family had what, and — this is the part that carries the weight — **at what age**.
 
@@ -81,7 +122,7 @@ Then the coach has that context permanently. Ask it what to cook this week and i
 
 The rules are hand-written on purpose — Amsterdam-II criteria, NCCN referral thresholds, the premature-CVD age cutoffs. These are discrete, published, and consequential, and a model reciting them from memory drifts. This is the one place where boring `if` statements are unambiguously the right tool.
 
-### Ethnicity changes the arithmetic
+### 🧬 Ethnicity changes the arithmetic
 
 This surprised me enough to be worth its own section.
 
@@ -89,7 +130,7 @@ The standard "overweight" BMI threshold of 25 is not universal. WHO, NICE and th
 
 An app that quietly applies 25 to everyone will tell a large fraction of the world they're fine when the guidelines say otherwise. So ethnicity is asked during onboarding, and the app explains why rather than just collecting it.
 
-### Where the data lives
+### 🗺️ The shape of it
 
 Nowhere except your phone.
 
@@ -105,7 +146,7 @@ The only thing that ever leaves the device is a chat message, and only to the AI
 
 I did briefly consider making it multi-user with hosted accounts. That idea survived about ten minutes. Storing other people's family medical history means special-category data under GDPR, plausible HIPAA exposure, and a database genuinely worth attacking. A single-user app with no server has none of those problems, and the best way to keep data safe is for it to never exist on your infrastructure.
 
-### The boring engineering bits
+### 🔧 The boring engineering bits
 
 **Everything portable lives in `src/core/`** with zero DOM or React imports — schema, calculators, prompt construction, unit conversion. If this ever becomes a native app, that's untouched and the UI is a rewrite. It also means the risk engine is testable without a browser.
 
@@ -117,13 +158,13 @@ I did briefly consider making it multi-user with hosted accounts. That idea surv
 
 **The markdown renderer is hand-written.** Model output goes through it, so `dangerouslySetInnerHTML` would be one prompt injection away from script execution against a database of medical history. It builds React nodes directly instead, which makes that impossible by construction, and link hrefs are scheme-checked so a `javascript:` URL renders as inert text.
 
-### What it isn't
+### ⚠️ What it isn't
 
-It's not a diagnosis, and it's not a medical device. Risk calculators describe populations, not individuals — a low number isn't a guarantee and a high one isn't a verdict. The most valuable thing it produces isn't a score at all, it's a specific list of questions to take to an actual doctor.
+**It's not a diagnosis, and it's not a medical device.** Risk calculators describe populations, not individuals — a low number isn't a guarantee and a high one isn't a verdict. The most valuable thing it produces isn't a score at all, it's a specific list of questions to take to an actual doctor.
 
 The models it implements are also re-implementations. They're tested against published examples, but there could still be bugs. If you find one and can point at a source, that's the most useful issue you could open.
 
-### Try it
+### 🚀 Try it
 
 There's no hosted version, deliberately. You deploy your own copy and it's yours:
 
