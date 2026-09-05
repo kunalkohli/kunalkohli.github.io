@@ -18,54 +18,17 @@ So I did the obvious thing and asked a chatbot. It gave me a confident, well-wri
 
 ### 🧠 Why I wanted this
 
-The thing that actually pushed me to build it wasn't health advice. It was **starting over every single time.**
+The thing that pushed me to build it wasn't health advice. It was **starting over every single time.**
 
-Every conversation with an AI begins from nothing. You re-explain who you are, what your family history is, that you don't eat fish, that you travel a week a month, that you already tried cutting carbs and it didn't stick. By the time you've set the scene you've lost the will to ask the question. Next week you do it again.
+**Every conversation with an AI begins from nothing.** You re-explain who you are. What your family history is. That you don't eat fish. That you travel a week a month. That you already tried cutting carbs and it didn't stick. **By the time you've set the scene, you've lost the will to ask the question** — and next week you do it all again.
 
-Health is the worst possible fit for that, because it's *entirely* longitudinal. What matters is your weight trend over a year, whether your blood pressure is drifting, what you actually eat most weeks, what your family history implies. None of that fits in a fresh chat window, and none of it is worth retyping.
+**Health is the worst possible fit for that, because it's entirely longitudinal.** What matters is your weight trend over a year, whether your blood pressure is drifting, what you actually eat most weeks. **None of that fits in a fresh chat window, and none of it is worth retyping.**
 
 So I wanted something with three properties:
 
 - **It already knows me.** Profile, family history, labs, preferences — loaded before I ask anything.
 - **It remembers.** Tell it once that you won't eat fish and it never suggests salmon again.
 - **It's on my phone.** Not a tab I'll forget, not a subscription I'll cancel.
-
-The second thing I wanted came from a bad first experiment. I asked a general chatbot for a ten-year cardiovascular risk and it produced a confident, well-written, entirely invented number. That's the worst failure mode there is — wrong, specific, and impossible to distinguish from a right answer by looking at it.
-
-The actual instruments are public. The Pooled Cohort Equations, FINDRISC, Framingham — all published, all just arithmetic. So the rule became:
-
-> Deterministic maths produces every number. The model only explains it.
-
-Every figure comes from a calculator written in plain TypeScript. The model can't compute one; it has to call a tool. And when a calculator *can't* honestly run — you're outside its validated age range, or you've never had a lipid panel — it returns `not_applicable` or `partial` with the exact tests you're missing, instead of estimating. That refusal turns out to be some of the most useful output in the app: a specific list to take to a doctor beats a fabricated percentage.
-
-<div class="mermaid">
-sequenceDiagram
-  participant You
-  participant App as App (your phone)
-  participant Engine as Risk engine (local)
-  participant Model as AI provider
-  You->>App: "What should I focus on first?"
-  App->>Model: question + your profile and family history
-  Model->>App: tool call — compute_risk(findrisc)
-  App->>Engine: run the calculator
-  Engine-->>App: 12/26 · 1 in 6 over 10 years
-  App-->>Model: the number, plus the inputs used
-  Model-->>You: explanation, ranked by what you can change
-</div>
-
-While building it I pulled the Framingham coefficients from a reference implementation rather than from memory. My recollection of one constant was `23.98`; the real value is `23.9388`. Small enough to look right, large enough to move every cardiovascular number in the app. Exactly the kind of error an LLM makes fluently and a test catches instantly.
-
-### 🔒 Why it all stays on the phone
-
-Family medical history is about as sensitive as personal data gets, and the moment you put it on a server you've created something worth stealing. So there's no server.
-
-There's no backend, no database, and no accounts. The app is a static site — the host hands your browser some JavaScript and never sees anything else. Your profile, family history, labs, journal and chat history live in the browser's IndexedDB, encrypted with AES-GCM behind a passphrase and Face ID.
-
-**Your risk scores are computed on the device and never transmitted.** That's the part I care most about: the actual calculations happen in JavaScript on your phone, so the numbers exist nowhere else.
-
-To be precise about what *does* leave, because this is the bit people usually hand-wave: when you send a chat message, the app builds a context document from your data and sends it along with your question to whichever AI provider you configured with your own key. That document contains your profile summary, your family history, and the computed risk results — the things the model needs to answer usefully. It isn't a token-level dump of your database, but it isn't a couple of anonymous statistics either, and I'd rather say so plainly than pretend otherwise. Point the app at a local model instead and even that stops.
-
-I did briefly consider a hosted multi-user version. That idea survived about ten minutes. Storing other people's medical history means special-category data under GDPR, plausible HIPAA exposure, and a database genuinely worth attacking. A single-user app with no server has none of those problems.
 
 ### 💾 How the remembering works
 
@@ -106,6 +69,18 @@ Approved facts are encrypted alongside the rest of your data, grouped by categor
 
 So the loop closes: you tell it once, it asks whether it understood you correctly, and then it knows.
 
+### 🔒 Why it all stays on the phone
+
+Family medical history is about as sensitive as personal data gets, and the moment you put it on a server you've created something worth stealing. So there's no server.
+
+There's no backend, no database, and no accounts. The app is a static site — the host hands your browser some JavaScript and never sees anything else. Your profile, family history, labs, journal and chat history live in the browser's IndexedDB, encrypted with AES-GCM behind a passphrase and Face ID.
+
+**Your risk scores are computed on the device and never transmitted.** That's the part I care most about: the actual calculations happen in JavaScript on your phone, so the numbers exist nowhere else.
+
+To be precise about what *does* leave, because this is the bit people usually hand-wave: when you send a chat message, the app builds a context document from your data and sends it along with your question to whichever AI provider you configured with your own key. That document contains your profile summary, your family history, and the computed risk results — the things the model needs to answer usefully. It isn't a token-level dump of your database, but it isn't a couple of anonymous statistics either, and I'd rather say so plainly than pretend otherwise. Point the app at a local model instead and even that stops.
+
+I did briefly consider a hosted multi-user version. That idea survived about ten minutes. Storing other people's medical history means special-category data under GDPR, plausible HIPAA exposure, and a database genuinely worth attacking. A single-user app with no server has none of those problems.
+
 ### 👪 Family history is the whole point
 
 The onboarding asks who in your family had what, and — this is the part that carries the weight — **at what age**.
@@ -131,8 +106,6 @@ The standard "overweight" BMI threshold of 25 is not universal. WHO, NICE and th
 An app that quietly applies 25 to everyone will tell a large fraction of the world they're fine when the guidelines say otherwise. So ethnicity is asked during onboarding, and the app explains why rather than just collecting it.
 
 ### 🗺️ The shape of it
-
-Nowhere except your phone.
 
 <img src="/img/healthify-architecture.png" alt="Healthify architecture: everything inside a device boundary, with only chat requests crossing it" style="width:100%;border-radius:8px;margin:1.5em 0;">
 
