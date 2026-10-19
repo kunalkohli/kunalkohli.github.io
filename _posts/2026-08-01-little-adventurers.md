@@ -85,6 +85,16 @@ Two details make this robust. First, the **calendar-week key** freezes the note 
 
 To keep it genuinely useful, the note prompt asks for one *true, surprising fact* that ties the week's theme to the child's interests, anchored by real facts so it doesn't hallucinate.
 
+### A weekly story — from real books, not AI
+
+The one place I deliberately *didn't* use AI is the reading. AI-generated stories for kids feel flat and a little off, so instead each week serves a slice of a genuine **public-domain classic**, matched to the child's age:
+
+- **Ages 3–4:** a short **Aesop** fable, with big emoji "picture cues" and the moral.
+- **Ages 5–7:** a chapter of **The Wonderful Wizard of Oz**.
+- **Ages 8–10:** a chapter of **Alice's Adventures in Wonderland**.
+
+The implementation is pleasingly boring. A one-off script pulls the texts from **Project Gutenberg**, strips the licence boilerplate, and splits each book into chapters (or fables) as static data in the repo. A tiny `readingForWeek(level, week)` picks the right slice — cycling gracefully if the book is shorter than the school year — and a reading page renders it with a progress bar, picture cues for the little ones, and a couple of "let's talk about it" questions. No API calls, no cost, no hallucinations — just Dorothy and the cyclone, a chapter at a time.
+
 ### Hosting on Vercel
 
 Vercel made the deploy boring in the best way. Next.js is auto-detected, server components render on demand, and the native database driver is kept out of the bundle with one config line. Environment variables hold the database URL and the AI key, and cookies are marked secure only in production so localhost still works over plain HTTP. The free Hobby tier comfortably covers a project like this.
