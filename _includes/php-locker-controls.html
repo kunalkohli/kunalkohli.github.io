@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}">
+<script src="{{ '/js/php-locker-post.js' | relative_url }}" defer></script>
+<div class="php-controls" data-php-controls hidden>
+  <fieldset>
+    <legend>Explain the diagrams with</legend>
+    <div class="php-options" role="group" aria-label="Diagram explanation">
+      <button type="button" data-php-view="analogy" aria-pressed="true">Locker-room analogy</button>
+      <button type="button" data-php-view="technical" aria-pressed="false">Technical terms</button>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Diagram colors</legend>
+    <div class="php-options" role="group" aria-label="Diagram colors">
+      <button type="button" data-php-palette="original" aria-pressed="true">Original green</button>
+      <button type="button" data-php-palette="studio" aria-pressed="false">Studio</button>
+      <button type="button" data-php-palette="night" aria-pressed="false">Night</button>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Diagram text style</legend>
+    <div class="php-options" role="group" aria-label="Diagram text style">
+      <button type="button" data-php-text="original" aria-pressed="true">Original</button>
+      <button type="button" data-php-text="modern" aria-pressed="false">Modern</button>
+    </div>
+  </fieldset>
+  <p class="php-controls-note">Both views show the entire flow. The article itself stays in your blog's normal theme.</p>
+  <p class="php-sr-only" role="status" data-php-status></p>
+</div>

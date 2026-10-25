@@ -1,0 +1,95 @@
+<!-- Generated with Archify 3.2.0; see img/php-lockers/README.md and LICENSE-Archify.txt. -->
+<svg viewBox="95.4000015258789 53.08295440673828 194 436.91705322265625" data-reader-fit="width-first" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="php-stale-technical-mobile-archify-diagram-title php-stale-technical-mobile-archify-diagram-description" data-preset="classic" data-quality-profile="showcase">
+        <title id="php-stale-technical-mobile-archify-diagram-title">CVE-2026-109619: freed memory and a stale reference</title>
+        <desc id="php-stale-technical-mobile-archify-diagram-description">Read top to bottom. All four steps are visible. Highlighted nodes identify the failure. CVE-2026-109619: freed memory and a stale reference</desc>
+        <!-- Definitions -->
+        <defs>
+          <marker id="php-stale-technical-mobile-arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-default"></polygon>
+          </marker>
+          <marker id="php-stale-technical-mobile-arrowhead-emphasis" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-emphasis"></polygon>
+          </marker>
+          <marker id="php-stale-technical-mobile-arrowhead-security" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-security"></polygon>
+          </marker>
+          <marker id="php-stale-technical-mobile-arrowhead-dashed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-dashed"></polygon>
+          </marker>
+          <pattern id="php-stale-technical-mobile-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" class="c-grid" stroke-width="0.5"></path>
+          </pattern>
+        </defs>
+
+
+        <!-- Background Grid -->
+
+
+        <!-- Swimlanes -->
+
+        <text x="107.4" y="74" class="t-muted" font-size="10" font-weight="600">01 / The complete flow</text>
+
+        <!-- Phase headers -->
+
+
+        <!-- Workflow groups -->
+
+
+        <!-- Edge paths -->
+        <path data-edge-from="step-0" data-edge-to="step-1" data-edge-key="0" data-edge-id="transition-0" data-edge-role="error" data-composition-points="192.4,146;192.4,194" d="M 192.4 146 L 192.4 194" class="a-security" style="--step:0" stroke-width="1.4" marker-end="url(#php-stale-technical-mobile-arrowhead-security)"></path>
+        <path data-edge-from="step-1" data-edge-to="step-2" data-edge-key="1" data-edge-id="transition-1" data-edge-role="" data-composition-points="192.4,262;192.4,310" d="M 192.4 262 L 192.4 310" class="a-default" style="--step:1" stroke-width="1.4" marker-end="url(#php-stale-technical-mobile-arrowhead)"></path>
+        <path data-edge-from="step-2" data-edge-to="step-3" data-edge-key="2" data-edge-id="transition-2" data-edge-role="error" data-composition-points="192.4,362;192.4,410" d="M 192.4 362 L 192.4 410" class="a-security" style="--step:2" stroke-width="1.4" marker-end="url(#php-stale-technical-mobile-arrowhead-security)"></path>
+
+        <!-- Nodes -->
+        <g id="php-stale-technical-mobile-node-step-0" data-node-id="step-0" data-node-label="Fatal error" aria-label="Fatal error, The first request ends, The complete flow" data-node-kind="backend" data-node-sublabel="The first request ends" data-node-context="The complete flow">
+          <title>Fatal error · The first request ends · The complete flow</title>
+          <rect x="107.4" y="94" width="170" height="52" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="94" width="170" height="52" rx="8" class="c-backend" style="--step:0" stroke-width="1.5"></rect>
+
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="115" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Fatal error</text>
+          <text data-detail="context" x="192.4" y="132" class="t-muted" font-size="8" text-anchor="middle">The first request ends</text>
+        </g>
+
+        <g id="php-stale-technical-mobile-node-step-1" data-node-id="step-1" data-node-label="Memory freed" aria-label="Memory freed, An old reference survives, The complete flow" data-node-kind="security" data-node-sublabel="An old reference survives" data-node-tag="FAILURE POINT" data-node-context="The complete flow">
+          <title>Memory freed · An old reference survives · The complete flow · FAILURE POINT</title>
+          <rect x="107.4" y="194" width="170" height="68" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="194" width="170" height="68" rx="8" class="c-security" style="--step:1" stroke-width="1.5"></rect>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(113.4 200) scale(0.6875)">
+            <circle cx="8" cy="8" r="5.3"></circle>
+            <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"></path>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="215" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Memory freed</text>
+          <text data-detail="context" x="192.4" y="232" class="t-muted" font-size="8" text-anchor="middle">An old reference survives</text>
+        <text data-detail="fine" x="192.4" y="250" class="t-security" font-size="7" text-anchor="middle">FAILURE POINT</text>
+        </g>
+
+        <g id="php-stale-technical-mobile-node-step-2" data-node-id="step-2" data-node-label="Memory reused" aria-label="Memory reused, Other data may occupy A, The complete flow" data-node-kind="backend" data-node-sublabel="Other data may occupy A" data-node-context="The complete flow">
+          <title>Memory reused · Other data may occupy A · The complete flow</title>
+          <rect x="107.4" y="310" width="170" height="52" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="310" width="170" height="52" rx="8" class="c-backend" style="--step:2" stroke-width="1.5"></rect>
+
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="331" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Memory reused</text>
+          <text data-detail="context" x="192.4" y="348" class="t-muted" font-size="8" text-anchor="middle">Other data may occupy A</text>
+        </g>
+
+        <g id="php-stale-technical-mobile-node-step-3" data-node-id="step-3" data-node-label="Stale state used" aria-label="Stale state used, Unsafe access via old reference, The complete flow" data-node-kind="security" data-node-sublabel="Unsafe access via old reference" data-node-tag="FAILURE POINT" data-node-context="The complete flow">
+          <title>Stale state used · Unsafe access via old reference · The complete flow · FAILURE POINT</title>
+          <rect x="107.4" y="410" width="170" height="68" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="410" width="170" height="68" rx="8" class="c-security" style="--step:3" stroke-width="1.5"></rect>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(113.4 416) scale(0.6875)">
+            <circle cx="8" cy="8" r="5.3"></circle>
+            <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"></path>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="431" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Stale state used</text>
+          <text data-detail="context" x="192.4" y="448" class="t-muted" font-size="8" text-anchor="middle">Unsafe access via old reference</text>
+        <text data-detail="fine" x="192.4" y="466" class="t-security" font-size="7" text-anchor="middle">FAILURE POINT</text>
+        </g>
+
+        <!-- Edge labels -->
+
+
+
+
+        <!-- Legend -->
+
+      </svg>

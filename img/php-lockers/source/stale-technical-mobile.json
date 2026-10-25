@@ -1,0 +1,94 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "CVE-2026-109619: freed memory and a stale reference",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": "img/php-lockers/source/stale-technical-mobile.html",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "story",
+      "label": "The complete flow"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "step-0",
+      "lane": "story",
+      "col": 0,
+      "type": "backend",
+      "label": "Fatal error",
+      "sublabel": "The first request ends",
+      "width": 170,
+      "icon": "none",
+      "yOffset": -162
+    },
+    {
+      "id": "step-1",
+      "lane": "story",
+      "col": 0,
+      "type": "security",
+      "label": "Memory freed",
+      "sublabel": "An old reference survives",
+      "width": 170,
+      "icon": "failure",
+      "tag": "FAILURE POINT",
+      "yOffset": -54
+    },
+    {
+      "id": "step-2",
+      "lane": "story",
+      "col": 0,
+      "type": "backend",
+      "label": "Memory reused",
+      "sublabel": "Other data may occupy A",
+      "width": 170,
+      "icon": "none",
+      "yOffset": 54
+    },
+    {
+      "id": "step-3",
+      "lane": "story",
+      "col": 0,
+      "type": "security",
+      "label": "Stale state used",
+      "sublabel": "Unsafe access via old reference",
+      "width": 170,
+      "icon": "failure",
+      "tag": "FAILURE POINT",
+      "yOffset": 162
+    }
+  ],
+  "edges": [
+    {
+      "id": "transition-0",
+      "from": "step-0",
+      "to": "step-1",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "transition-1",
+      "from": "step-1",
+      "to": "step-2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "transition-2",
+      "from": "step-2",
+      "to": "step-3",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "security",
+      "role": "error"
+    }
+  ]
+}

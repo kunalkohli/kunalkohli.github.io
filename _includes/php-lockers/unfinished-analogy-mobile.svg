@@ -1,0 +1,91 @@
+<!-- Generated with Archify 3.2.0; see img/php-lockers/README.md and LICENSE-Archify.txt. -->
+<svg viewBox="95.4000015258789 53.08295440673828 194 436.91705322265625" data-reader-fit="width-first" data-layout-contract="readable-v2" role="img" lang="en" aria-labelledby="php-unfinished-analogy-mobile-archify-diagram-title php-unfinished-analogy-mobile-archify-diagram-description" data-preset="classic" data-quality-profile="showcase">
+        <title id="php-unfinished-analogy-mobile-archify-diagram-title">Bug 1: the locker-room attendant trusts an unfinished record</title>
+        <desc id="php-unfinished-analogy-mobile-archify-diagram-description">Read top to bottom. All four steps are visible. Highlighted nodes identify the failure. Bug 1: the locker-room attendant trusts an unfinished record</desc>
+        <!-- Definitions -->
+        <defs>
+          <marker id="php-unfinished-analogy-mobile-arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-default"></polygon>
+          </marker>
+          <marker id="php-unfinished-analogy-mobile-arrowhead-emphasis" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-emphasis"></polygon>
+          </marker>
+          <marker id="php-unfinished-analogy-mobile-arrowhead-security" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-security"></polygon>
+          </marker>
+          <marker id="php-unfinished-analogy-mobile-arrowhead-dashed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-dashed"></polygon>
+          </marker>
+          <pattern id="php-unfinished-analogy-mobile-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" class="c-grid" stroke-width="0.5"></path>
+          </pattern>
+        </defs>
+
+
+        <!-- Background Grid -->
+
+
+        <!-- Swimlanes -->
+
+        <text x="107.4" y="74" class="t-muted" font-size="10" font-weight="600">01 / The complete flow</text>
+
+        <!-- Phase headers -->
+
+
+        <!-- Workflow groups -->
+
+
+        <!-- Edge paths -->
+        <path data-edge-from="step-0" data-edge-to="step-1" data-edge-key="0" data-edge-id="transition-0" data-edge-role="" data-composition-points="192.4,146;192.4,202" d="M 192.4 146 L 192.4 202" class="a-default" style="--step:0" stroke-width="1.4" marker-end="url(#php-unfinished-analogy-mobile-arrowhead)"></path>
+        <path data-edge-from="step-1" data-edge-to="step-2" data-edge-key="1" data-edge-id="transition-1" data-edge-role="" data-composition-points="192.4,254;192.4,310" d="M 192.4 254 L 192.4 310" class="a-default" style="--step:1" stroke-width="1.4" marker-end="url(#php-unfinished-analogy-mobile-arrowhead)"></path>
+        <path data-edge-from="step-2" data-edge-to="step-3" data-edge-key="2" data-edge-id="transition-2" data-edge-role="error" data-composition-points="192.4,362;192.4,410" d="M 192.4 362 L 192.4 410" class="a-security" style="--step:2" stroke-width="1.4" marker-end="url(#php-unfinished-analogy-mobile-arrowhead-security)"></path>
+
+        <!-- Nodes -->
+        <g id="php-unfinished-analogy-mobile-node-step-0" data-node-id="step-0" data-node-label="Tricky request" aria-label="Tricky request, Visitor pressures workspace, The complete flow" data-node-kind="backend" data-node-sublabel="Visitor pressures workspace" data-node-context="The complete flow">
+          <title>Tricky request · Visitor pressures workspace · The complete flow</title>
+          <rect x="107.4" y="94" width="170" height="52" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="94" width="170" height="52" rx="8" class="c-backend" style="--step:0" stroke-width="1.5"></rect>
+
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="115" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Tricky request</text>
+          <text data-detail="context" x="192.4" y="132" class="t-muted" font-size="8" text-anchor="middle">Visitor pressures workspace</text>
+        </g>
+
+        <g id="php-unfinished-analogy-mobile-node-step-1" data-node-id="step-1" data-node-label="Space runs out" aria-label="Space runs out, Record setup stops halfway, The complete flow" data-node-kind="backend" data-node-sublabel="Record setup stops halfway" data-node-context="The complete flow">
+          <title>Space runs out · Record setup stops halfway · The complete flow</title>
+          <rect x="107.4" y="202" width="170" height="52" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="202" width="170" height="52" rx="8" class="c-backend" style="--step:1" stroke-width="1.5"></rect>
+
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="223" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Space runs out</text>
+          <text data-detail="context" x="192.4" y="240" class="t-muted" font-size="8" text-anchor="middle">Record setup stops halfway</text>
+        </g>
+
+        <g id="php-unfinished-analogy-mobile-node-step-2" data-node-id="step-2" data-node-label="Half-built record" aria-label="Half-built record, Some fields were never filled, The complete flow" data-node-kind="backend" data-node-sublabel="Some fields were never filled" data-node-context="The complete flow">
+          <title>Half-built record · Some fields were never filled · The complete flow</title>
+          <rect x="107.4" y="310" width="170" height="52" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="310" width="170" height="52" rx="8" class="c-backend" style="--step:2" stroke-width="1.5"></rect>
+
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="331" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Half-built record</text>
+          <text data-detail="context" x="192.4" y="348" class="t-muted" font-size="8" text-anchor="middle">Some fields were never filled</text>
+        </g>
+
+        <g id="php-unfinished-analogy-mobile-node-step-3" data-node-id="step-3" data-node-label="Cleanup trusts it" aria-label="Cleanup trusts it, Unfinished data used as valid, The complete flow" data-node-kind="security" data-node-sublabel="Unfinished data used as valid" data-node-tag="FAILURE POINT" data-node-context="The complete flow">
+          <title>Cleanup trusts it · Unfinished data used as valid · The complete flow · FAILURE POINT</title>
+          <rect x="107.4" y="410" width="170" height="68" rx="8" class="c-mask"></rect>
+          <rect x="107.4" y="410" width="170" height="68" rx="8" class="c-security" style="--step:3" stroke-width="1.5"></rect>
+          <g aria-hidden="true" data-semantic-sigil="failure" class="semantic-sigil s-security" transform="translate(113.4 416) scale(0.6875)">
+            <circle cx="8" cy="8" r="5.3"></circle>
+            <path d="m5.7 5.7 4.6 4.6m0-4.6-4.6 4.6"></path>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="192.4" y="431" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Cleanup trusts it</text>
+          <text data-detail="context" x="192.4" y="448" class="t-muted" font-size="8" text-anchor="middle">Unfinished data used as valid</text>
+        <text data-detail="fine" x="192.4" y="466" class="t-security" font-size="7" text-anchor="middle">FAILURE POINT</text>
+        </g>
+
+        <!-- Edge labels -->
+
+
+
+
+        <!-- Legend -->
+
+      </svg>
