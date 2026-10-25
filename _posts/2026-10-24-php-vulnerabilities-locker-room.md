@@ -7,11 +7,11 @@ comments: true
 published: true
 ---
 
-“A specially crafted request can lead to remote code execution.”
+On October 21, 2026, two critical bugs in PHP were publicly disclosed. A request sent to a vulnerable server could do more than load a page: it could crash the worker, expose information, or, in some circumstances, make it run an attacker's code.
 
-That sentence tells you something is serious. It doesn't explain how a message sent to a website can become a break-in.
+Why did this matter so much? PHP powers **roughly 70% of websites whose server-side programming language can be identified**, according to [W3Techs](https://w3techs.com/technologies/details/pl-php). That's a measure of PHP's reach—not a claim that 70% of websites were breached or equally exploitable.
 
-The October 2026 PHP disclosures are easier to follow if you picture a locker room: an attendant, temporary storage, and slips that say where things are. The trouble starts when the attendant trusts a record that isn't valid anymore—or was never finished in the first place.
+Both bugs involve how PHP handles temporary memory when something goes wrong. One trusts data that was never finished; the other follows a reference after its data is gone. To understand the difference, let's step away from the server and into a **locker room**. 🔐
 
 <!--more-->
 
@@ -19,24 +19,26 @@ The October 2026 PHP disclosures are easier to follow if you picture a locker ro
 
 <link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=2">
 
-### First, what does PHP do?
+### 🧩 First, what does PHP do?
 
 When you submit a form, your browser sends a **request**. On many websites, PHP is the software on the server that processes it and prepares a reply. While it works, it needs temporary memory.
 
-Here's the locker-room translation:
+Imagine an attendant storing visitors' belongings in temporary lockers. Here's how that maps to a website:
 
-| Locker room | Website |
+| In the locker room | What it represents on a website |
 | --- | --- |
-| A visitor's request | A message sent to the server |
-| The attendant | A PHP worker: a running process doing the work |
-| Temporary lockers | Working memory, not a permanent database |
-| A location slip saying “use A” | A reference pointing to a memory location |
+| A visitor hands over a check-in form | An **HTTP request**: a message asking the website to do something |
+| The attendant handles the task | A **PHP worker**: a running process doing the work |
+| Lockers temporarily hold belongings | **Working memory**: temporary storage, not a permanent database |
+| A storage record describes the task | **Internal data** PHP prepares before using it |
+| A location slip says “use locker A” | A **memory reference** pointing to where data lives |
+| The attendant clears a locker and retires its slip | **Cleanup**: release the memory and remove references that must not survive |
 
 A normal task is straightforward: put belongings in a locker, finish the record, use the right slip, then release the locker **and retire the old slip** when the task ends.
 
 The same attendant can serve another visitor afterward. Likewise, a PHP worker can handle many requests over its lifetime.
 
-### Bug 1: trusting an unfinished record
+### 🧾 Bug 1: trusting an unfinished record
 
 Imagine a visitor deliberately overwhelms the attendant's temporary workspace. The attendant runs out of room halfway through preparing an internal storage record.
 
@@ -48,7 +50,7 @@ In PHP, this is **CVE-2026-109618**. An out-of-memory failure can interrupt init
 
 Running out of memory is the trigger. **Unsafe use of the unfinished data is the vulnerability.** A big upload alone does not automatically give someone control of a server; exploitation depends on crafted input and the affected execution path.
 
-### Bug 2: keeping the slip after the locker is released
+### 🎟️ Bug 2: keeping the slip after the locker is released
 
 Now imagine a task ends unexpectedly. The old belongings are removed and locker A becomes available again—but the attendant keeps a slip saying “use locker A.”
 
@@ -65,56 +67,44 @@ The useful distinction is:
 
 This is an analogy for memory handling, not guessing locker combinations or bypassing a login. Not every later visitor or request will encounter the vulnerable state.
 
-### How does that turn into a break-in?
+### 🔓 How does that turn into a break-in?
 
-Unsafe memory use can have different consequences:
+Following an invalid record can lead to different kinds of harm:
 
-- **A crash:** the worker stops, and visitors may get errors.
-- **A data leak:** information reaches someone who shouldn't see it.
-- **Remote code execution:** an attacker gets instructions to run with the PHP worker's permissions.
+| Possible outcome | Locker-room example | What happens on the server |
+| --- | --- | --- |
+| **Crash / denial of service** | The attendant stops working, and visitors cannot get service. | A PHP worker crashes; visitors may get errors or lose access. |
+| **Data leak** | The attendant hands one visitor someone else's belongings. | Information reaches someone who is not authorized to receive it. |
+| **Remote code execution** | The attendant is tricked into performing unauthorized tasks within their authority. | The attacker gets instructions to run with the PHP worker's permissions. |
 
 Those are possible outcomes, **not three guaranteed stages**. Code execution also doesn't automatically mean full administrator access. But a website worker may already have access to valuable files, credentials, or customer information.
 
-### A security guard helps. It doesn't repair the attendant's procedures.
+### 🛡️ The temporary fix shipped by Cloudflare
 
-A web application firewall, or **WAF**, is an extra checkpoint for traffic passing through it.
+While operators deployed PHP updates, Cloudflare shipped an extra layer of protection through its **web application firewall (WAF)**. Cloudflare says these protections were in place before public disclosure on October 21, including for sites using its free WAF.
 
-In the analogy, a guard can inspect incoming requests. Recognizable trouble gets stopped before it reaches the attendant. But sometimes the request alone doesn't provide enough evidence.
+This was a traffic-level mitigation, **not a repair to the PHP software running on the server**. Think of it as posting a security guard at the locker room while the attendant's faulty procedures are being fixed.
 
-Cloudflare describes combining the incoming request with the outgoing response. Think of the guard checking both the visitor's form **and the belongings about to leave**. Together, those signals may reveal a suspicious exchange, and the matching response can be blocked before it reaches the requester.
+The guard can help in two ways:
 
-**Stopping belongings at the exit cannot undo something the attendant already did.** Likewise, blocking a response doesn't reverse code already executed on the server. WAF protection is an additional layer; updating PHP fixes the underlying bugs.
+1. **Check what comes in.** A recognizable malicious request can be blocked before it reaches PHP—like rejecting an obviously suspicious form at the entrance.
+2. **Check the whole exchange.** Some forms look ordinary on their own. Cloudflare's **full transaction detection** combines signals from the incoming request and the outgoing response. A matching response can then be blocked before it reaches the requester.
 
-### Why this needed a coordinated response
+For example, imagine the guard lets a form through because it doesn't provide enough evidence of trouble. The attendant processes it and starts handing back belongings. Now the form **together with what is leaving** reveals a suspicious exchange. The guard can stop that return at the door, reducing the chance of someone walking away with another visitor's belongings.
 
-PHP is shared infrastructure. Many unrelated websites can depend on the same vulnerable software.
-
-OpenAI describes a maintainer-led response involving researchers and infrastructure providers: validate the flaws, prepare fixes and protections, then help operators deploy them. Cloudflare reports deploying protections before public disclosure and observing attack traffic after an early leak.
-
-The important last step is easy to miss: **a released fix is not an installed fix.**
-
-### If you own a website, ask one question
-
-> Has the PHP actually running our website been patched for both original vulnerabilities?
-
-Ask your host or technical team to confirm the live web-serving environment is updated, the relevant workers have been restarted or replaced, and applicable firewall protections remain enabled. **Updating WordPress, a theme, or a plugin alone does not fix PHP runtime bugs.**
-
-The October 21 fixes were PHP **8.2.35, 8.3.36, 8.4.27, and 8.5.12**, or a vendor-confirmed backported fix. Use current supported security releases rather than treating that list as a permanent recommendation.
-
-On October 23, PHP also announced a **separate related issue, CVE-2026-115560**, that can affect those releases under an unusual combination of session settings and application behavior. The advisory recommends disabling session upload progress where appropriate until the next regular bugfix release; applications that never change the serialization handler at runtime can keep it enabled. Cloudflare's known-attempt coverage for this issue depends on the default upload-progress field name. Have your operator check the current guidance linked below.
-
-If compromise is suspected, involve security staff. Installing a patch doesn't remove an attacker who already got in.
+But **stopping belongings at the exit cannot undo something the attendant already did**. Likewise, blocking a response doesn't reverse code already executed on the server. This protection buys time and adds defense in depth; PHP still needs its security update. Coverage also depends on the applicable rules being enabled and traffic actually passing through the WAF.
 
 The mental model I want to keep is simple: **temporary storage needs accurate references, and failure paths need just as much care as the happy path.**
 
-### Sources and diagrams
+### 📚 Sources and diagrams
 
-Security details checked against these sources on **October 24, 2026**:
+Sources for the October 2026 disclosures and PHP usage figure:
 
 - [PHP: October 21 critical security advisory](https://www.php.net/archive/2026.php#2026-10-21-5)
 - [PHP: October 23 session upload progress advisory](https://www.php.net/archive/2026.php#2026-10-23-1)
 - [Cloudflare: php2shell vulnerabilities and WAF protection](https://blog.cloudflare.com/php-vulnerabilities-waf-protection/)
 - [OpenAI: coordinated disclosure and the global response](https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/)
+- [W3Techs: PHP usage statistics and what the percentage measures](https://w3techs.com/technologies/details/pl-php)
 
 Diagrams generated with [Archify](https://github.com/tt-a1i/archify). They illustrate the failure paths, not the mechanics of a working exploit.
 
