@@ -1,3 +1,13 @@
+/* Explicit cell borders override the site's otherwise borderless tables, only here. */
+.php-explainer table { width: 100%; table-layout: fixed; border-collapse: collapse; border: 1px solid #b8b8b8; margin: 1.5em 0; }
+.php-explainer th,
+.php-explainer td { border: 1px solid #b8b8b8; border-radius: 0; padding: 12px 14px; vertical-align: top; overflow-wrap: anywhere; }
+.php-explainer thead th { background: #f5f5f5; font-weight: 600; }
+@media (max-width: 600px) {
+  .php-explainer th,
+  .php-explainer td { padding: 9px 7px; }
+}
+
 /* The diagrams inherit the blog's typography and stay within article-sized bounds. */
 .php-diagram { width: 100%; max-width: 640px; margin: 1.5em auto; }
 .php-diagram svg { display: block; width: 100%; max-width: 640px; height: auto; max-height: 400px; margin: 0 auto; font-family: inherit; }
