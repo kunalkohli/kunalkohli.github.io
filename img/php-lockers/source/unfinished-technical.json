@@ -1,0 +1,87 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "CVE-2026-109618: out-of-memory failure and unsafe cleanup",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": "img/php-lockers/source/unfinished-technical.html",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "first",
+      "label": "Request initialization"
+    },
+    {
+      "id": "second",
+      "label": "Failed request cleanup"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "step-0",
+      "lane": "first",
+      "col": 0,
+      "type": "backend",
+      "label": "Crafted request",
+      "sublabel": "Attacker pressures memory",
+      "width": 170,
+      "icon": "none"
+    },
+    {
+      "id": "step-1",
+      "lane": "first",
+      "col": 1,
+      "type": "backend",
+      "label": "Out of memory",
+      "sublabel": "Initialization is interrupted",
+      "width": 170,
+      "icon": "none"
+    },
+    {
+      "id": "step-2",
+      "lane": "second",
+      "col": 1,
+      "type": "backend",
+      "label": "Incomplete data",
+      "sublabel": "Internal fields are unfinished",
+      "width": 170,
+      "icon": "none"
+    },
+    {
+      "id": "step-3",
+      "lane": "second",
+      "col": 0,
+      "type": "security",
+      "label": "Unsafe cleanup",
+      "sublabel": "Incomplete data used as valid",
+      "width": 170,
+      "icon": "failure",
+      "tag": "FAILURE POINT"
+    }
+  ],
+  "edges": [
+    {
+      "id": "transition-0",
+      "from": "step-0",
+      "to": "step-1"
+    },
+    {
+      "id": "transition-1",
+      "from": "step-1",
+      "to": "step-2",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "transition-2",
+      "from": "step-2",
+      "to": "step-3",
+      "variant": "security",
+      "role": "error"
+    }
+  ]
+}

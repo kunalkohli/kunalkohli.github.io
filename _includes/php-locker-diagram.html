@@ -1,0 +1,11 @@
+<figure class="php-diagram" aria-labelledby="php-caption-{{ include.id }}">
+  <div data-php-panel="analogy">
+    <div class="php-diagram-desktop">{% include php-lockers/{{ include.id }}-analogy.svg %}</div>
+    <div class="php-diagram-mobile">{% include php-lockers/{{ include.id }}-analogy-mobile.svg %}</div>
+  </div>
+  <div data-php-panel="technical" hidden>
+    <div class="php-diagram-desktop">{% include php-lockers/{{ include.id }}-technical.svg %}</div>
+    <div class="php-diagram-mobile">{% include php-lockers/{{ include.id }}-technical-mobile.svg %}</div>
+  </div>
+  <figcaption id="php-caption-{{ include.id }}">{{ include.title }}. All steps are visible; the highlighted boxes mark the failure.</figcaption>
+</figure>
