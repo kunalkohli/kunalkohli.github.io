@@ -42,10 +42,10 @@ The same attendant can serve another visitor afterward. Likewise, a PHP worker c
 
 Here's the sequence, using the locker room to explain what happens on the server:
 
-1. **The client arrives with a tricky request.** A visitor hands the locker-room attendant a deliberately difficult task. On the website, an attacker sends a crafted HTTP request.
-2. **The server starts organizing it.** The PHP worker—the attendant—reserves temporary memory, like lockers, and begins preparing the request's internal records.
-3. **Space runs out before the record is finished.** The attendant stops halfway through the paperwork. In PHP, an out-of-memory failure interrupts setup, leaving some internal data incomplete.
-4. **Cleanup trusts the unfinished record.** Instead of treating it as incomplete, PHP uses that data as though it were valid. **That unsafe memory access is the opening** an attacker may exploit—not simply the fact that space ran out.
+1. 📨 **The client arrives with a tricky request.** A visitor hands the locker-room attendant a deliberately difficult task. On the website, an attacker sends a crafted HTTP request.
+2. 🗄️ **The server starts organizing it.** The PHP worker—the attendant—reserves temporary memory, like lockers, and begins preparing the request's internal records.
+3. 🛑 **Space runs out before the record is finished.** The attendant stops halfway through the paperwork. In PHP, an out-of-memory failure interrupts setup, leaving some internal data incomplete.
+4. ⚠️ **Cleanup trusts the unfinished record.** Instead of treating it as incomplete, PHP uses that data as though it were valid. **That unsafe memory access is the opening** an attacker may exploit—not simply the fact that space ran out.
 
 {% include php-locker-diagram.html id="unfinished" title="Bug 1: a failure during setup becomes unsafe cleanup" %}
 
@@ -57,10 +57,10 @@ Running out of memory is the trigger. **Unsafe use of the unfinished data is the
 
 This time, the mistake can carry over from one request to another:
 
-1. **A client arrives, and the server starts a task.** The attendant stores belongings in locker A and keeps a location slip. PHP likewise holds a reference to memory owned by the request.
-2. **The task fails, but its slip survives.** A fatal error ends the request. PHP releases the memory, like emptying locker A, but an old reference still points to that location.
-3. **A later request reaches the same attendant.** The same PHP worker handles another request. The released memory may now be reused for different data, just as locker A may hold different belongings.
-4. **The server follows the old slip.** PHP uses the stale reference before normal initialization resets it. It can access invalid or unrelated data. **The opening is the outdated reference—not the new visitor knowing a locker combination.**
+1. 📥 **A client arrives, and the server starts a task.** The attendant stores belongings in locker A and keeps a location slip. PHP likewise holds a reference to memory owned by the request.
+2. 💥 **The task fails, but its slip survives.** A fatal error ends the request. PHP releases the memory, like emptying locker A, but an old reference still points to that location.
+3. ♻️ **A later request reaches the same attendant.** The same PHP worker handles another request. The released memory may now be reused for different data, just as locker A may hold different belongings.
+4. 🎟️ **The server follows the old slip.** PHP uses the stale reference before normal initialization resets it. It can access invalid or unrelated data. **The opening is the outdated reference—not the new visitor knowing a locker combination.**
 
 {% include php-locker-diagram.html id="stale" title="Bug 2: an old reference survives into a later request" %}
 
