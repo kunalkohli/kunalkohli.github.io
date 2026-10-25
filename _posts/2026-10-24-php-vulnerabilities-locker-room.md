@@ -17,7 +17,7 @@ Both bugs involve how PHP handles temporary memory when something goes wrong. On
 
 <div class="php-explainer" markdown="1">
 
-<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=2">
+<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=3">
 
 ### 🧩 First, what does PHP do?
 
