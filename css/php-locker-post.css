@@ -1,75 +1,31 @@
-/* Scoped to this post; the rest of the blog keeps its existing theme. */
-.php-explainer {
-  --php-paper: #eeeee5;
-  --php-panel: #f3f3eb;
-  --php-ink: #20271f;
-  --php-muted: #555c50;
-  --php-line: #8b9080;
-  --php-tint: #c9dd91;
-  --php-accent: #354c21;
-  --php-warning: #924329;
-  --php-warning-bg: #efd7c7;
-}
-.php-explainer[data-php-palette="studio"] {
-  --php-paper: #f6f7fb;
-  --php-panel: #fff;
-  --php-ink: #202638;
-  --php-muted: #626b80;
-  --php-line: #c3cad9;
-  --php-tint: #edf0ff;
-  --php-accent: #3b55c5;
-}
-.php-explainer[data-php-palette="night"] {
-  --php-paper: #131b25;
-  --php-panel: #1d2835;
-  --php-ink: #edf2f8;
-  --php-muted: #acb9cb;
-  --php-line: #526174;
-  --php-tint: #29433f;
-  --php-accent: #a8dacf;
-  --php-warning: #ffc4a6;
-  --php-warning-bg: #50392f;
-}
-.php-explainer [hidden] { display: none !important; }
-.php-controls { background: var(--php-panel); color: var(--php-ink); border: 1px solid var(--php-line); border-radius: 8px; padding: 20px; margin: 1.8em 0; }
-.php-controls fieldset { border: 0; padding: 0; margin: 0 0 15px; min-width: 0; }
-.php-controls legend { font-size: 13px; font-weight: 600; margin-bottom: 7px; }
-.php-options { display: flex; flex-wrap: wrap; gap: 7px; }
-.php-options button { appearance: none; font: inherit; font-size: 12px; color: var(--php-ink); background: var(--php-panel); border: 1px solid var(--php-line); border-radius: 5px; padding: 8px 11px; cursor: pointer; }
-.php-options button[aria-pressed="true"] { color: var(--php-accent); background: var(--php-tint); border-color: var(--php-accent); }
-.php-options button:focus-visible { outline: 3px solid var(--php-accent); outline-offset: 3px; }
-.php-controls .php-controls-note { color: var(--php-muted); font-size: 12px; margin: 0; }
-.php-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.php-diagram { background: var(--php-paper); color: var(--php-ink); padding: 18px; border: 1px solid var(--php-line); border-radius: 8px; margin: 1.8em 0; }
-.php-explainer:not([data-php-palette]) .php-diagram,
-.php-explainer[data-php-palette="original"] .php-diagram { background-image: linear-gradient(rgba(104,119,91,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(104,119,91,.12) 1px,transparent 1px); background-size: 28px 28px; }
-.php-diagram svg { width: 100%; height: auto; display: block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-.php-explainer[data-php-text="modern"] .php-diagram svg { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-.php-explainer:not([data-php-text]) .php-diagram .t-muted,
-.php-explainer[data-php-text="original"] .php-diagram .t-muted { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-.php-diagram .c-mask { fill: var(--php-panel); stroke: none; }
-.php-diagram .c-backend { fill: var(--php-tint); stroke: var(--php-accent); }
-.php-diagram .c-security { fill: var(--php-warning-bg); stroke: var(--php-warning); }
-.php-diagram .t-primary { fill: var(--php-ink); }
-.php-diagram .t-muted { fill: var(--php-muted); }
-.php-diagram .t-backend { fill: var(--php-accent); }
-.php-diagram :is(.t-security,.t-edge-security) { fill: var(--php-warning); }
-.php-diagram .t-edge-default { fill: var(--php-muted); }
+/* The diagrams inherit the blog's typography and stay within article-sized bounds. */
+.php-diagram { width: 100%; max-width: 640px; margin: 1.5em auto; }
+.php-diagram svg { display: block; width: 100%; max-width: 640px; height: auto; max-height: 400px; margin: 0 auto; font-family: inherit; }
+.php-diagram .c-mask { fill: #fff; stroke: none; }
+.php-diagram .c-backend { fill: #f7f7f7; stroke: #b8b8b8; }
+.php-diagram .c-security { fill: #fff5f5; stroke: #d65f68; }
+.php-diagram .t-primary { fill: currentColor; }
+.php-diagram :is(.t-muted,.t-edge-default) { fill: #666; }
+.php-diagram .t-backend { fill: #37996d; }
+.php-diagram :is(.t-security,.t-edge-security) { fill: #b83842; }
 .php-diagram path { fill: none; }
-.php-diagram .a-default { stroke: var(--php-muted); }
-.php-diagram .a-security { stroke: var(--php-warning); }
-.php-diagram .m-default { fill: var(--php-muted); }
-.php-diagram .m-security { fill: var(--php-warning); }
-.php-diagram .semantic-sigil { fill: none; stroke: var(--php-accent); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
-.php-diagram .s-security { stroke: var(--php-warning); }
-.php-diagram figcaption { font-size: 12px; color: var(--php-muted); line-height: 1.6; margin-top: 16px; }
+.php-diagram .a-default { stroke: #666; }
+.php-diagram .a-security { stroke: #b83842; }
+.php-diagram .m-default { fill: #666; }
+.php-diagram .m-security { fill: #b83842; }
+.php-diagram .semantic-sigil { fill: none; stroke: #37996d; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.php-diagram .s-security { stroke: #b83842; }
+.php-diagram figcaption { font-size: 13px; color: #666; line-height: 1.5; margin-top: 12px; }
+.php-diagram-technical { margin-top: 12px; }
+.php-diagram-technical summary { width: fit-content; font-size: 13px; color: #37996d; cursor: pointer; }
+.php-diagram-technical summary:focus-visible { outline: 2px solid #42b983; outline-offset: 4px; }
+.php-diagram-technical[open] summary { margin-bottom: 12px; }
 .php-diagram-mobile { display: none; }
 @media (max-width: 600px) {
   .php-diagram-desktop { display: none; }
   .php-diagram-mobile { display: block; }
-  .php-diagram { padding: 12px; }
+  .php-diagram svg { max-width: 280px; max-height: 640px; }
 }
 @media print {
-  .php-controls { display: none; }
   .php-diagram { break-inside: avoid; }
 }

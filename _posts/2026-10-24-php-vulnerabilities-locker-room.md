@@ -17,7 +17,7 @@ The October 2026 PHP disclosures are easier to follow if you picture a locker ro
 
 <div class="php-explainer" markdown="1">
 
-{% include php-locker-controls.html %}
+<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=2">
 
 ### First, what does PHP do?
 
