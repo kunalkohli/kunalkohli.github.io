@@ -40,5 +40,5 @@ node scripts/test-php-locker-post.cjs /path/to/built/site /path/to/playwright /p
 ```
 
 The check covers the three strips, two boxed tables, closed-by-default technical
-notes, keyboard access, unique SVG IDs, the 720px reading column, and narrow to
+notes, keyboard access, unique SVG IDs, the 1040px reading column, and narrow to
 ultrawide layouts without JavaScript.

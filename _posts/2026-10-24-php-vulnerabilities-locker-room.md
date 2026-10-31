@@ -8,7 +8,7 @@ published: true
 post_class: php-locker-post
 ---
 
-<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=4">
+<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=5">
 
 On October 21, 2026, two critical PHP bugs were publicly disclosed. A crafted request could crash a vulnerable website worker, expose information, or sometimes make it run an attacker's code.
 
