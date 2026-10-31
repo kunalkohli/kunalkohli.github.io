@@ -1,12 +1,12 @@
 <figure class="php-diagram" aria-labelledby="php-caption-{{ include.id }}">
-  <div class="php-diagram-analogy">
-    <div class="php-diagram-desktop">{% include php-lockers/{{ include.id }}-analogy.svg %}</div>
-    <div class="php-diagram-mobile">{% include php-lockers/{{ include.id }}-analogy-mobile.svg %}</div>
-  </div>
-  <details class="php-diagram-technical">
-    <summary>View the technical diagram</summary>
+  {% include php-locker-story.html id=include.id %}
+  <figcaption id="php-caption-{{ include.id }}">{{ include.title }}. Red rings and labels mark the failure.</figcaption>
+</figure>
+<details class="php-technical-notes">
+  <summary>PHP equivalent and technical diagram</summary>
+  {{ include.notes | markdownify }}
+  <div class="php-diagram php-diagram-technical">
     <div class="php-diagram-desktop">{% include php-lockers/{{ include.id }}-technical.svg %}</div>
     <div class="php-diagram-mobile">{% include php-lockers/{{ include.id }}-technical-mobile.svg %}</div>
-  </details>
-  <figcaption id="php-caption-{{ include.id }}">{{ include.title }}. All steps are visible; the highlighted boxes mark the failure.</figcaption>
-</figure>
+  </div>
+</details>
