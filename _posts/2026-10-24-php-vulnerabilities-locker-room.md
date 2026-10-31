@@ -52,7 +52,7 @@ This time, the paperwork is never finished:
 
 1. 📨 A visitor deliberately overwhelms the attendant's workspace.
 2. 🗄️ The attendant starts a storage slip for the blue bag.
-3. 🛑 Space runs out, leaving some slip fields blank.
+3. 🛑 Space runs out before every slip field has been written for this task.
 4. ⚠️ During cleanup, the attendant follows the unfinished slip as if it were complete.
 
 {% capture unfinished_php %}
@@ -62,10 +62,34 @@ This time, the paperwork is never finished:
 4. (PHP: cleanup treats partially initialized data as valid, creating unsafe memory access.)
 
 This is **CVE-2026-109618**. A large upload alone does not automatically give someone control of a server; exploitation depends on crafted input and the affected execution path.
+
+Fields that were never initialized are not necessarily safely empty. The recycled-paper example below illustrates the risk of treating their contents as valid; it is not a literal description of PHP's internal fields or an exploit recipe.
 {% endcapture %}
 {% include php-locker-diagram.html id="unfinished" title="Bug 1: cleanup trusts an unfinished slip" notes=unfinished_php %}
 
 **The mistake is trusting an unfinished slip—not simply running out of space.**
+
+<div id="php-unfinished-example" markdown="1">
+
+#### ⚠️ Why is unfinished paperwork dangerous?
+
+The drawing's blank-looking fields mean “not filled in for this task”—not necessarily clean, empty paper.
+
+Imagine the attendant writes slips on **reused scrap paper**. They write “blue bag,” but run out of space before replacing the other entries. Those entries are **old scribbles, not instructions checked for this visitor**:
+
+| Field on the slip | What is on the paper | Was it set for this task? |
+| --- | --- | --- |
+| Bag | Blue bag | **Yes** — just written by the attendant. |
+| Locker | An unchecked scribble | **No** — the location was never set for this task. |
+| Cleanup instruction | Another unchecked scribble | **No** — the instruction was never prepared for this task. |
+
+During cleanup, the attendant treats **every field as a real instruction**, including the scribbles. They might try to open a locker that does not exist or carry out an inappropriate cleanup action, instead of stopping safely.
+
+**That is the opening for an attacker: unfinished data is being turned into actions.** A crafted request tries to trigger this unsafe path. On a server, the result can be a crash or memory corruption, potentially leading to code execution—not merely a bag left behind.
+
+The slip's fields are invented to explain the failure; they are not PHP's literal internal record. **Bug 1 uses a record that was never fully prepared for the current task.** Keep the “old slip returns the wrong bag” story for Bug 2 below.
+
+</div>
 
 ### 🎟️ Bug 2: keeping the slip after the locker is released
 
@@ -85,6 +109,22 @@ This time, a once-valid slip outlives the belongings it describes:
 This is **CVE-2026-109619**. Not every later request encounters the vulnerable state. The bag swap illustrates reuse of storage, not a guaranteed data leak.
 {% endcapture %}
 {% include php-locker-diagram.html id="stale" title="Bug 2: the old slip survives after locker A is emptied" notes=stale_php %}
+
+<div id="php-stale-example" markdown="1">
+
+#### 🔓 How could the attacker get someone else's data?
+
+Suppose the first visitor is malicious. They arrange for their task to fail, leaving the attendant with the old blue-bag slip. Later, **another visitor's orange bag may occupy locker A**.
+
+1. 🧾 **The old slip still points to A**, even though the original blue bag is gone.
+2. 🚪 **A later task reaches the same attendant**, who follows that slip without first resetting it.
+3. 🎒 **If the attendant hands back A's current contents to the wrong visitor, someone else's orange bag is exposed.** The slip used to be correct; now it describes storage that may belong to someone else.
+
+On a website, this illustrates a stale memory reference exposing unrelated data in a response. **It does not mean a normal follow-up request automatically receives another user's session**, or that an attacker can choose whose data they get. Reaching the unsafe state, reusing the memory, and having the data returned all depend on the affected execution path.
+
+Both bugs can have several consequences, including data exposure. The difference is **why the memory access is unsafe**: Bug 1 trusts unfinished data during cleanup; Bug 2 follows a once-valid reference after its data is gone.
+
+</div>
 
 The useful distinction is:
 
