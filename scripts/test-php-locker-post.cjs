@@ -22,20 +22,35 @@ const { chromium } = require(path.resolve(playwright));
       return route.fulfill({ contentType, body: fs.readFileSync(file) });
     });
     await page.goto('http://blog.test/articles/2026-10/php-vulnerabilities-locker-room.html');
+    assert.equal(await page.locator('.nav-list a[href*="/img/php-lockers/"]').count(), 0);
+    assert.equal(await page.locator('.nav-list a[href*="/categories/"]').count(), 1);
+    assert.equal(await page.locator('.nav-list a[href*="/resume/"]').count(), 1);
     assert.equal(await page.locator('#post.php-locker-post').count(), 1);
     assert.equal(await page.locator('.php-explainer table').count(), 3);
     const unfinishedExample = page.locator('#php-unfinished-example');
     assert.equal(await unfinishedExample.locator('table thead th').count(), 3);
     assert.equal(await unfinishedExample.locator('table tbody tr').count(), 3);
-    const exampleText = await unfinishedExample.innerText();
+    const exampleText = await unfinishedExample.textContent();
     assert(exampleText.includes('unfinished data is being turned into actions'));
     assert(exampleText.includes('never fully prepared for the current task'));
     const staleExample = page.locator('#php-stale-example');
     assert.equal(await staleExample.locator('ol li').count(), 3);
-    const staleText = await staleExample.innerText();
+    const staleText = await staleExample.textContent();
     assert(staleText.includes('another visitor’s orange bag may occupy locker A'));
     assert(staleText.includes('same attendant'));
     assert(staleText.includes('does not mean a normal follow-up request automatically receives'));
+    for (const example of [unfinishedExample, staleExample]) {
+      assert.equal(await example.evaluate(el => el.tagName), 'DETAILS');
+      assert.equal(await example.getAttribute('open'), null);
+      assert(await example.locator('summary').isVisible());
+      assert.equal(await example.locator('summary').evaluate(el => getComputedStyle(el).display), 'list-item');
+      assert(!await example.locator('p').first().isVisible());
+    }
+    const articleText = await page.locator('.post-content').textContent();
+    for (const removed of ['The guard can help in two ways', 'Check what comes in.', 'Check the whole exchange.', 'For example, imagine the guard', 'stopping belongings at the exit', 'The mental model I want to keep']) {
+      assert(!articleText.includes(removed), 'Removed copy remains: ' + removed);
+    }
+    assert(articleText.includes('not a repair to the PHP software'));
     assert.deepEqual(await page.locator('.php-story-panels').evaluateAll(lists => lists.map(list => list.children.length)), [3, 4, 4]);
     assert.equal(await page.locator('.php-story-panel svg[role="img"][aria-label]').count(), 11);
     assert.equal(await page.locator('.php-story-panel ellipse').count(), 4);
@@ -74,6 +89,13 @@ const { chromium } = require(path.resolve(playwright));
         assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), 'Expanded notes overflow at ' + width);
         await notes.locator('summary').click();
       }
+      for (const example of [unfinishedExample, staleExample]) {
+        await example.locator('summary').click();
+        assert(await example.locator('p').first().isVisible());
+        assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), 'Expanded example overflows at ' + width);
+        await example.locator('summary').click();
+        assert(!await example.locator('p').first().isVisible());
+      }
     }
 
     // Keyboard access works without JavaScript, too.
@@ -82,6 +104,13 @@ const { chromium } = require(path.resolve(playwright));
     await page.keyboard.press('Enter');
     assert.equal(await page.locator('.php-technical-notes[open]').count(), 1);
     await page.keyboard.press('Enter');
+    for (const example of [unfinishedExample, staleExample]) {
+      await example.locator('summary').focus();
+      await page.keyboard.press('Enter');
+      assert(await example.locator('p').first().isVisible());
+      await page.keyboard.press('Enter');
+      assert(!await example.locator('p').first().isVisible());
+    }
     if (screenshots) {
       fs.mkdirSync(screenshots, { recursive: true });
       for (const width of [1280, 390]) {
@@ -93,16 +122,22 @@ const { chromium } = require(path.resolve(playwright));
         await page.screenshot({ path: path.join(screenshots, 'article-' + width + '.png') });
         await unfinishedExample.screenshot({ path: path.join(screenshots, 'unfinished-example-' + width + '.png') });
         await staleExample.screenshot({ path: path.join(screenshots, 'stale-example-' + width + '.png') });
+        for (const [name, example] of [['unfinished', unfinishedExample], ['stale', staleExample]]) {
+          await example.locator('summary').click();
+          await example.screenshot({ path: path.join(screenshots, name + '-example-open-' + width + '.png') });
+          await example.locator('summary').click();
+        }
         for (const id of ['normal', 'unfinished', 'stale']) {
           await page.locator('figure[aria-labelledby="php-caption-' + id + '"]').screenshot({ path: path.join(screenshots, id + '-' + width + '.png') });
         }
       }
     }
     await page.goto('http://blog.test/articles/2020-01/welcome-to-jekyll.html');
+    assert.equal(await page.locator('.nav-list a[href*="/img/php-lockers/"]').count(), 0);
     assert.equal(await page.locator('#post').count(), 1);
     assert.equal(await page.locator('#post').getAttribute('class'), null);
     assert.equal(await page.locator('link[href*="php-locker-post.css"]').count(), 0);
-    console.log('PASS: three illustrated strips, eight short walkthrough steps, distinct unfinished-record and stale-slip examples, three boxed tables, accessible technical disclosures, unique IDs, wider 1040px reading column, and no overflow at 320–3440px without JavaScript.');
+    console.log('PASS: both examples collapsed by default and mouse/keyboard accessible, requested Cloudflare copy removed, diagram docs excluded from navigation, three illustrated strips and boxed tables preserved, and no overflow at 320–3440px without JavaScript.');
   } finally {
     await browser.close();
   }

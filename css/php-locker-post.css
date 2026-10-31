@@ -2,10 +2,14 @@
 .php-locker-post { max-width: 1040px; margin-inline: auto; }
 .php-locker-post .post-content { line-height: 1.7; }
 .php-explainer > ol > li { margin-bottom: 0.6em; }
-.php-technical-notes { margin: 1em 0 1.5em; padding: 0.8em 1em; border: 1px solid #d7ddd9; border-radius: 4px; color: #555; font-size: 0.9em; }
-.php-technical-notes summary { color: #28744f; cursor: pointer; font-weight: 600; }
-.php-technical-notes summary:focus-visible { outline: 2px solid #28744f; outline-offset: 4px; }
-.php-technical-notes[open] summary { margin-bottom: 1em; }
+.php-technical-notes,
+.php-example-notes { margin: 1em 0 1.5em; padding: 0.8em 1em; border: 1px solid #d7ddd9; border-radius: 4px; color: #555; font-size: 0.9em; }
+.php-technical-notes summary,
+.php-example-notes summary { display: list-item; color: #28744f; cursor: pointer; font-weight: 600; }
+.php-technical-notes summary:focus-visible,
+.php-example-notes summary:focus-visible { outline: 2px solid #28744f; outline-offset: 4px; }
+.php-technical-notes[open] summary,
+.php-example-notes[open] summary { margin-bottom: 1em; }
 .php-sources { margin-top: 2em; padding-top: 0.5em; border-top: 1px solid #ddd; color: #555; font-size: 0.9em; }
 
 /* A small comic strip, not another flowchart. Text labels supplement every color. */

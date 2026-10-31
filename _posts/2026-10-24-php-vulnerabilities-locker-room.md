@@ -8,7 +8,7 @@ published: true
 post_class: php-locker-post
 ---
 
-<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=5">
+<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=6">
 
 On October 21, 2026, two critical PHP bugs were publicly disclosed. A crafted request could crash a vulnerable website worker, expose information, or sometimes make it run an attacker's code.
 
@@ -69,9 +69,9 @@ Fields that were never initialized are not necessarily safely empty. The recycle
 
 **The mistake is trusting an unfinished slip—not simply running out of space.**
 
-<div id="php-unfinished-example" markdown="1">
-
-#### ⚠️ Why is unfinished paperwork dangerous?
+<details id="php-unfinished-example" class="php-example-notes">
+<summary>⚠️ Why is unfinished paperwork dangerous?</summary>
+<div markdown="1">
 
 The drawing's blank-looking fields mean “not filled in for this task”—not necessarily clean, empty paper.
 
@@ -90,6 +90,7 @@ During cleanup, the attendant treats **every field as a real instruction**, incl
 The slip's fields are invented to explain the failure; they are not PHP's literal internal record. **Bug 1 uses a record that was never fully prepared for the current task.** Keep the “old slip returns the wrong bag” story for Bug 2 below.
 
 </div>
+</details>
 
 ### 🎟️ Bug 2: keeping the slip after the locker is released
 
@@ -110,9 +111,9 @@ This is **CVE-2026-109619**. Not every later request encounters the vulnerable s
 {% endcapture %}
 {% include php-locker-diagram.html id="stale" title="Bug 2: the old slip survives after locker A is emptied" notes=stale_php %}
 
-<div id="php-stale-example" markdown="1">
-
-#### 🔓 How could the attacker get someone else's data?
+<details id="php-stale-example" class="php-example-notes">
+<summary>🔓 How could the attacker get someone else's data?</summary>
+<div markdown="1">
 
 Suppose the first visitor is malicious. They arrange for their task to fail, leaving the attendant with the old blue-bag slip. Later, **another visitor's orange bag may occupy locker A**.
 
@@ -125,6 +126,7 @@ On a website, this illustrates a stale memory reference exposing unrelated data 
 Both bugs can have several consequences, including data exposure. The difference is **why the memory access is unsafe**: Bug 1 trusts unfinished data during cleanup; Bug 2 follows a once-valid reference after its data is gone.
 
 </div>
+</details>
 
 The useful distinction is:
 
@@ -150,17 +152,6 @@ Those are possible outcomes, **not three guaranteed stages**. Code execution als
 While operators deployed PHP updates, Cloudflare shipped an extra layer of protection through its **web application firewall (WAF)**. Cloudflare says these protections were in place before public disclosure on October 21, including for sites using its free WAF.
 
 This was a traffic-level mitigation, **not a repair to the PHP software running on the server**. Think of it as posting a security guard at the locker room while the attendant's faulty procedures are being fixed.
-
-The guard can help in two ways:
-
-1. **Check what comes in.** A recognizable malicious request can be blocked before it reaches PHP—like rejecting an obviously suspicious form at the entrance.
-2. **Check the whole exchange.** Some forms look ordinary on their own. Cloudflare's **full transaction detection** combines signals from the incoming request and the outgoing response. A matching response can then be blocked before it reaches the requester.
-
-For example, imagine the guard lets a form through because it doesn't provide enough evidence of trouble. The attendant processes it and starts handing back belongings. Now the form **together with what is leaving** reveals a suspicious exchange. The guard can stop that return at the door, reducing the chance of someone walking away with another visitor's belongings.
-
-But **stopping belongings at the exit cannot undo something the attendant already did**. Likewise, blocking a response doesn't reverse code already executed on the server. This protection buys time and adds defense in depth; PHP still needs its security update. Coverage also depends on the applicable rules being enabled and traffic actually passing through the WAF.
-
-The mental model I want to keep is simple: **temporary storage needs accurate references, and failure paths need just as much care as the happy path.**
 
 <div class="php-sources" markdown="1">
 
