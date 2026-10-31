@@ -43,7 +43,9 @@ const { chromium } = require(path.resolve(playwright));
 
     for (const width of [320, 390, 600, 768, 1280, 1920, 3440]) {
       await page.setViewportSize({ width, height: 1000 });
-      assert(await page.locator('#post').evaluate(el => el.getBoundingClientRect().width <= 720.1), 'Reading column exceeds 720px');
+      const columnWidth = await page.locator('#post').evaluate(el => el.getBoundingClientRect().width);
+      assert(columnWidth <= 1040.1, 'Reading column exceeds 1040px');
+      if (width >= 1280) assert(columnWidth > 720, 'Desktop column still uses the old narrow measure');
       assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), 'Overflow at ' + width);
       assert.equal(await page.locator('.php-story-panel svg:visible').count(), 11);
       assert.equal(await page.locator('.php-diagram-technical svg:visible').count(), 0);
@@ -72,6 +74,11 @@ const { chromium } = require(path.resolve(playwright));
       fs.mkdirSync(screenshots, { recursive: true });
       for (const width of [1280, 390]) {
         await page.setViewportSize({ width, height: 1000 });
+        await page.evaluate(() => {
+          window.scrollTo(0, 0);
+          document.querySelector('.post-listing').scrollTop = 0;
+        });
+        await page.screenshot({ path: path.join(screenshots, 'article-' + width + '.png') });
         for (const id of ['normal', 'unfinished', 'stale']) {
           await page.locator('figure[aria-labelledby="php-caption-' + id + '"]').screenshot({ path: path.join(screenshots, id + '-' + width + '.png') });
         }
@@ -81,7 +88,7 @@ const { chromium } = require(path.resolve(playwright));
     assert.equal(await page.locator('#post').count(), 1);
     assert.equal(await page.locator('#post').getAttribute('class'), null);
     assert.equal(await page.locator('link[href*="php-locker-post.css"]').count(), 0);
-    console.log('PASS: three illustrated strips, eight short walkthrough steps, accessible technical disclosures, boxed tables, unique IDs, 720px reading column, and no overflow at 320–3440px without JavaScript.');
+    console.log('PASS: three illustrated strips, eight short walkthrough steps, accessible technical disclosures, boxed tables, unique IDs, wider 1040px reading column, and no overflow at 320–3440px without JavaScript.');
   } finally {
     await browser.close();
   }
