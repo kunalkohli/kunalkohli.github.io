@@ -1,0 +1,49 @@
+{% assign panels = site.data.php_locker_stories[include.id] %}
+<ol class="php-story-panels php-story-panels-{{ panels.size }}" aria-label="Locker-room sequence">
+  {% for panel in panels %}
+  <li class="php-story-panel">
+    <span class="php-story-number" aria-hidden="true">{{ forloop.index }}</span>
+    <svg viewBox="0 0 210 184" role="img" aria-label="{{ panel.caption | escape }}" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#456053" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- The same attendant and locker A are reused in every panel. -->
+        <circle cx="28" cy="62" r="10" fill="#fff"/>
+        <path d="M28 72v39m-14-25 14-7 15 10m-15 22-10 23m10-23 11 23"/>
+        <rect x="65" y="32" width="65" height="110" rx="4" fill="#e5f2e9"/>
+        <path d="M73 43h12m-12 6h12m-12 6h12m34 26v13"/>
+        <rect x="147" y="48" width="55" height="76" rx="2" fill="#fffdf4" stroke="#8c8268"/>
+        {% if panel.slip == 'discarded' %}
+        <path d="m153 58 42 55m0-55-42 55" stroke="#666"/>
+        {% elsif panel.slip == 'complete' %}
+        <path d="M155 102h37m-37 8h29" stroke="#b0a991"/>
+        {% else %}
+        <path d="M155 94h37m-37 10h29m-29 10h34" stroke="#b0a991" stroke-dasharray="3 4"/>
+        {% endif %}
+      </g>
+      <g fill="#294b3a" font-size="17" font-weight="600" text-anchor="middle"><text x="98" y="74">A</text></g>
+      {% if panel.bag == 'blue' or panel.bag == 'orange' or panel.bag == 'returned' %}
+      <g transform="translate({% if panel.bag == 'returned' %}8 112{% else %}81 98{% endif %})" stroke-width="2" stroke-linejoin="round" class="php-story-bag-{{ panel.bag }}">
+        <rect width="33" height="27" rx="4"/>
+        <path d="M9 0v-6a7 7 0 0 1 14 0v6" fill="none"/>
+        <path d="M5 14h23"/>
+      </g>
+      {% endif %}
+      <g fill="#514b3c" font-size="12" text-anchor="middle">
+        <text x="174" y="65">SLIP</text>
+        {% if panel.slip == 'complete' %}
+        <text x="174" y="82">A / blue</text>
+        {% elsif panel.slip == 'unfinished' %}
+        <text x="174" y="82">Locker: ?</text>
+        {% endif %}
+      </g>
+      {% if panel.warning %}
+      <!-- A ring and a written label identify the failure, not color alone. -->
+      <ellipse cx="174" cy="86" rx="34" ry="47" fill="none" stroke="#b83842" stroke-width="3"/>
+      <text x="105" y="173" fill="#a52c36" font-size="14" font-weight="600" text-anchor="middle">{{ panel.warning }}</text>
+      {% else %}
+      <text x="105" y="173" fill="#555" font-size="13" text-anchor="middle">{% if panel.bag == 'orange' %}Orange bag in A{% elsif panel.bag == 'empty' or panel.bag == 'returned' %}Locker A is empty{% else %}Blue bag in A{% endif %}</text>
+      {% endif %}
+    </svg>
+    <p>{{ panel.caption }}</p>
+  </li>
+  {% endfor %}
+</ol>

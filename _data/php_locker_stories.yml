@@ -1,0 +1,40 @@
+normal:
+  - caption: The blue bag goes in locker A; its slip is complete.
+    bag: blue
+    slip: complete
+  - caption: The attendant uses the slip to return the blue bag.
+    bag: returned
+    slip: complete
+  - caption: The locker is empty, and the old slip is discarded.
+    bag: empty
+    slip: discarded
+unfinished:
+  - caption: A visitor overwhelms the attendant's workspace.
+    bag: blue
+    slip: blank
+  - caption: The attendant starts a slip for the blue bag.
+    bag: blue
+    slip: unfinished
+  - caption: Space runs out before the slip is finished.
+    bag: blue
+    slip: unfinished
+    warning: Setup stops
+  - caption: Cleanup follows the unfinished slip anyway.
+    bag: blue
+    slip: unfinished
+    warning: Bad slip used
+stale:
+  - caption: The blue bag goes in A; the attendant keeps its slip.
+    bag: blue
+    slip: complete
+  - caption: The task fails; A is emptied, but its slip survives.
+    bag: empty
+    slip: complete
+    warning: Slip survives
+  - caption: A later visitor's orange bag may reuse locker A.
+    bag: orange
+    slip: complete
+  - caption: The same attendant follows the old blue-bag slip.
+    bag: orange
+    slip: complete
+    warning: Old slip used

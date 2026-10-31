@@ -5,19 +5,20 @@ date: 2026-10-24 00:00:00 -0400
 categories: [security, infrastructure, explainers]
 comments: true
 published: true
+post_class: php-locker-post
 ---
 
-On October 21, 2026, two critical bugs in PHP were publicly disclosed. A request sent to a vulnerable server could do more than load a page: it could crash the worker, expose information, or, in some circumstances, make it run an attacker's code.
+<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=4">
 
-Why did this matter so much? PHP powers **roughly 70% of websites whose server-side programming language can be identified**, according to [W3Techs](https://w3techs.com/technologies/details/pl-php). That's a measure of PHP's reach—not a claim that 70% of websites were breached or equally exploitable.
+On October 21, 2026, two critical PHP bugs were publicly disclosed. A crafted request could crash a vulnerable website worker, expose information, or sometimes make it run an attacker's code.
 
-Both bugs involve how PHP handles temporary memory when something goes wrong. One trusts data that was never finished; the other follows a reference after its data is gone. To understand the difference, let's step away from the server and into a **locker room**. 🔐
+PHP powers **roughly 70% of websites whose server-side language can be identified**, according to [W3Techs](https://w3techs.com/technologies/details/pl-php). That's PHP's reach—not the percentage breached or equally exploitable.
+
+Both bugs concern temporary storage after something goes wrong. To see the difference, picture **one attendant, locker A, and a paper slip**. 🔐
 
 <!--more-->
 
 <div class="php-explainer" markdown="1">
-
-<link rel="stylesheet" href="{{ '/css/php-locker-post.css' | relative_url }}?v=3">
 
 ### 🧩 First, what does PHP do?
 
@@ -34,44 +35,63 @@ Imagine an attendant storing visitors' belongings in temporary lockers. Here's h
 | A location slip says “use locker A” | A **memory reference** pointing to where data lives |
 | The attendant clears a locker and retires its slip | **Cleanup**: release the memory and remove references that must not survive |
 
-A normal task is straightforward: put belongings in a locker, finish the record, use the right slip, then release the locker **and retire the old slip** when the task ends.
+### ✅ The normal locker-room routine
 
-The same attendant can serve another visitor afterward. Likewise, a PHP worker can handle many requests over its lifetime.
+A visitor brings a **blue bag**. The attendant puts it in **locker A** and writes a paper slip saying where it is. When the task ends, the attendant returns the bag, empties A, and **discards the slip**.
+
+<figure class="php-diagram" aria-labelledby="php-caption-normal">
+  {% include php-locker-story.html id="normal" %}
+  <figcaption id="php-caption-normal">Normal handling: store, retrieve, then clear both the locker and its slip.</figcaption>
+</figure>
+
+The same attendant can serve another visitor, who brings an **orange bag**. Keep those objects in mind: the locker is temporary storage, and the slip is a reference to it.
 
 ### 🧾 Bug 1: trusting an unfinished record
 
-Here's the sequence, using the locker room to explain what happens on the server:
+This time, the paperwork is never finished:
 
-1. 📨 **The client arrives with a tricky request.** A visitor hands the locker-room attendant a deliberately difficult task. On the website, an attacker sends a crafted HTTP request.
-2. 🗄️ **The server starts organizing it.** The PHP worker—the attendant—reserves temporary memory, like lockers, and begins preparing the request's internal records.
-3. 🛑 **Space runs out before the record is finished.** The attendant stops halfway through the paperwork. In PHP, an out-of-memory failure interrupts setup, leaving some internal data incomplete.
-4. ⚠️ **Cleanup trusts the unfinished record.** Instead of treating it as incomplete, PHP uses that data as though it were valid. **That unsafe memory access is the opening** an attacker may exploit—not simply the fact that space ran out.
+1. 📨 A visitor deliberately overwhelms the attendant's workspace.
+2. 🗄️ The attendant starts a storage slip for the blue bag.
+3. 🛑 Space runs out, leaving some slip fields blank.
+4. ⚠️ During cleanup, the attendant follows the unfinished slip as if it were complete.
 
-{% include php-locker-diagram.html id="unfinished" title="Bug 1: a failure during setup becomes unsafe cleanup" %}
+{% capture unfinished_php %}
+1. (PHP: an attacker sends a crafted HTTP request that pressures memory.)
+2. (PHP: the worker allocates memory and starts initializing internal request data.)
+3. (PHP: an out-of-memory failure interrupts initialization.)
+4. (PHP: cleanup treats partially initialized data as valid, creating unsafe memory access.)
 
-In PHP, this is **CVE-2026-109618**. An out-of-memory failure can interrupt initialization of internal request data. Cleanup may then treat partially initialized data as valid.
+This is **CVE-2026-109618**. A large upload alone does not automatically give someone control of a server; exploitation depends on crafted input and the affected execution path.
+{% endcapture %}
+{% include php-locker-diagram.html id="unfinished" title="Bug 1: cleanup trusts an unfinished slip" notes=unfinished_php %}
 
-Running out of memory is the trigger. **Unsafe use of the unfinished data is the vulnerability.** A big upload alone does not automatically give someone control of a server; exploitation depends on crafted input and the affected execution path.
+**The mistake is trusting an unfinished slip—not simply running out of space.**
 
 ### 🎟️ Bug 2: keeping the slip after the locker is released
 
-This time, the mistake can carry over from one request to another:
+This time, a once-valid slip outlives the belongings it describes:
 
-1. 📥 **A client arrives, and the server starts a task.** The attendant stores belongings in locker A and keeps a location slip. PHP likewise holds a reference to memory owned by the request.
-2. 💥 **The task fails, but its slip survives.** A fatal error ends the request. PHP releases the memory, like emptying locker A, but an old reference still points to that location.
-3. ♻️ **A later request reaches the same attendant.** The same PHP worker handles another request. The released memory may now be reused for different data, just as locker A may hold different belongings.
-4. 🎟️ **The server follows the old slip.** PHP uses the stale reference before normal initialization resets it. It can access invalid or unrelated data. **The opening is the outdated reference—not the new visitor knowing a locker combination.**
+1. 📥 The attendant puts the blue bag in locker A and keeps its slip.
+2. 💥 The task fails; A is emptied, but the attendant forgets to discard the slip.
+3. ♻️ A later visitor's orange bag may be placed in the now-free locker A.
+4. 🎟️ The same attendant follows the old blue-bag slip and may retrieve the wrong belongings.
 
-{% include php-locker-diagram.html id="stale" title="Bug 2: an old reference survives into a later request" %}
+{% capture stale_php %}
+1. (PHP: a request holds a reference to memory containing its data.)
+2. (PHP: a fatal error ends the request; its memory is freed, but an internal reference survives.)
+3. (PHP: a later request runs on the **same worker**; released memory may be reused.)
+4. (PHP: stale state is used before normal initialization resets it, allowing access to invalid or unrelated memory.)
 
-In PHP, this is **CVE-2026-109619**. A fatal error can leave internal state pointing to memory that is freed when the request ends. A later request on that same worker may use the stale state before normal initialization resets it.
+This is **CVE-2026-109619**. Not every later request encounters the vulnerable state. The bag swap illustrates reuse of storage, not a guaranteed data leak.
+{% endcapture %}
+{% include php-locker-diagram.html id="stale" title="Bug 2: the old slip survives after locker A is emptied" notes=stale_php %}
 
 The useful distinction is:
 
-- **Bug 1:** trust information that was never fully prepared.
-- **Bug 2:** trust a reference after the information it pointed to is no longer valid.
+- **Bug 1:** the slip was never finished.
+- **Bug 2:** the slip used to be right, but is now out of date.
 
-This is an analogy for memory handling, not guessing locker combinations or bypassing a login. Not every later visitor or request will encounter the vulnerable state.
+This is an analogy for memory handling—not guessing locker combinations or bypassing a login.
 
 ### 🔓 How does that turn into a break-in?
 
@@ -102,6 +122,8 @@ But **stopping belongings at the exit cannot undo something the attendant alread
 
 The mental model I want to keep is simple: **temporary storage needs accurate references, and failure paths need just as much care as the happy path.**
 
+<div class="php-sources" markdown="1">
+
 ### 📚 Sources and diagrams
 
 Sources for the October 2026 disclosures and PHP usage figure:
@@ -112,6 +134,8 @@ Sources for the October 2026 disclosures and PHP usage figure:
 - [OpenAI: coordinated disclosure and the global response](https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/)
 - [W3Techs: PHP usage statistics and what the percentage measures](https://w3techs.com/technologies/details/pl-php)
 
-Diagrams generated with [Archify](https://github.com/tt-a1i/archify). They illustrate the failure paths, not the mechanics of a working exploit.
+The locker-room strips are custom illustrations. The expandable technical diagrams were generated with [Archify](https://github.com/tt-a1i/archify). Both explain failure paths, not the mechanics of a working exploit.
+
+</div>
 
 </div>

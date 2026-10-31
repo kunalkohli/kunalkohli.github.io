@@ -1,3 +1,27 @@
+/* Opt-in reading measure: other posts retain the site's original layout. */
+.php-locker-post { max-width: 720px; margin-inline: auto; }
+.php-locker-post .post-content { line-height: 1.7; }
+.php-explainer > ol > li { margin-bottom: 0.6em; }
+.php-technical-notes { margin: 1em 0 1.5em; padding: 0.8em 1em; border: 1px solid #d7ddd9; border-radius: 4px; color: #555; font-size: 0.9em; }
+.php-technical-notes summary { color: #28744f; cursor: pointer; font-weight: 600; }
+.php-technical-notes summary:focus-visible { outline: 2px solid #28744f; outline-offset: 4px; }
+.php-technical-notes[open] summary { margin-bottom: 1em; }
+.php-sources { margin-top: 2em; padding-top: 0.5em; border-top: 1px solid #ddd; color: #555; font-size: 0.9em; }
+
+/* A small comic strip, not another flowchart. Text labels supplement every color. */
+.php-diagram .php-story-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; list-style: none; margin: 0; padding: 0; }
+.php-diagram .php-story-panels-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.php-story-panel { min-width: 0; padding: 10px 6px; border: 1px solid #d7ddd9; border-radius: 5px; background: #fff; }
+.php-story-number { display: block; width: 24px; height: 24px; margin: 0 auto 4px; border-radius: 50%; background: #e5f2e9; color: #294b3a; text-align: center; font-size: 13px; font-weight: 600; line-height: 24px; }
+.php-story-panel p { margin: 8px 2px 0; font-size: 14px; line-height: 1.5; }
+.php-diagram .php-story-panel svg { width: 100%; max-width: 210px; max-height: none; }
+.php-story-bag-blue, .php-story-bag-returned { fill: #dceafb; stroke: #285f9a; }
+.php-story-bag-orange { fill: #ffe5cb; stroke: #a6530d; }
+@media (max-width: 600px) {
+  .php-diagram .php-story-panels,
+  .php-diagram .php-story-panels-4 { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* Explicit cell borders override the site's otherwise borderless tables, only here. */
 .php-explainer table { width: 100%; table-layout: fixed; border-collapse: collapse; border: 1px solid #b8b8b8; margin: 1.5em 0; }
 .php-explainer th,
@@ -18,7 +42,7 @@
 .php-diagram :is(.t-muted,.t-edge-default) { fill: #666; }
 .php-diagram .t-backend { fill: #37996d; }
 .php-diagram :is(.t-security,.t-edge-security) { fill: #b83842; }
-.php-diagram path { fill: none; }
+.php-diagram-technical path { fill: none; }
 .php-diagram .a-default { stroke: #666; }
 .php-diagram .a-security { stroke: #b83842; }
 .php-diagram .m-default { fill: #666; }
