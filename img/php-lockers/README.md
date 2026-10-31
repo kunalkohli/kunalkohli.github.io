@@ -39,6 +39,7 @@ After building the Jekyll site, run the browser regression checks with:
 node scripts/test-php-locker-post.cjs /path/to/built/site /path/to/playwright /path/to/optional/screenshots
 ```
 
-The check covers the three strips, two boxed tables, closed-by-default technical
+The check covers the three strips, three boxed tables (including Bug 1's
+unfinished-record example), closed-by-default technical
 notes, keyboard access, unique SVG IDs, the 1040px reading column, and narrow to
 ultrawide layouts without JavaScript.

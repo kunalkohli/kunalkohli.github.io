@@ -23,7 +23,19 @@ const { chromium } = require(path.resolve(playwright));
     });
     await page.goto('http://blog.test/articles/2026-10/php-vulnerabilities-locker-room.html');
     assert.equal(await page.locator('#post.php-locker-post').count(), 1);
-    assert.equal(await page.locator('.php-explainer table').count(), 2);
+    assert.equal(await page.locator('.php-explainer table').count(), 3);
+    const unfinishedExample = page.locator('#php-unfinished-example');
+    assert.equal(await unfinishedExample.locator('table thead th').count(), 3);
+    assert.equal(await unfinishedExample.locator('table tbody tr').count(), 3);
+    const exampleText = await unfinishedExample.innerText();
+    assert(exampleText.includes('unfinished data is being turned into actions'));
+    assert(exampleText.includes('never fully prepared for the current task'));
+    const staleExample = page.locator('#php-stale-example');
+    assert.equal(await staleExample.locator('ol li').count(), 3);
+    const staleText = await staleExample.innerText();
+    assert(staleText.includes('another visitor’s orange bag may occupy locker A'));
+    assert(staleText.includes('same attendant'));
+    assert(staleText.includes('does not mean a normal follow-up request automatically receives'));
     assert.deepEqual(await page.locator('.php-story-panels').evaluateAll(lists => lists.map(list => list.children.length)), [3, 4, 4]);
     assert.equal(await page.locator('.php-story-panel svg[role="img"][aria-label]').count(), 11);
     assert.equal(await page.locator('.php-story-panel ellipse').count(), 4);
@@ -79,6 +91,8 @@ const { chromium } = require(path.resolve(playwright));
           document.querySelector('.post-listing').scrollTop = 0;
         });
         await page.screenshot({ path: path.join(screenshots, 'article-' + width + '.png') });
+        await unfinishedExample.screenshot({ path: path.join(screenshots, 'unfinished-example-' + width + '.png') });
+        await staleExample.screenshot({ path: path.join(screenshots, 'stale-example-' + width + '.png') });
         for (const id of ['normal', 'unfinished', 'stale']) {
           await page.locator('figure[aria-labelledby="php-caption-' + id + '"]').screenshot({ path: path.join(screenshots, id + '-' + width + '.png') });
         }
@@ -88,7 +102,7 @@ const { chromium } = require(path.resolve(playwright));
     assert.equal(await page.locator('#post').count(), 1);
     assert.equal(await page.locator('#post').getAttribute('class'), null);
     assert.equal(await page.locator('link[href*="php-locker-post.css"]').count(), 0);
-    console.log('PASS: three illustrated strips, eight short walkthrough steps, accessible technical disclosures, boxed tables, unique IDs, wider 1040px reading column, and no overflow at 320–3440px without JavaScript.');
+    console.log('PASS: three illustrated strips, eight short walkthrough steps, distinct unfinished-record and stale-slip examples, three boxed tables, accessible technical disclosures, unique IDs, wider 1040px reading column, and no overflow at 320–3440px without JavaScript.');
   } finally {
     await browser.close();
   }
