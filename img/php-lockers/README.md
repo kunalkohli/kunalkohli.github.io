@@ -1,3 +1,8 @@
+---
+title: PHP locker-room diagrams
+nav_exclude: true
+---
+
 # PHP locker-room diagrams
 
 The post uses custom locker-room comic strips for the main narrative and optional
@@ -40,6 +45,6 @@ node scripts/test-php-locker-post.cjs /path/to/built/site /path/to/playwright /p
 ```
 
 The check covers the three strips, three boxed tables (including Bug 1's
-unfinished-record example), closed-by-default technical
-notes, keyboard access, unique SVG IDs, the 1040px reading column, and narrow to
+unfinished-record example), closed-by-default examples and technical
+notes, mouse/keyboard access, requested copy removals, unique SVG IDs, the 1040px reading column, and narrow to
 ultrawide layouts without JavaScript.
