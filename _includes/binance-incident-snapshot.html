@@ -1,0 +1,128 @@
+<!-- Binance Incident — animated snapshot (concise version) -->
+<div class="bnb-snap" id="bnb-snap" role="region" aria-label="Animated timeline of the Binance security incident">
+  <style>
+    .bnb-snap {
+      --bnb-bg: #0b0e14;
+      --bnb-panel: #11151f;
+      --bnb-line: #1f2733;
+      --bnb-text: #dbe4f0;
+      --bnb-dim: #8b98ab;
+      --bnb-accent: #f0b90b;
+      --bnb-bad: #ef4444;
+      --bnb-ok: #22c55e;
+      margin: 2em 0;
+      background: var(--bnb-bg);
+      border: 1px solid var(--bnb-line);
+      border-radius: 14px;
+      overflow: hidden;
+      font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+      color: var(--bnb-text);
+    }
+    .bnb-snap * { box-sizing: border-box; }
+    .bnb-head { padding: 1.4em 1.6em 1em; border-bottom: 1px solid var(--bnb-line); }
+    .bnb-kicker {
+      margin: 0 0 .5em;
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--bnb-dim);
+    }
+    .bnb-title { margin: 0 0 .5em; font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 700; color: #fff; line-height: 1.25; }
+    .bnb-lede { margin: 0; font-size: .9rem; line-height: 1.6; color: var(--bnb-dim); }
+    .bnb-stages { list-style: none; margin: 0; padding: 1.2em 1.6em 1.4em; }
+    .bnb-stage {
+      position: relative;
+      padding: 0 0 1.3em 2.1em;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: bnbIn .7s cubic-bezier(.22,.9,.32,1) forwards;
+      animation-delay: var(--d, 0s);
+    }
+    .bnb-stage:last-child { padding-bottom: 0; }
+    .bnb-stage::before {
+      content: "";
+      position: absolute;
+      left: .45em;
+      top: .55em;
+      bottom: -.35em;
+      width: 2px;
+      background: var(--bnb-line);
+    }
+    .bnb-stage:last-child::before { display: none; }
+    .bnb-dot {
+      position: absolute;
+      left: 0;
+      top: .35em;
+      width: .95em;
+      height: .95em;
+      border-radius: 50%;
+      background: var(--bnb-panel);
+      border: 2px solid var(--bnb-accent);
+    }
+    .bnb-when { margin: 0 0 .35em; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--bnb-accent); }
+    .bnb-name { margin: 0 0 .35em; font-size: 1rem; font-weight: 700; color: #fff; }
+    .bnb-blurb { margin: 0; font-size: .82rem; line-height: 1.6; color: var(--bnb-dim); }
+    .bnb-blurb strong { color: var(--bnb-text); font-weight: 600; }
+    @keyframes bnbIn { to { opacity: 1; transform: translateY(0); } }
+    .bnb-progress { height: 3px; background: var(--bnb-line); }
+    .bnb-progress i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--bnb-accent);
+      animation: bnbFill 4.2s linear forwards;
+      animation-delay: var(--d, 0s);
+    }
+    @keyframes bnbFill { to { width: 100%; } }
+    @media (prefers-reduced-motion: reduce) {
+      .bnb-stage, .bnb-progress i { animation: none; opacity: 1; transform: none; width: 100%; }
+    }
+  </style>
+
+  <div class="bnb-head">    <p class="bnb-kicker">Binance · Security Incident</p>
+    <h3 class="bnb-title">$6.34B in digital assets exposed — a hack that started with an AI coding tool</h3>
+    <p class="bnb-lede">On 29 October 2026 Binance disclosed a sophisticated, multi-stage security incident. An AI-assisted developer environment became the entry point; internal wallet signing systems were later reached; roughly $2.85B was frozen mid-flight.</p>
+  </div>
+
+  <ol class="bnb-stages">
+    <li class="bnb-stage" style="--d:.2s">
+      <span class="bnb-dot"></span>
+      <p class="bnb-when">June 2026</p>
+      <p class="bnb-name">Supply chain compromise</p>
+      <p class="bnb-blurb">An engineer installed a <strong>malicious Homebrew package</strong> while setting up a popular AI coding tool. Binance detected the anomaly, replaced the device, and rotated credentials — but the wallet team had already been exposed.</p>
+    </li>
+    <li class="bnb-stage" style="--d:.9s">
+      <span class="bnb-dot"></span>
+      <p class="bnb-when">Sept – Oct 2026</p>
+      <p class="bnb-name">Social engineering &amp; AI tool springboard</p>
+      <p class="bnb-blurb">A fake recruitment pipeline led to a malicious repo and malware; the attacker later used an <strong>internal AI tool</strong> to pivot toward wallet infrastructure.</p>
+    </li>
+    <li class="bnb-stage" style="--d:1.6s">
+      <span class="bnb-dot"></span>
+      <p class="bnb-when">Oct 29, 2026 · 17:15 UTC</p>
+      <p class="bnb-name">Signing service reached</p>
+      <p class="bnb-blurb">Stolen credentials let the attacker <strong>deploy a container</strong> and trigger a malicious script against Binance's wallet signing operations.</p>
+    </li>
+    <li class="bnb-stage" style="--d:2.3s">
+      <span class="bnb-dot"></span>
+      <p class="bnb-when">Oct 29, 2026 · 20:05–20:09 UTC</p>
+      <p class="bnb-name">Funds move</p>
+      <p class="bnb-blurb">233.46M XRP, ~970,500 SOL, 44.2M OP and later 18,270 BTC were sent toward attacker addresses; the final unauthorized transfer was <strong>2,961.9 ETH</strong>.</p>
+    </li>
+    <li class="bnb-stage" style="--d:2.9s">
+      <span class="bnb-dot"></span>
+      <p class="bnb-when">Containment</p>
+      <p class="bnb-name">Freeze &amp; revoke</p>
+      <p class="bnb-blurb">Binance suspended withdrawals and froze roughly <strong>$2.85B</strong> in assets; the attacker used <strong>EIP-7702</strong> delegation manipulation via 50 signing transactions to keep moving funds.</p>
+    </li>
+    <li class="bnb-stage" style="--d:3.5s">
+      <span class="bnb-dot"></span>
+      <p class="bnb-when">Oct 30, 2026 · 00:10 UTC</p>
+      <p class="bnb-name">Containment complete</p>
+      <p class="bnb-blurb">The final ETH transfer settled at 23:56 UTC; Binance cleared the delegation via a zero-address authorization. ~98% of impacted assets were replenished as of Oct 31.</p>
+    </li>
+  </ol>
+
+  <div class="bnb-progress"><i></i></div>
+</div>
+
