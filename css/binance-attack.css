@@ -1,6 +1,6 @@
-/* Binance attack timeline — scoped to the incident post */
+/* Binance attack player — scoped to the incident post */
 
-.attack-anim {
+.attack-player {
   --attack-bg: #0b1922;
   --attack-panel: #0f2029;
   --attack-line: #2b4651;
@@ -8,9 +8,10 @@
   --attack-cream: #f2e8d5;
   --attack-gold: #e9c987;
   --attack-dim: #93a5a6;
+  --attack-faint: #6b7c7c;
   position: relative;
   margin: 2em 0 2.2em;
-  padding: 24px 22px 16px;
+  padding: 22px 22px 16px;
   overflow: hidden;
   border: 1px solid var(--attack-line);
   border-top: 2px solid var(--attack-red);
@@ -26,18 +27,18 @@
   font-family: "Space Mono", "Roboto Mono", monospace;
 }
 
-.attack-anim p {
+.attack-player p {
   margin: 0;
 }
 
-.attack-anim a {
+.attack-player a {
   color: var(--attack-gold);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.attack-anim a:hover,
-.attack-anim a:focus {
+.attack-player a:hover,
+.attack-player a:focus {
   color: var(--attack-cream);
 }
 
@@ -48,12 +49,95 @@
   overflow: hidden;
 }
 
+/* Header and playback controls */
+
+.attack-player-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(233, 201, 135, 0.14);
+}
+
+.attack-eyebrow {
+  display: block;
+  color: var(--attack-red);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.attack-headline {
+  margin-top: 4px !important;
+  color: var(--attack-cream);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.attack-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.attack-play,
+.attack-replay,
+.attack-step {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: inherit;
+}
+
+.attack-play,
+.attack-replay {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--attack-gold);
+  cursor: pointer;
+}
+
+.attack-play {
+  padding: 6px 9px;
+  border: 1px solid rgba(233, 201, 135, 0.3);
+  border-radius: 3px;
+  background: rgba(255, 90, 54, 0.08);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.attack-play:hover,
+.attack-play:focus-visible {
+  border-color: var(--attack-red);
+  background: rgba(255, 90, 54, 0.16);
+  color: var(--attack-cream);
+}
+
+.attack-count {
+  color: var(--attack-dim);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+/* Six-stage timeline: each step is a tab that opens its scene below. */
+
 .attack-timeline {
   position: relative;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
-  padding-bottom: 4px;
+  margin-top: 18px;
+  padding-bottom: 2px;
 }
 
 .attack-line {
@@ -64,8 +148,6 @@
   z-index: 0;
   height: 1px;
   border-top: 1px dashed rgba(233, 201, 135, 0.32);
-  transform: scaleX(0);
-  transform-origin: left center;
 }
 
 .attack-step {
@@ -75,9 +157,18 @@
   flex-direction: column;
   align-items: center;
   min-width: 0;
-  opacity: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
   text-align: center;
-  transform: translateY(9px);
+  cursor: pointer;
+}
+
+.attack-step:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid var(--attack-gold);
+  outline-offset: 4px;
 }
 
 .attack-date {
@@ -100,6 +191,7 @@
   margin: 6px 0 10px;
   color: var(--attack-red);
   filter: drop-shadow(0 0 7px rgba(255, 90, 54, 0.24));
+  transition: color 150ms ease, filter 150ms ease;
 }
 
 .attack-icon {
@@ -116,6 +208,7 @@
   line-height: 1.35;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  transition: color 150ms ease;
 }
 
 .attack-note {
@@ -127,13 +220,217 @@
   line-height: 1.45;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+  transition: color 150ms ease;
 }
 
-.attack-foot {
+.attack-step:hover .attack-icon-wrap,
+.attack-step.is-active .attack-icon-wrap {
+  color: #ff7a5c;
+  filter: drop-shadow(0 0 12px rgba(255, 90, 54, 0.6));
+}
+
+.attack-step.is-active .attack-date {
+  color: var(--attack-cream);
+}
+
+.attack-step.is-active .attack-stage {
+  color: var(--attack-red);
+}
+
+.attack-step.is-active .attack-note {
+  color: var(--attack-cream);
+}
+
+/* Scene stage */
+
+.attack-stage-view {
+  position: relative;
   margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid var(--attack-line);
+  border-radius: 4px;
+  background: rgba(8, 17, 23, 0.55);
+}
+
+.attack-scene {
+  display: none;
+}
+
+.attack-scene.is-active {
+  display: block;
+}
+
+.attack-scene .scene-frame {
+  padding: 14px 16px 2px;
+  overflow: hidden;
+}
+
+.attack-scene .scene-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--attack-gold);
+  font-family: "Space Mono", "Roboto Mono", monospace;
+}
+
+.attack-scene .scene-svg text {
+  fill: currentColor;
+  font-family: "Space Mono", "Roboto Mono", monospace;
+}
+
+.attack-scene .scene-svg .gold {
+  color: var(--attack-gold);
+}
+
+.attack-scene .scene-svg .cream {
+  color: var(--attack-cream);
+}
+
+.attack-scene .scene-svg .dim {
+  color: var(--attack-dim);
+}
+
+.attack-scene .scene-svg .faint {
+  color: var(--attack-faint);
+}
+
+.attack-scene .scene-svg .red {
+  color: var(--attack-red);
+}
+
+.attack-scene .scene-svg .t-tiny {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.attack-scene .scene-svg .t-small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.attack-scene .scene-svg .t-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.attack-scene .scene-svg .t-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.attack-scene .scene-svg .fill-red {
+  fill: var(--attack-red);
+  stroke: none;
+}
+
+.attack-scene .scene-svg .fill-panel {
+  fill: var(--attack-panel);
+}
+
+.attack-scene .scene-svg .wire {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5 7;
+  stroke-dashoffset: 360;
+}
+
+.attack-scene .scene-svg .wire-solid {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.attack-scene .scene-svg .pop {
+  opacity: 0;
+  transform: scale(0.84);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.attack-scene .scene-svg .fade {
+  opacity: 0;
+}
+
+.attack-scene .scene-svg .blink {
+  opacity: 0.35;
+}
+
+.attack-scene.is-live .scene-svg .pop {
+  animation: attack-scene-pop 0.55s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.attack-scene.is-live .scene-svg .fade {
+  animation: attack-scene-fade 0.6s ease forwards;
+  animation-delay: var(--d, 0s);
+}
+
+.attack-scene.is-live .scene-svg .wire {
+  animation: attack-scene-draw 1.35s ease forwards;
+  animation-delay: var(--d, 0.25s);
+}
+
+.attack-scene.is-live .scene-svg .wire-solid {
+  animation: attack-scene-draw 1.1s ease forwards;
+  animation-delay: var(--d, 0.25s);
+}
+
+.attack-scene.is-live .scene-svg .blink {
+  animation: attack-scene-blink 1.8s steps(2, end) infinite;
+  animation-delay: var(--d, 0s);
+}
+
+.attack-scene.is-live .scene-svg .pulse {
+  animation: attack-scene-pulse 2.2s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.attack-scene-caption {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 14px;
+  align-items: baseline;
+  min-height: 58px;
+  padding: 10px 16px 14px;
+  border-top: 1px dashed var(--attack-line);
+}
+
+.attack-caption-kicker {
+  color: var(--attack-red);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.attack-scene-caption p {
+  color: var(--attack-dim);
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+/* Footer */
+
+.attack-foot {
+  margin-top: 14px;
   padding-top: 12px;
   border-top: 1px solid rgba(233, 201, 135, 0.14);
-  opacity: 0;
   text-align: center;
 }
 
@@ -154,14 +451,9 @@
 }
 
 .attack-replay {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--attack-gold);
   font: inherit;
   text-decoration: underline;
   text-underline-offset: 2px;
-  cursor: pointer;
 }
 
 .attack-replay:hover,
@@ -169,47 +461,82 @@
   color: var(--attack-cream);
 }
 
-.attack-anim.is-live .attack-step {
-  animation: attack-step-in 0.55s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
-  animation-delay: calc(var(--i) * 0.12s + 0.08s);
-}
-
-.attack-anim.is-live .attack-line {
-  animation: attack-line-draw 0.9s ease 0.15s forwards;
-}
-
-.attack-anim.is-live .attack-foot {
-  animation: attack-fade-in 0.5s ease 1.12s forwards;
-}
-
-@keyframes attack-step-in {
+@keyframes attack-scene-fade {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-@keyframes attack-line-draw {
-  to {
-    transform: scaleX(1);
+@keyframes attack-scene-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.84);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-@keyframes attack-fade-in {
+@keyframes attack-scene-draw {
   to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes attack-scene-blink {
+  0%,
+  49% {
+    opacity: 0.35;
+  }
+  50%,
+  100% {
     opacity: 1;
+  }
+}
+
+@keyframes attack-scene-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.06);
   }
 }
 
 @media (max-width: 720px) {
-  .attack-anim {
+  .attack-player {
     margin: 1.8em 0;
     padding: 18px 14px 14px;
+  }
+
+  .attack-player-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 12px;
+  }
+
+  .attack-headline {
+    font-size: 12px;
+  }
+
+  .attack-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .attack-timeline {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px 12px;
+    margin-top: 16px;
   }
 
   .attack-line {
@@ -238,8 +565,36 @@
     font-size: 7.5px;
   }
 
+  .attack-stage-view {
+    margin-top: 14px;
+  }
+
+  .attack-scene .scene-frame {
+    padding: 10px 10px 0;
+  }
+
+  .attack-scene .scene-svg text {
+    display: none;
+  }
+
+  .attack-scene-caption {
+    grid-template-columns: 1fr;
+    gap: 3px;
+    min-height: 96px;
+    padding: 9px 12px 12px;
+  }
+
+  .attack-caption-kicker {
+    font-size: 7.5px;
+    white-space: normal;
+  }
+
+  .attack-scene-caption p {
+    font-size: 9.5px;
+  }
+
   .attack-foot {
-    margin-top: 16px;
+    margin-top: 14px;
     padding-top: 10px;
   }
 
@@ -250,11 +605,29 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .attack-anim .attack-step,
-  .attack-anim .attack-line,
-  .attack-anim .attack-foot {
-    opacity: 1;
-    transform: none;
+  .attack-play {
+    display: none;
+  }
+
+  .attack-player .scene-svg .pop,
+  .attack-player .scene-svg .fade {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .attack-player .scene-svg .wire,
+  .attack-player .scene-svg .wire-solid {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+
+  .attack-player .scene-svg .blink {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .attack-player .scene-svg .pulse {
     animation: none !important;
   }
 }

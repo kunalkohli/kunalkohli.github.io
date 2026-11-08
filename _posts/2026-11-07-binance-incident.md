@@ -6,6 +6,7 @@ categories: [security, ai, blockchain, incident-response]
 comments: true
 published: true
 attack_animation: true
+read_time: 4
 description: "A concise explainer of the $6.34B Binance incident: the fake job interview, the poisoned AI coding tool, the pyenv foothold, the signing-service breach, and the race to freeze the funds."
 excerpt: "A concise explainer of the $6.34B Binance incident — from a fake job interview and a poisoned AI coding tool to the signing-service breach and the on-chain race to freeze the funds."
 ---
