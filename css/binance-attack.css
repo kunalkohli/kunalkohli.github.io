@@ -1,0 +1,260 @@
+/* Binance attack timeline — scoped to the incident post */
+
+.attack-anim {
+  --attack-bg: #0b1922;
+  --attack-panel: #0f2029;
+  --attack-line: #2b4651;
+  --attack-red: #ff5a36;
+  --attack-cream: #f2e8d5;
+  --attack-gold: #e9c987;
+  --attack-dim: #93a5a6;
+  position: relative;
+  margin: 2em 0 2.2em;
+  padding: 24px 22px 16px;
+  overflow: hidden;
+  border: 1px solid var(--attack-line);
+  border-top: 2px solid var(--attack-red);
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(255, 90, 54, 0.12), transparent 58%),
+    linear-gradient(rgba(233, 201, 135, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(233, 201, 135, 0.035) 1px, transparent 1px),
+    var(--attack-bg);
+  background-size: auto, 30px 30px, 30px 30px, auto;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  color: var(--attack-cream);
+  font-family: "Space Mono", "Roboto Mono", monospace;
+}
+
+.attack-anim p {
+  margin: 0;
+}
+
+.attack-anim a {
+  color: var(--attack-gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.attack-anim a:hover,
+.attack-anim a:focus {
+  color: var(--attack-cream);
+}
+
+.attack-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.attack-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  padding-bottom: 4px;
+}
+
+.attack-line {
+  position: absolute;
+  top: 88px;
+  right: 4%;
+  left: 4%;
+  z-index: 0;
+  height: 1px;
+  border-top: 1px dashed rgba(233, 201, 135, 0.32);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.attack-step {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  opacity: 0;
+  text-align: center;
+  transform: translateY(9px);
+}
+
+.attack-date {
+  display: block;
+  height: 14px;
+  color: var(--attack-red);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.attack-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  margin: 6px 0 10px;
+  color: var(--attack-red);
+  filter: drop-shadow(0 0 7px rgba(255, 90, 54, 0.24));
+}
+
+.attack-icon {
+  display: block;
+  width: 52px;
+  height: 52px;
+}
+
+.attack-stage {
+  display: block;
+  color: var(--attack-cream);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.attack-note {
+  display: block;
+  margin-top: 3px;
+  color: var(--attack-red);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.attack-foot {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(233, 201, 135, 0.14);
+  opacity: 0;
+  text-align: center;
+}
+
+.attack-motto {
+  color: var(--attack-gold);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.attack-source {
+  margin-top: 5px !important;
+  color: var(--attack-dim);
+  font-size: 8px;
+  line-height: 1.7;
+}
+
+.attack-replay {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--attack-gold);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.attack-replay:hover,
+.attack-replay:focus {
+  color: var(--attack-cream);
+}
+
+.attack-anim.is-live .attack-step {
+  animation: attack-step-in 0.55s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  animation-delay: calc(var(--i) * 0.12s + 0.08s);
+}
+
+.attack-anim.is-live .attack-line {
+  animation: attack-line-draw 0.9s ease 0.15s forwards;
+}
+
+.attack-anim.is-live .attack-foot {
+  animation: attack-fade-in 0.5s ease 1.12s forwards;
+}
+
+@keyframes attack-step-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes attack-line-draw {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes attack-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .attack-anim {
+    margin: 1.8em 0;
+    padding: 18px 14px 14px;
+  }
+
+  .attack-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 12px;
+  }
+
+  .attack-line {
+    display: none;
+  }
+
+  .attack-icon-wrap {
+    height: 50px;
+    margin: 4px 0 8px;
+  }
+
+  .attack-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .attack-date {
+    font-size: 8px;
+  }
+
+  .attack-stage {
+    font-size: 10px;
+  }
+
+  .attack-note {
+    font-size: 7.5px;
+  }
+
+  .attack-foot {
+    margin-top: 16px;
+    padding-top: 10px;
+  }
+
+  .attack-motto,
+  .attack-source {
+    font-size: 7.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .attack-anim .attack-step,
+  .attack-anim .attack-line,
+  .attack-anim .attack-foot {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+}

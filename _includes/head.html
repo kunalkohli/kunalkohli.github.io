@@ -17,7 +17,7 @@
   <meta name="keywords" content="{{ site.keywords | array_to_sentence_string }}">
   <meta name="author" content="{{ title | escape }}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="{% if page.layout == 'incident' %}#0a141b{% else %}#f5f5f5{% endif %}">
+  <meta name="theme-color" content="#f5f5f5">
 
   <!-- Twitter Tags -->
   <meta name="twitter:card" content="summary">
@@ -44,11 +44,12 @@
   <!-- CSS files -->
   <link rel="stylesheet" href="{{ site.url }}/css/font-awesome.min.css">
   <link rel="stylesheet" href="{{ site.url }}/css/main.css">
-  {% if page.layout == 'incident' %}
+  {% if page.attack_animation %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ site.url }}/css/binance-incident.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ site.url }}/css/binance-attack.css">
+  <script src="{{ site.url }}/js/binance-attack.js" defer></script>
   {% endif %}
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">

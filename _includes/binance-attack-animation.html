@@ -1,0 +1,108 @@
+<div class="attack-anim" data-attack-anim aria-label="Six steps of the Binance attack">
+  <svg class="attack-sprite" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <symbol id="atk-laptop" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="13" y="10" width="38" height="28" rx="3"/>
+          <path d="M7 46h50l-5 7H12z"/>
+          <path d="M27 50h10"/>
+        </g>
+      </symbol>
+      <symbol id="atk-chat" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 10h48v32H28L16 52V42H8z"/>
+          <path d="M18 22h28M18 30h18"/>
+        </g>
+      </symbol>
+      <symbol id="atk-terminal" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="9" width="50" height="42" rx="4"/>
+          <path d="M7 19h50"/>
+          <path d="M16 29l7 5-7 5M28 39h17"/>
+        </g>
+      </symbol>
+      <symbol id="atk-chip" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="16" y="16" width="32" height="32" rx="3"/>
+          <path d="M24 16V7M32 16V7M40 16V7M24 48v9M32 48v9M40 48v9M16 24H7M16 32H7M16 40H7M48 24h9M48 32h9M48 40h9"/>
+        </g>
+        <text x="32" y="37" text-anchor="middle" font-family="Space Mono, monospace" font-size="11" font-weight="700" fill="currentColor" stroke="none">AI</text>
+      </symbol>
+      <symbol id="atk-breach" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="14" y="6" width="36" height="36" rx="4"/>
+          <circle cx="32" cy="24" r="9"/>
+          <path d="M32 15v4M32 29v4M23 24h4M37 24h4"/>
+          <circle cx="32" cy="49" r="3.5"/>
+          <path d="M24 62c0-5 3.5-8 8-8s8 3 8 8"/>
+        </g>
+        <circle cx="32" cy="24" r="2" fill="currentColor" stroke="none"/>
+      </symbol>
+      <symbol id="atk-coin" viewBox="0 0 64 64">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="22"/>
+          <path d="M32 16v32M40 23c-2-2.5-5-4-8-4-4 0-8 2-8 6s4 6 8 6 8 2 8 6-4 6-8 6c-3 0-6-1.5-8-4"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="attack-timeline">
+    <span class="attack-line" aria-hidden="true"></span>
+
+    <div class="attack-step" style="--i:0">
+      <span class="attack-date">JUN</span>
+      <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-laptop"/></svg></span>
+      <span class="attack-stage">Recon</span>
+      <span class="attack-note">Team exposed</span>
+    </div>
+
+    <div class="attack-step" style="--i:1">
+      <span class="attack-date">SEP</span>
+      <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-chat"/></svg></span>
+      <span class="attack-stage">Lure</span>
+      <span class="attack-note">Fake interview</span>
+    </div>
+
+    <div class="attack-step" style="--i:2">
+      <span class="attack-date">SEP–OCT</span>
+      <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-terminal"/></svg></span>
+      <span class="attack-stage">Foothold</span>
+      <span class="attack-note">0-day in pyenv</span>
+    </div>
+
+    <div class="attack-step" style="--i:3">
+      <span class="attack-date">20 OCT</span>
+      <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-chip"/></svg></span>
+      <span class="attack-stage">Pivot</span>
+      <span class="attack-note">AI tool</span>
+    </div>
+
+    <div class="attack-step" style="--i:4">
+      <span class="attack-date">29 OCT</span>
+      <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-breach"/></svg></span>
+      <span class="attack-stage">Breach</span>
+      <span class="attack-note">Signing path</span>
+    </div>
+
+    <div class="attack-step" style="--i:5">
+      <span class="attack-date">20:05 UTC</span>
+      <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-coin"/></svg></span>
+      <span class="attack-stage">Drain</span>
+      <span class="attack-note">$6.34B out</span>
+    </div>
+  </div>
+
+  <div class="attack-foot">
+    <p class="attack-motto">Five months · six steps · no private key stolen</p>
+    <p class="attack-source">Source: <a href="https://www.binance.com/en/blog/community/3229153443759566763" target="_blank" rel="noopener">Binance initial findings</a>, 3 Nov 2026. <button class="attack-replay" type="button">↻ click to replay</button></p>
+  </div>
+</div>
+
+<noscript>
+  <style>
+    .attack-anim .attack-step,
+    .attack-anim .attack-foot { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .attack-anim .attack-line { transform: none !important; animation: none !important; }
+  </style>
+</noscript>
