@@ -6,6 +6,7 @@ categories: [security, ai, blockchain, incident-response]
 comments: true
 published: true
 attack_animation: true
+mermaid: true
 read_time: 4
 description: "A concise explainer of the $6.34B Binance incident: the fake job interview, the poisoned AI coding tool, the pyenv foothold, the signing-service breach, and the race to freeze the funds."
 excerpt: "A concise explainer of the $6.34B Binance incident — from a fake job interview and a poisoned AI coding tool to the signing-service breach and the on-chain race to freeze the funds."
@@ -17,17 +18,54 @@ On 29 October 2026, attackers moved about **$6.34 billion** out of Binance's hot
 
 Binance says no private key was stolen. The attackers spent five months getting into the laptops of the engineers who run the wallets, then used Binance's own signing service to approve the transfers. About **$2.85 billion** was frozen; Binance absorbed the rest and says users lost nothing.
 
-- **Impacted:** $6.34B (Elliptic estimates $8.43B)
-- **Frozen:** $2.85B, about 45%
-- **Main drain:** ~20 minutes, 20:05–20:24 UTC
-- **User losses:** $0
-- **Attribution:** North Korea's TraderTraitor group (FBI)
+<table class="bordered">
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Impacted</strong></td>
+      <td>$6.34B (Elliptic estimates $8.43B)</td>
+    </tr>
+    <tr>
+      <td><strong>Frozen</strong></td>
+      <td>$2.85B, about 45%</td>
+    </tr>
+    <tr>
+      <td><strong>Main drain</strong></td>
+      <td>~20 minutes, 20:05–20:24 UTC</td>
+    </tr>
+    <tr>
+      <td><strong>User losses</strong></td>
+      <td>$0</td>
+    </tr>
+    <tr>
+      <td><strong>Attribution</strong></td>
+      <td>North Korea's TraderTraitor group (FBI)</td>
+    </tr>
+  </tbody>
+</table>
 
 ## How they did it
 
 {% include binance-attack-animation.html %}
 
-Binance calls it a "sophisticated, multi-stage campaign" — "not a single isolated breach or a simple phishing incident." The entry point was a poisoned install of a popular AI coding tool. A fake job interview then got an engineer to run a malicious "assignment" repo on his work laptop, with the malware hidden in the job-application exercise. It hid inside **pyenv**, a trusted developer tool. From there, an internal AI tool led the attackers to two more wallet engineers. One had a container deployment token.
+### Attack path
+
+<div class="attack-path">
+  <div class="mermaid">
+flowchart LR
+  A["Poisoned install<br/>AI coding tool"] --> B["Lure<br/>fake job interview"]
+  B --> C["Malicious repo<br/>take-home"]
+  C --> D["Foothold<br/>pyenv backdoor"]
+  D --> E["Pivot<br/>internal AI tool"]
+  E --> F["Deploy token<br/>signing service"]
+  </div>
+</div>
+<p class="attack-path-hint">Swipe to follow the path →</p>
 
 ## The breach
 

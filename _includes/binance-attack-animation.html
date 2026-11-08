@@ -33,9 +33,10 @@
           <rect x="14" y="6" width="36" height="36" rx="4"/>
           <circle cx="32" cy="24" r="9"/>
           <path d="M32 15v4M32 29v4M23 24h4M37 24h4"/>
-          <circle cx="32" cy="49" r="3.5"/>
+          <path d="M27 52c0-3 2-5 5-5s5 2 5 5l-2 4h-6z"/>
           <path d="M24 62c0-5 3.5-8 8-8s8 3 8 8"/>
         </g>
+        <path d="M29 51l3 1M35 51l-3 1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         <circle cx="32" cy="24" r="2" fill="currentColor" stroke="none"/>
       </symbol>
       <symbol id="atk-coin" viewBox="0 0 64 64">
@@ -55,15 +56,12 @@
       </symbol>
       <symbol id="ic-attacker" viewBox="0 0 56 72">
         <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 70V42c0-13 7-22 16-22s16 9 16 22v28"/>
-          <path d="M12 70h32"/>
-          <path d="M18 26c0-10 4-16 10-16s10 6 10 16"/>
-          <path d="M20 38h6M30 38h6"/>
-          <path d="M24 52h8"/>
-          <circle cx="28" cy="58" r="3"/>
+          <path d="M10 70V43c0-11 4-20 10-25L28 4l8 14c6 5 10 14 10 25v27"/>
+          <path d="M10 70h36"/>
+          <path d="M18 28c2-7 6-11 10-11s8 4 10 11"/>
+          <path d="M23 54h10"/>
         </g>
-        <circle cx="23" cy="38" r="1.5" fill="currentColor"/>
-        <circle cx="33" cy="38" r="1.5" fill="currentColor"/>
+        <path d="M20 39l6 2M36 39l-6 2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
       </symbol>
       <symbol id="ic-fake" viewBox="0 0 56 72">
         <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -209,43 +207,48 @@
 
   <div class="attack-timeline" role="tablist" aria-label="Attack stages">
     <span class="attack-line" aria-hidden="true"></span>
-    <button class="attack-step is-active" type="button" role="tab" id="attack-tab-recon" aria-selected="true" aria-controls="attack-scene-recon" data-attack-stage="0" tabindex="0" style="--i:0">
+    <button class="attack-step is-active" type="button" role="tab" id="attack-tab-recon" aria-selected="true" aria-controls="attack-scene-recon" data-attack-stage="0" data-tldr="A tampered AI tool leaks the wallet team." tabindex="0" style="--i:0">
       <span class="attack-date">JUN</span>
       <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-laptop"/></svg></span>
       <span class="attack-stage">Recon</span>
       <span class="attack-note">Team exposed</span>
     </button>
-    <button class="attack-step" type="button" role="tab" id="attack-tab-lure" aria-selected="false" aria-controls="attack-scene-lure" data-attack-stage="1" tabindex="-1" style="--i:1">
+    <button class="attack-step" type="button" role="tab" id="attack-tab-lure" aria-selected="false" aria-controls="attack-scene-lure" data-attack-stage="1" data-tldr="A fake interview plants malware on a laptop." tabindex="-1" style="--i:1">
       <span class="attack-date">SEP</span>
       <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-chat"/></svg></span>
       <span class="attack-stage">Lure</span>
       <span class="attack-note">Fake interview</span>
     </button>
-    <button class="attack-step" type="button" role="tab" id="attack-tab-foothold" aria-selected="false" aria-controls="attack-scene-foothold" data-attack-stage="2" tabindex="-1" style="--i:2">
+    <button class="attack-step" type="button" role="tab" id="attack-tab-foothold" aria-selected="false" aria-controls="attack-scene-foothold" data-attack-stage="2" data-tldr="A same-name pyenv opens a remote shell." tabindex="-1" style="--i:2">
       <span class="attack-date">SEP–OCT</span>
       <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-terminal"/></svg></span>
       <span class="attack-stage">Foothold</span>
       <span class="attack-note">0-day in pyenv</span>
     </button>
-    <button class="attack-step" type="button" role="tab" id="attack-tab-pivot" aria-selected="false" aria-controls="attack-scene-pivot" data-attack-stage="3" tabindex="-1" style="--i:3">
+    <button class="attack-step" type="button" role="tab" id="attack-tab-pivot" aria-selected="false" aria-controls="attack-scene-pivot" data-attack-stage="3" data-tldr="An internal AI tool leads to a deploy token." tabindex="-1" style="--i:3">
       <span class="attack-date">20 OCT</span>
       <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-chip"/></svg></span>
       <span class="attack-stage">Pivot</span>
       <span class="attack-note">AI tool</span>
     </button>
-    <button class="attack-step" type="button" role="tab" id="attack-tab-breach" aria-selected="false" aria-controls="attack-scene-breach" data-attack-stage="4" tabindex="-1" style="--i:4">
+    <button class="attack-step" type="button" role="tab" id="attack-tab-breach" aria-selected="false" aria-controls="attack-scene-breach" data-attack-stage="4" data-tldr="A container reaches the signing service." tabindex="-1" style="--i:4">
       <span class="attack-date">29 OCT</span>
       <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-breach"/></svg></span>
       <span class="attack-stage">Breach</span>
       <span class="attack-note">Signing path</span>
     </button>
-    <button class="attack-step" type="button" role="tab" id="attack-tab-drain" aria-selected="false" aria-controls="attack-scene-drain" data-attack-stage="5" tabindex="-1" style="--i:5">
+    <button class="attack-step" type="button" role="tab" id="attack-tab-drain" aria-selected="false" aria-controls="attack-scene-drain" data-attack-stage="5" data-tldr="Ten chains are drained in about 20 minutes." tabindex="-1" style="--i:5">
       <span class="attack-date">20:05 UTC</span>
       <span class="attack-icon-wrap"><svg class="attack-icon" viewBox="0 0 64 64" aria-hidden="true"><use href="#atk-coin"/></svg></span>
       <span class="attack-stage">Drain</span>
       <span class="attack-note">$6.34B out</span>
     </button>
   </div>
+
+  <p class="attack-tldr" aria-live="polite">
+    <span class="attack-tldr-kicker">TL;DR</span>
+    <span data-attack-tldr>A tampered AI tool leaks the wallet team.</span>
+  </p>
 
   <div class="attack-stage-view">
     <div class="attack-scene is-active" id="attack-scene-recon" data-attack-scene="0" role="tabpanel" aria-labelledby="attack-tab-recon">
@@ -362,12 +365,12 @@
               <g class="pop gold" style="--d:.6s">
                 <text x="490" y="48" class="t-tiny dim">~/.pyenv/libexec/</text>
                 <use href="#ic-file" x="494" y="70" width="52" height="64"/>
-                <text x="520" y="116" text-anchor="middle" class="t-tiny cream">pyenv</text>
-                <text x="520" y="130" text-anchor="middle" class="t-tiny dim">3,414 B</text>
+                <text x="558" y="92" class="t-tiny cream">pyenv</text>
+                <text x="558" y="108" class="t-tiny dim">3,414 B</text>
               </g>
               <g class="pop red" style="--d:.75s">
-                <rect x="552" y="64" width="48" height="22" rx="11" fill="rgba(255,90,54,.1)" stroke="currentColor"/>
-                <text x="576" y="79" text-anchor="middle" class="t-tiny">+70 B</text>
+                <rect x="622" y="82" width="48" height="22" rx="11" fill="rgba(255,90,54,.1)" stroke="currentColor"/>
+                <text x="646" y="97" text-anchor="middle" class="t-tiny">+70 B</text>
               </g>
               <g class="pop red" style="--d:1.05s">
                 <rect x="620" y="140" width="110" height="26" rx="13" fill="rgba(255,90,54,.08)" stroke="currentColor"/>
@@ -376,7 +379,7 @@
 
               <use href="#ic-attacker" x="692" y="198" width="54" height="72" class="pop red" style="--d:1.15s"/>
               <path class="wire red" d="M546 128 C 590 170, 640 186, 700 210" style="--d:.85s"/>
-              <text x="540" y="176" text-anchor="middle" class="t-tiny red fade" style="--d:1s">AND DROPS IN ITS OWN COPY</text>
+              <text x="540" y="150" text-anchor="end" class="t-tiny red fade" style="--d:1s">AND DROPS IN ITS OWN COPY</text>
 
               <text x="620" y="300" text-anchor="middle" class="t-small cream fade" style="--d:1.25s">SAME NAME · SAME PATH</text>
               <text x="620" y="318" text-anchor="middle" class="t-tiny red fade" style="--d:1.35s">+70 BYTES PHONE HOME</text>

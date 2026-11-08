@@ -10,7 +10,8 @@
   --attack-dim: #93a5a6;
   --attack-faint: #6b7c7c;
   position: relative;
-  margin: 2em 0 2.2em;
+  max-width: 880px;
+  margin: 2em auto 2.2em;
   padding: 22px 22px 16px;
   overflow: hidden;
   border: 1px solid var(--attack-line);
@@ -40,6 +41,20 @@
 .attack-player a:hover,
 .attack-player a:focus {
   color: var(--attack-cream);
+}
+
+.attack-path {
+  margin: 1.2em 0 1.8em;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.attack-path .mermaid {
+  margin: 0;
+}
+
+.attack-path-hint {
+  display: none;
 }
 
 .attack-sprite {
@@ -239,6 +254,29 @@
 
 .attack-step.is-active .attack-note {
   color: var(--attack-cream);
+}
+
+/* One-line stage summary between the timeline and the scene */
+
+.attack-player .attack-tldr {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0 2px;
+  color: var(--attack-cream);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.attack-tldr-kicker {
+  flex: 0 0 auto;
+  color: var(--attack-red);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* Scene stage */
@@ -565,6 +603,16 @@
     font-size: 7.5px;
   }
 
+  .attack-player .attack-tldr {
+    gap: 7px;
+    margin-top: 12px;
+    font-size: 9px;
+  }
+
+  .attack-tldr-kicker {
+    font-size: 7.5px;
+  }
+
   .attack-stage-view {
     margin-top: 14px;
   }
@@ -575,6 +623,21 @@
 
   .attack-scene .scene-svg text {
     display: none;
+  }
+
+  .attack-path .mermaid {
+    min-width: 980px;
+  }
+
+  .attack-path-hint {
+    display: block;
+    margin: -0.7em 0 1.8em;
+    color: #8a8a8a;
+    font-family: "Space Mono", "Roboto Mono", monospace;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .attack-scene-caption {

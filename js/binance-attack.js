@@ -11,6 +11,7 @@
   var playButton = player.querySelector("[data-attack-play]");
   var replayButton = player.querySelector("[data-attack-replay]");
   var counter = player.querySelector("[data-attack-index]");
+  var tldr = player.querySelector("[data-attack-tldr]");
   var reduceMotion =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -56,6 +57,11 @@
 
     if (counter) {
       counter.textContent = pad(current);
+    }
+
+    if (tldr) {
+      var summary = tabs[current].getAttribute("data-tldr");
+      if (summary) tldr.textContent = summary;
     }
   }
 
