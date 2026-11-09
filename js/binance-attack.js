@@ -35,6 +35,7 @@
 
   function setStage(index, animate) {
     if (!tabs.length) return;
+    player.classList.remove("is-paused");
     current = Math.max(0, Math.min(tabs.length - 1, index));
 
     tabs.forEach(function (tab, i) {
@@ -78,6 +79,7 @@
     if (reduceMotion || playing || tabs.length < 2) return;
 
     playing = true;
+    player.classList.remove("is-paused");
     updatePlayButton();
     if (timer) window.clearInterval(timer);
     timer = window.setInterval(function () {
@@ -122,6 +124,7 @@
       userInteracted = true;
       if (playing) {
         stopPlayback();
+        player.classList.add("is-paused");
         return;
       }
       if (current >= tabs.length - 1) {

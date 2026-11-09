@@ -249,10 +249,11 @@
     <span class="attack-tldr-kicker">TL;DR</span>
     <span data-attack-tldr>A tampered AI tool leaks the wallet team.</span>
   </p>
+  <p class="attack-scene-hint">Swipe the illustration to see each detail →</p>
 
   <div class="attack-stage-view">
     <div class="attack-scene is-active" id="attack-scene-recon" data-attack-scene="0" role="tabpanel" aria-labelledby="attack-tab-recon">
-      <div class="scene-frame">
+      <div class="scene-frame" tabindex="0" role="region" aria-label="Recon illustration, horizontally scrollable on small screens">
         <svg class="scene-svg" viewBox="0 0 800 340" aria-hidden="true">
               <g class="pop gold" style="--d:.1s">
                 <rect x="70" y="26" width="278" height="38" rx="19" fill="none" stroke="currentColor"/>
@@ -279,7 +280,6 @@
               </g>
 
               <path class="wire red" d="M232 198 C 360 100, 520 108, 646 204" style="--d:.7s"/>
-              <path class="wire faint" d="M648 168 C 620 120, 600 100, 590 90" style="--d:1.5s"/>
               <text x="420" y="142" text-anchor="middle" class="t-tiny red fade" style="--d:1s">LEAKS THE TEAM</text>
 
               <text x="147" y="280" text-anchor="middle" class="t-small cream fade" style="--d:.55s">ENGINEER A · WALLET DEVOPS</text>
@@ -294,7 +294,7 @@
       </div>
     </div>
     <div class="attack-scene" id="attack-scene-lure" data-attack-scene="1" role="tabpanel" aria-labelledby="attack-tab-lure">
-      <div class="scene-frame">
+      <div class="scene-frame" tabindex="0" role="region" aria-label="Lure illustration, horizontally scrollable on small screens">
         <svg class="scene-svg" viewBox="0 0 800 340" aria-hidden="true">
               <text x="80" y="28" class="t-tiny dim fade" style="--d:.1s">01 JOB PLATFORM</text>
               <text x="250" y="28" class="t-tiny dim fade" style="--d:.2s">02 VIDEO CALL</text>
@@ -345,7 +345,7 @@
       </div>
     </div>
     <div class="attack-scene" id="attack-scene-foothold" data-attack-scene="2" role="tabpanel" aria-labelledby="attack-tab-foothold">
-      <div class="scene-frame">
+      <div class="scene-frame" tabindex="0" role="region" aria-label="Foothold illustration, horizontally scrollable on small screens">
         <svg class="scene-svg" viewBox="0 0 800 340" aria-hidden="true">
               <g class="pop gold" style="--d:.15s">
                 <rect x="58" y="32" width="304" height="152" rx="6" fill="rgba(8,17,23,.78)" stroke="currentColor"/>
@@ -391,7 +391,7 @@
       </div>
     </div>
     <div class="attack-scene" id="attack-scene-pivot" data-attack-scene="3" role="tabpanel" aria-labelledby="attack-tab-pivot">
-      <div class="scene-frame">
+      <div class="scene-frame" tabindex="0" role="region" aria-label="Pivot illustration, horizontally scrollable on small screens">
         <svg class="scene-svg" viewBox="0 0 800 340" aria-hidden="true">
               <use href="#ic-attacker" x="70" y="168" width="58" height="76" class="pop red" style="--d:.15s"/>
               <text x="100" y="278" text-anchor="middle" class="t-small red fade" style="--d:.35s">ATTACKER</text>
@@ -427,7 +427,7 @@
       </div>
     </div>
     <div class="attack-scene" id="attack-scene-breach" data-attack-scene="4" role="tabpanel" aria-labelledby="attack-tab-breach">
-      <div class="scene-frame">
+      <div class="scene-frame" tabindex="0" role="region" aria-label="Breach illustration, horizontally scrollable on small screens">
         <svg class="scene-svg" viewBox="0 0 800 340" aria-hidden="true">
               <text x="60" y="28" class="t-tiny dim fade" style="--d:.1s">NORMAL WITHDRAWAL</text>
               <path class="wire dim" d="M120 78H640" style="--d:.2s"/>
@@ -487,7 +487,7 @@
       </div>
     </div>
     <div class="attack-scene" id="attack-scene-drain" data-attack-scene="5" role="tabpanel" aria-labelledby="attack-tab-drain">
-      <div class="scene-frame">
+      <div class="scene-frame" tabindex="0" role="region" aria-label="Drain illustration, horizontally scrollable on small screens">
         <svg class="scene-svg" viewBox="0 0 800 340" aria-hidden="true">
               <path class="wire dim" d="M60 190H740" style="--d:.1s"/>
               <rect class="fade red" x="95" y="180" width="345" height="5" rx="2.5" fill="currentColor" style="--d:.5s"/>
@@ -562,6 +562,10 @@
 
 <noscript>
   <style>
+    .attack-player .attack-controls,
+    .attack-player .attack-timeline,
+    .attack-player .attack-tldr,
+    .attack-player .attack-replay { display: none !important; }
     .attack-player .scene-svg .pop,
     .attack-player .scene-svg .fade,
     .attack-player .scene-svg .wire,
