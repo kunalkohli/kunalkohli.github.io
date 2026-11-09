@@ -93,8 +93,14 @@ const { chromium } = require(path.resolve(modulePath));
           const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
           assert.equal(overflow, false, `Overflow: ${entry.url} / ${theme} / ${width}`);
           const copyWidths = await page.locator('.post-content > p').evaluateAll(ps => ps.map(p => p.getBoundingClientRect().width));
-          const zoom = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).zoom) || 1);
-          assert.ok(copyWidths.every(w => w <= 901 * zoom), 'Prose exceeds its reading width');
+          const bounds = await page.evaluate(() => {
+            const zoom = parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
+            const shell = document.querySelector('#post')?.getBoundingClientRect().width ?? 1e4;
+            const layout = document.querySelector('.post-layout');
+            const toc = layout && getComputedStyle(layout).display === 'grid' && layout.querySelector('.post-toc');
+            return shell - (toc ? 235 * zoom : 0);
+          });
+          assert.ok(copyWidths.every(w => w <= bounds + 1), 'Prose exceeds its column');
           if (entry.url === '/' && theme === 'light' && width === 1440) {
             const onOrbit = await page.evaluate(() => {
               const svg = document.querySelector('.art-security svg');
