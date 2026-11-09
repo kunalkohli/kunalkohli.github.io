@@ -7,7 +7,7 @@
       {% if heading_tag contains 'id="' %}
         {% assign heading_id = heading_tag | split: 'id="' | last | split: '"' | first %}
         {% assign heading_text = part | split: '</h' | first | remove_first: heading_tag | remove_first: '>' | strip_html | strip %}
-        <li data-heading-level="{{ heading_level }}"><a href="#{{ heading_id }}">{{ heading_text }}</a></li>
+        <li data-heading-level="{{ heading_level }}"><a href="#{{ heading_id }}">{% assign toc_number = forloop.index %}{% if toc_number < 10 %}{% capture toc_index %}0{{ toc_number }}{% endcapture %}{% else %}{% capture toc_index %}{{ toc_number }}{% endcapture %}{% endif %}<span class="toc-index" aria-hidden="true">{{ toc_index }}</span><span class="toc-text">{{ heading_text }}</span></a></li>
       {% endif %}
     {% endif %}
   {% endfor %}
@@ -18,6 +18,7 @@
   <details class="toc-disclosure" open>
     <summary>ON THIS PAGE <span aria-hidden="true">⌄</span></summary>
     <nav aria-label="Table of contents"><ol>{{ toc_links }}</ol></nav>
+    <p class="toc-left" hidden data-toc-note><span data-toc-remaining></span></p>
     <p class="toc-footnote"><span aria-hidden="true">↘</span>Follow the story.<br>Find the connections.</p>
   </details>
 </aside>

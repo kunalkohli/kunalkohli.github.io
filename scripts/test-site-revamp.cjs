@@ -39,7 +39,36 @@ const { chromium } = require(path.resolve(modulePath));
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
     await page.reload({ waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
-    console.log('PASS latest published hero, all-post index, filtering/search and persisted theme');
+    assert.equal(await page.locator('[data-text-label]').innerText(), '90%');
+    await page.locator('[data-text-step="+"]').click();
+    assert.equal(await page.locator('[data-text-label]').innerText(), '100%');
+    assert.equal(await page.evaluate(() => document.documentElement.style.zoom), '1');
+    await page.reload({ waitUntil: 'networkidle' });
+    assert.equal(await page.locator('[data-text-label]').innerText(), '100%');
+    const raised = await page.locator('.latest-story h1').evaluate(el => el.getBoundingClientRect().height);
+    await page.locator('[data-text-step="+"]').click();
+    const bigger = await page.locator('.latest-story h1').evaluate(el => el.getBoundingClientRect().height);
+    assert.ok(bigger > raised * 1.05, 'The larger setting must visibly enlarge text');
+    assert.equal(await page.locator('[data-text-step="+"]').isDisabled(), true, '110% is the maximum');
+    for (let step = 0; step < 4; step++) await page.locator('[data-text-step="-"]').click();
+    assert.equal(await page.locator('[data-text-label]').innerText(), '70%');
+    assert.equal(await page.locator('[data-text-step="-"]').isDisabled(), true, '70% is the minimum');
+    await page.locator('[data-text-step="+"]').click();
+    console.log('PASS latest published hero, all-post index, filtering/search, persisted theme and text-size control');
+
+    for (const size of ['0.7', '1.1']) {
+      for (const target of ['/', posts[0].url]) {
+        await page.goto(base + target, { waitUntil: 'domcontentloaded' });
+        await page.waitForFunction(() => !document.querySelector('[data-theme-toggle]').hidden);
+        await page.evaluate(value => { document.documentElement.style.zoom = value; }, size);
+        for (const width of [320, 768, 1440]) {
+          await page.setViewportSize({ width, height: 1100 });
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow at zoom ${size}: ${target} / ${width}`);
+        }
+      }
+    }
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    console.log('PASS no overflow at 70% and 110% text sizes across home and article');
 
     const pages = [{ title: 'home', url: '/' }, ...posts, { title: 'topics', url: '/categories/' }, { title: 'archive', url: '/archive/' }, { title: 'about', url: '/resume/' }, { title: 'tags', url: '/tags/' }];
     for (const entry of pages) {
@@ -64,7 +93,21 @@ const { chromium } = require(path.resolve(modulePath));
           const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
           assert.equal(overflow, false, `Overflow: ${entry.url} / ${theme} / ${width}`);
           const copyWidths = await page.locator('.post-content > p').evaluateAll(ps => ps.map(p => p.getBoundingClientRect().width));
-          assert.ok(copyWidths.every(w => w <= 761), 'Prose exceeds its reading width');
+          const zoom = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).zoom) || 1);
+          assert.ok(copyWidths.every(w => w <= 761 * zoom), 'Prose exceeds its reading width');
+          if (entry.url === '/' && theme === 'light' && width === 1440) {
+            const onOrbit = await page.evaluate(() => {
+              const svg = document.querySelector('.art-security svg');
+              if (!svg) return false;
+              const rect = svg.querySelector('.orbit-dot').getBoundingClientRect();
+              const point = new DOMPoint(rect.x + rect.width / 2, rect.y + rect.height / 2).matrixTransform(svg.getScreenCTM().inverse());
+              const dx = point.x - 240, dy = point.y - 150;
+              const c = Math.cos(Math.PI / 6), s = Math.sin(Math.PI / 6);
+              const ux = dx * c + dy * s, uy = -dx * s + dy * c;
+              return Math.abs((ux / 145) ** 2 + (uy / 85) ** 2 - 1) < 0.03;
+            });
+            assert.ok(onOrbit, 'Cover-art dot must ride the drawn orbit ellipse');
+          }
           if (screenshots && (width === 1440 || width === 390) && [posts[0].url, '/'].includes(entry.url)) {
             fs.mkdirSync(screenshots, { recursive: true });
             await page.evaluate(() => scrollTo(0, 0));

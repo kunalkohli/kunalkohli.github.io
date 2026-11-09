@@ -30,6 +30,33 @@
   });
   updateTheme(root.dataset.theme || 'light', false);
 
+  var textSteps = Array.from(document.querySelectorAll('[data-text-step]'));
+  if (textSteps.length) {
+    var sizeGroup = textSteps[0].closest('.text-size');
+    var sizeLabel = sizeGroup.querySelector('[data-text-label]');
+    var textSize = parseInt(root.dataset.textSize, 10) || 90;
+    sizeGroup.hidden = false;
+    function normalizeSize(value) { return Math.min(110, Math.max(70, Math.round(value / 10) * 10)); }
+    function updateTextSize(save) {
+      root.style.zoom = textSize / 100;
+      sizeLabel.textContent = textSize + '%';
+      textSteps.forEach(function (button) {
+        var delta = button.dataset.textStep === '+' ? 10 : -10;
+        button.disabled = normalizeSize(textSize + delta) === textSize;
+      });
+      if (save) {
+        try { localStorage.setItem('data-musings-text-size', String(textSize)); } catch (error) {}
+      }
+    }
+    textSteps.forEach(function (button) {
+      button.addEventListener('click', function () {
+        textSize = normalizeSize(textSize + (button.dataset.textStep === '+' ? 10 : -10));
+        updateTextSize(true);
+      });
+    });
+    updateTextSize(false);
+  }
+
   var search = document.querySelector('[data-search]');
   if (search) {
     var filter = 'all';
@@ -102,12 +129,22 @@
     });
   }
   var progress = document.querySelector('[data-reading-progress]');
+  var tocNote = document.querySelector('[data-toc-note]');
+  var tocRemaining = document.querySelector('[data-toc-remaining]');
+  var bylineRead = document.querySelector('.post-byline .read-time');
+  var totalMinutes = bylineRead ? parseInt(bylineRead.textContent, 10) : 0;
   var pending = false;
   function updateReading() {
     pending = false;
     var bounds = article.getBoundingClientRect();
     var distance = Math.max(1, article.offsetHeight - window.innerHeight);
-    if (progress) progress.style.width = Math.max(0, Math.min(1, -bounds.top / distance)) * 100 + '%';
+    var fraction = Math.max(0, Math.min(1, -bounds.top / distance));
+    if (progress) progress.style.width = fraction * 100 + '%';
+    if (tocNote && totalMinutes) {
+      tocNote.hidden = false;
+      var left = Math.max(0, Math.min(totalMinutes, Math.ceil(totalMinutes * (1 - fraction))));
+      tocRemaining.textContent = left === 0 ? 'Done ✓' : left + ' min left';
+    }
     var current = entries[0];
     entries.forEach(function (entry) {
       if (entry.heading.getClientRects().length && entry.heading.getBoundingClientRect().top <= window.innerHeight * .3) current = entry;

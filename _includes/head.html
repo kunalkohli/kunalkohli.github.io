@@ -28,6 +28,12 @@
       if (theme !== 'light' && theme !== 'dark') theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.dataset.theme = theme;
       document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#141a2b' : '#f1f3f8';
+      var textSize;
+      try { textSize = parseInt(localStorage.getItem('data-musings-text-size'), 10); } catch (error) {}
+      if (!(textSize >= 70 && textSize <= 110)) textSize = 90;
+      textSize = Math.round(textSize / 10) * 10;
+      document.documentElement.dataset.textSize = textSize;
+      document.documentElement.style.zoom = textSize / 100;
     })();
   </script>
 

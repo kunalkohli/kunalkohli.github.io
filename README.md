@@ -21,7 +21,7 @@ Kunal Kohli's Jekyll blog. The site uses the approved **Signal layout with Workb
 - `/archive/`, `/categories/`, `/tags/`, `/resume/`: redesigned secondary pages. Legacy `/archive.html` and `/tags.html` links redirect to their canonical pages.
 - Biography, career, education, skill, and project data still come from `_data/index/` and `_includes/sections/about.html`. The biography now presents skill names as accessible tags rather than relying on the old external Chart.js widget.
 
-Themes follow the OS until the reader makes a choice. The choice is saved under the site-only `data-musings-theme` localStorage key and applied before paint. Motion respects `prefers-reduced-motion`. Search and theme buttons remain hidden if JavaScript is unavailable; the writing and contents remain accessible.
+Themes follow the OS until the reader makes a choice. The choice is saved under the site-only `data-musings-theme` localStorage key and applied before paint. A text-size control next to the theme toggle scales the site between 70–110% (default 90%) via the pre-paint script and saves its preference under `data-musings-text-size`; pages render at 100% when JavaScript is unavailable. Motion respects `prefers-reduced-motion`. Search and theme buttons remain hidden if JavaScript is unavailable; the writing and contents remain accessible.
 
 ## Local preview
 

@@ -3,10 +3,46 @@
   {% assign cover_src = art_post.image.feature %}
   {% unless cover_src contains '://' %}{% assign cover_src = cover_src | prepend: '/img/' | relative_url %}{% endunless %}
   <img class="post-cover-image" src="{{ cover_src }}" alt=""{% unless include.hero %} loading="lazy"{% endunless %}>
+{% elsif art_post.slug contains 'binance-incident' %}
+  <div class="post-art art-security" aria-hidden="true">
+    <span class="art-tag">FOLLOW THE CONNECTIONS</span>
+    <svg viewBox="0 0 480 300" fill="none"><g class="art-orbits"><path d="M114.43 77.5A145 85 30 1 1 365.57 222.5A145 85 30 1 1 114.43 77.5"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(-30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(90 240 150)"/></g><g class="art-lock"><rect x="207" y="137" width="66" height="56" rx="10"/><path d="M222 137v-20a18 18 0 0 1 36 0v20m-18 19v15"/></g><g class="art-labels"><rect x="66" y="83" width="104" height="28"/><text x="118" y="101" text-anchor="middle">THE WAY IN</text><rect x="316" y="161" width="111" height="28"/><text x="371" y="179" text-anchor="middle">THE SYSTEM</text><rect class="art-lesson" x="180" y="251" width="120" height="28"/><text class="art-lesson-text" x="240" y="269" text-anchor="middle">THE LESSON</text></g><circle class="orbit-dot" cx="114.43" cy="77.5" r="4"/></svg>
+    <span class="art-caption">SYSTEMS. PEOPLE. TRUST.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'locker-room' %}
+  <div class="post-art art-lockers" aria-hidden="true">
+    <span class="art-tag">TWO BUGS. TWO SLIPS.</span>
+    <svg viewBox="0 0 480 300" fill="none"><path class="art-grid" d="M0 75h480M0 150h480M0 225h480M96 0v300M240 0v300M384 0v300"/><g class="locker"><rect x="118" y="76" width="74" height="154" rx="4"/><path d="M132 100h46M132 112h46M155 138v16"/></g><g class="locker locker-open"><rect x="214" y="76" width="74" height="154" rx="4"/><rect x="216" y="52" width="70" height="152" rx="4" transform="rotate(-16 216 52)"/><path d="M228 150h46v22a10 10 0 0 1-10 10h-26a10 10 0 0 1-10-10z"/><circle cx="264" cy="132" r="12"/><path d="M252 172l10-14 10 14"/></g><g class="locker"><rect x="310" y="76" width="74" height="154" rx="4"/><path d="M324 100h46M324 112h46M347 138v16a6 6 0 1 0 12 0v-16"/></g><path d="M84 254h312M108 254v18M372 254v18"/></svg>
+    <span class="art-caption">ONE UNFINISHED RECORD. ONE STALE SLIP.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'healthify' %}
+  <div class="post-art art-pulse" aria-hidden="true">
+    <span class="art-tag">EVERY GUESS GETS A GUARDRAIL</span>
+    <svg viewBox="0 0 480 300" fill="none"><path class="art-grid" d="M0 75h480M0 150h480M0 225h480M96 0v300M240 0v300M384 0v300"/><rect x="212" y="98" width="120" height="66" rx="10"/><path d="M232 120h80M232 136h56"/><path class="art-chart" d="M30 196h58l20-30 24 62 26-120 24 88 18-32h64l16-22 18 22h106"/><circle cx="212" cy="131" r="5" fill="currentColor"/><circle cx="402" cy="131" r="5" fill="currentColor"/></svg>
+    <span class="art-caption">CHAT IS THE ONLY GATEWAY.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'little-adventurers' %}
+  <div class="post-art art-paper" aria-hidden="true">
+    <span class="art-tag">PENCIL FIRST. SCREEN NEVER.</span>
+    <svg viewBox="0 0 480 300" fill="none"><g transform="rotate(-6 240 150)"><rect x="126" y="64" width="168" height="176" rx="4"/><path d="M152 96h96M152 112h64"/><path d="M154 146q22-14 44 0t44 0q22-14 44 0"/><rect x="152" y="176" width="16" height="16" rx="3"/><path d="M155 184l4 5 8-10"/><rect x="188" y="176" width="16" height="16" rx="3"/><path d="M191 184l4 5 8-10"/><rect x="224" y="176" width="16" height="16" rx="3"/><path d="M229 188l3 4 9-11"/><path d="M154 218h116"/></g><g class="pencil" transform="rotate(38 356 128)"><rect x="330" y="116" width="104" height="24" rx="3"/><path d="M330 116l-24 12 24 22M430 120v16"/><path d="M346 116v24"/></g></svg>
+    <span class="art-caption">WORKSHEETS THEIR KIDS CAN HOLD.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'jit' %}
+  <div class="post-art art-branch" aria-hidden="true">
+    <span class="art-tag">WATCH. MEASURE. COMPILE.</span>
+    <svg viewBox="0 0 480 300" fill="none"><path d="M96 74v152"/><path class="system-wires" d="M96 74c60 0 60 66 120 66s60-66 120-66M96 226c60 0 60-84 120-84h120"/><path class="system-wires" d="M96 150c40 0 80 34 120 34"/><circle cx="96" cy="74" r="13"/><circle cx="96" cy="150" r="13"/><circle cx="96" cy="226" r="13"/><circle cx="216" cy="140" r="13"/><circle cx="336" cy="74" r="13"/><circle cx="336" cy="184" r="13"/><rect x="270" y="108" width="132" height="40" rx="8"/><path d="M282 122h56M282 136h76"/></svg>
+    <span class="art-caption">HOT PATHS BECOME MACHINE CODE.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'welcome-to-jekyll' %}
+  <div class="post-art art-hello" aria-hidden="true">
+    <span class="art-tag">ZERO TO PUBLISHED</span>
+    <svg viewBox="0 0 480 300" fill="none"><rect x="76" y="66" width="328" height="172" rx="10"/><path d="M76 100h328"/><circle cx="98" cy="83" r="5"/><circle cx="116" cy="83" r="5"/><circle cx="134" cy="83" r="5"/><text x="100" y="140">$ jekyll serve</text><text x="100" y="168">Server running... press ctrl-c to stop</text><rect x="100" y="188" width="150" height="10" rx="3" fill="none"/><text x="100" y="196">$</text><path d="M116 186l10 5-10 5"/></svg>
+    <span class="art-caption">HELLO, WORLD. IT COMPUTES.<span>↗</span></span>
+  </div>
 {% elsif art_post.categories contains 'security' %}
   <div class="post-art art-security" aria-hidden="true">
     <span class="art-tag">FOLLOW THE CONNECTIONS</span>
-    <svg viewBox="0 0 480 300" fill="none"><g class="art-orbits"><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(-30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(90 240 150)"/></g><g class="art-lock"><rect x="207" y="137" width="66" height="56" rx="10"/><path d="M222 137v-20a18 18 0 0 1 36 0v20m-18 19v15"/></g><g class="art-labels"><rect x="66" y="83" width="104" height="28"/><text x="118" y="101" text-anchor="middle">THE WAY IN</text><rect x="316" y="161" width="111" height="28"/><text x="371" y="179" text-anchor="middle">THE SYSTEM</text><rect x="180" y="251" width="120" height="28"/><text x="240" y="269" text-anchor="middle">THE LESSON</text></g><circle class="orbit-dot" cx="240" cy="31" r="4"/></svg>
+    <svg viewBox="0 0 480 300" fill="none"><g class="art-orbits"><path d="M114.43 77.5A145 85 30 1 1 365.57 222.5A145 85 30 1 1 114.43 77.5"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(-30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(90 240 150)"/></g><g class="art-lock"><rect x="207" y="137" width="66" height="56" rx="10"/><path d="M222 137v-20a18 18 0 0 1 36 0v20m-18 19v15"/></g><g class="art-labels"><rect x="66" y="83" width="104" height="28"/><text x="118" y="101" text-anchor="middle">THE WAY IN</text><rect x="316" y="161" width="111" height="28"/><text x="371" y="179" text-anchor="middle">THE SYSTEM</text><rect class="art-lesson" x="180" y="251" width="120" height="28"/><text class="art-lesson-text" x="240" y="269" text-anchor="middle">THE LESSON</text></g><circle class="orbit-dot" cx="114.43" cy="77.5" r="4"/></svg>
     <span class="art-caption">SYSTEMS. PEOPLE. TRUST.<span>↗</span></span>
   </div>
 {% elsif art_post.categories contains 'ai' or art_post.categories contains 'projects' %}
