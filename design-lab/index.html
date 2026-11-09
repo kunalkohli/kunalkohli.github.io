@@ -1,0 +1,145 @@
+---
+layout: null
+permalink: /design-lab/
+---
+<!doctype html>
+<html lang="en" data-concept="fieldnotes" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <title>Three directions · Data Musings design lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/design-lab/concepts.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+  <script src="{{ '/design-lab/concepts.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#preview">Skip to site preview</a>
+  <header class="lab-bar">
+    <a class="lab-brand" href="{{ '/' | relative_url }}" aria-label="Back to the current Data Musings site"><span class="lab-dot"></span> DESIGN LAB <span class="lab-version">/ v.01</span></a>
+    <p>Three directions. One next chapter.</p>
+    <span class="lab-badge">PROTOTYPE · NOT THE LIVE SITE</span>
+  </header>
+
+  <section class="concept-picker" aria-label="Choose a design direction">
+    <div class="picker-heading"><h1>A new home for curious minds.</h1><p>Choose a direction, explore the homepage & article, and try both themes.</p></div>
+    <div class="concept-options" role="group" aria-label="Design directions">
+      <button class="concept-choice" type="button" data-choice="fieldnotes" aria-pressed="true">
+        <span class="choice-number">01</span><span><strong>Fieldnotes</strong><small>Editorial · thoughtful · warm</small></span><span class="swatches fieldnotes-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <button class="concept-choice" type="button" data-choice="workbench" aria-pressed="false">
+        <span class="choice-number">02</span><span><strong>Workbench</strong><small>Playful · modular · colorful</small></span><span class="swatches workbench-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <button class="concept-choice" type="button" data-choice="signal" aria-pressed="false">
+        <span class="choice-number">03</span><span><strong>Signal</strong><small>Technical · focused · precise</small></span><span class="swatches signal-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+    <div class="preview-tools">
+      <p id="direction-description" aria-live="polite">01 / Fieldnotes — A modern journal. Less chrome, more room for the story.</p>
+      <div class="view-controls" role="group" aria-label="Preview page">
+        <button type="button" data-view-choice="home" aria-pressed="true">Homepage</button>
+        <button type="button" data-view-choice="article" aria-pressed="false">Article</button>
+      </div>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span data-theme-icon aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button>
+    </div>
+  </section>
+
+  <div id="preview" class="site-preview" tabindex="-1">
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
+    <nav class="site-nav" aria-label="Site preview navigation">
+      <a class="wordmark" href="#" data-home><span class="brand-mark" aria-hidden="true">d<span>m</span></span><span>data musings<span class="wordmark-period">.</span></span></a>
+      <div class="nav-links"><a href="#writing" data-writing>Writing</a><button type="button" data-about>About</button><a href="https://github.com/kunalkohli" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div>
+      <span class="nav-note"><span></span> Notes from a curious engineer</span>
+    </nav>
+
+    <main>
+      <div data-page="home">
+        <section class="hero shell" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="tiny-line"></span><span data-hero-eyebrow>THE PERSONAL JOURNAL OF KUNAL KOHLI</span></p>
+            <h2 id="hero-title"><span data-hero-line>The interesting part is</span><br><em data-hero-emphasis>how it works.</em></h2>
+            <p class="hero-description" data-hero-description>Unpacking technology, building small things, and following the questions that won’t leave me alone.</p>
+            <div class="hero-bottom"><a class="text-link" href="#writing">Explore the writing <span aria-hidden="true">↘</span></a><div class="author-mini"><img src="{{ '/img/kunal.png' | relative_url }}" width="36" height="36" alt="Kunal Kohli"><span>By Kunal Kohli<small>Engineer. Builder. Always learning.</small></span></div></div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="visual-caption"><span>IDEAS ARE CONNECTED.</span><span>FIG. 001 ↗</span></div>
+            <svg class="ideas-map" viewBox="0 0 480 350" fill="none">
+              <defs><pattern id="map-dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="currentColor" opacity=".18"/></pattern></defs>
+              <rect width="480" height="350" fill="url(#map-dots)"/>
+              <circle class="map-orbit orbit-one" cx="240" cy="170" r="118"/>
+              <circle class="map-orbit orbit-two" cx="240" cy="170" r="76"/>
+              <path class="map-wire" d="M105 100L240 170 375 95M240 170 350 265M240 170 100 255"/>
+              <g class="map-core"><rect x="197" y="127" width="86" height="86" rx="22"/><path d="m218 159-13 11 13 11m44-22 13 11-13 11m-16-29-12 36"/></g>
+              <g class="map-node node-a"><rect x="51" y="75" width="108" height="42" rx="21"/><text x="105" y="101" text-anchor="middle">SECURITY</text></g>
+              <g class="map-node node-b"><rect x="330" y="74" width="90" height="42" rx="21"/><text x="375" y="100" text-anchor="middle">AI / ML</text></g>
+              <g class="map-node node-c"><rect x="300" y="243" width="100" height="42" rx="21"/><text x="350" y="269" text-anchor="middle">BUILDING</text></g>
+              <g class="map-node node-d"><rect x="52" y="234" width="96" height="42" rx="21"/><text x="100" y="260" text-anchor="middle">SYSTEMS</text></g>
+              <circle class="map-traveler" r="5"><animateMotion dur="9s" repeatCount="indefinite" path="M105 100L240 170 375 95 240 170 350 265 240 170 100 255 240 170 105 100"/></circle>
+            </svg>
+            <div class="visual-foot"><span>Observations → experiments → understanding</span><span class="spark">✳</span></div>
+          </div>
+        </section>
+
+        <section id="writing" class="writing shell" aria-labelledby="writing-title">
+          <div class="section-heading"><div><p class="eyebrow">THE NOTEBOOK</p><h2 id="writing-title">A few things I’ve been thinking about<span>.</span></h2></div><span class="section-count">04 SELECTED STORIES</span></div>
+          <div class="feed-tools">
+            <div class="topic-filters" role="group" aria-label="Filter stories by topic"><button type="button" data-filter="all" aria-pressed="true">Everything <span>04</span></button><button type="button" data-filter="security" aria-pressed="false">Security</button><button type="button" data-filter="ai" aria-pressed="false">AI & building</button></div>
+            <label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search selected stories</span><input type="search" placeholder="Find a story…" autocomplete="off" data-search></label>
+          </div>
+          <div class="feed-grid">
+            <article class="story story-featured" data-story data-topic="security" data-title="The Binance attack explained security social engineering">
+              <div class="story-art security-art" aria-hidden="true"><span class="art-tag">ANATOMY OF AN ATTACK</span><div class="security-network"><i></i><i></i><i></i><div class="lock-symbol"><svg viewBox="0 0 64 72" fill="none"><rect x="10" y="30" width="44" height="34" rx="8"/><path d="M20 30V20a12 12 0 0 1 24 0v10M32 44v8"/></svg></div><span class="art-label label-a">THE LURE</span><span class="art-label label-b">THE FOOTHOLD</span><span class="art-label label-c">THE BREACH</span></div><span class="art-bottom">TRUST IS THE ATTACK SURFACE. <span>↗</span></span></div>
+              <div class="story-body"><div class="story-meta"><span>SECURITY</span><time datetime="2026-11-07">07 NOV 2026</time><span class="story-index">/ 001</span></div><h3><a href="#article" data-article-open>The Binance attack,<br> one step at a time.</a></h3><p>A poisoned install, a fake interview, and a long path to the signing service. Following the chain, not just the headline.</p><div class="story-footer"><span>Visual explainer · 4 min</span><a href="#article" data-article-open class="round-link" aria-label="Preview the article layout">↗</a></div></div>
+            </article>
+            <article class="story" data-story data-topic="security" data-title="Two PHP bugs explained locker room security infrastructure">
+              <div class="story-art lockers-art" aria-hidden="true"><span class="art-tag">UNDER THE HOOD</span><div class="lockers"><i><b>01</b><span></span></i><i><b>02</b><span></span></i><i><b>03</b><span></span></i></div><span class="art-bottom">SMALL BUGS. BIG CONSEQUENCES. <span>↗</span></span></div>
+              <div class="story-body"><div class="story-meta"><span>SECURITY</span><time datetime="2026-10-24">24 OCT 2026</time><span class="story-index">/ 002</span></div><h3><a href="{{ '/articles/2026-10/php-vulnerabilities-locker-room.html' | relative_url }}" target="_blank" rel="noopener">Two PHP bugs, explained with a locker room.</a></h3><p>One attendant, a paper slip, and a better way to understand temporary storage.</p><div class="story-footer"><span>Systems, made visual</span><a class="round-link" href="{{ '/articles/2026-10/php-vulnerabilities-locker-room.html' | relative_url }}" target="_blank" rel="noopener" aria-label="Read the PHP explainer on the existing site (new tab)">↗</a></div></div>
+            </article>
+            <article class="story" data-story data-topic="ai" data-title="Health coach AI health building projects guess">
+              <div class="story-art health-art" aria-hidden="true"><span class="art-tag">A BUILDING NOTE</span><div class="health-graph"><svg viewBox="0 0 400 140" fill="none"><path class="graph-grid" d="M0 35h400M0 70h400M0 105h400M80 0v140M160 0v140M240 0v140M320 0v140"/><path class="graph-line" d="M0 84h65l19-15 20 33 30-68 32 94 28-57h51l22-25 25 25h108"/></svg></div><span class="art-bottom">LESS GUESSWORK. MORE GUARDRAILS. <span>↗</span></span></div>
+              <div class="story-body"><div class="story-meta"><span>AI & BUILDING</span><time datetime="2026-09-04">04 SEP 2026</time><span class="story-index">/ 003</span></div><h3><a href="{{ '/articles/2026-09/healthify.html' | relative_url }}" target="_blank" rel="noopener">A health coach that isn’t allowed to guess.</a></h3><p>Building useful AI starts with deciding what it should never invent.</p><div class="story-footer"><span>From idea to working product</span><a class="round-link" href="{{ '/articles/2026-09/healthify.html' | relative_url }}" target="_blank" rel="noopener" aria-label="Read the health coach post on the existing site (new tab)">↗</a></div></div>
+            </article>
+            <article class="story" data-story data-topic="ai" data-title="Little adventurers screen free learning kids building AI projects">
+              <div class="story-art learning-art" aria-hidden="true"><span class="art-tag">A SMALL EXPERIMENT</span><div class="learning-shapes"><i>✳</i><i>↗</i><i>+</i></div><span class="art-bottom">BUILD FOR THE WORLD OFF-SCREEN. <span>↗</span></span></div>
+              <div class="story-body"><div class="story-meta"><span>AI & BUILDING</span><time datetime="2026-08-01">01 AUG 2026</time><span class="story-index">/ 004</span></div><h3><a href="{{ '/articles/2026-08/little-adventurers.html' | relative_url }}" target="_blank" rel="noopener">Little adventures.<br> Less screen time.</a></h3><p>A learning app for kids that knows when to get out of the way.</p><div class="story-footer"><span>An experiment in everyday learning</span><a class="round-link" href="{{ '/articles/2026-08/little-adventurers.html' | relative_url }}" target="_blank" rel="noopener" aria-label="Read the Little Adventurers post on the existing site (new tab)">↗</a></div></div>
+            </article>
+          </div>
+          <p class="empty-state" hidden>No stories match that search. Try another word or topic.</p>
+          <p class="feed-status sr-only" role="status" aria-live="polite">4 stories shown.</p>
+          <div class="notebook-note"><span class="spark" aria-hidden="true">✳</span><p>Not hot takes.<br><strong>Things worth understanding.</strong></p><a class="text-link" href="{{ '/' | relative_url }}" target="_blank" rel="noopener">All posts on the existing site ↗</a></div>
+        </section>
+      </div>
+
+      <div data-page="article" hidden>
+        <article class="article-preview shell">
+          <header class="article-header">
+            <a href="#" class="back-link" data-home>← All writing</a>
+            <p class="eyebrow">SECURITY / VISUAL EXPLAINER <span>LAYOUT PREVIEW · SAMPLE COPY</span></p>
+            <h2>The interesting part<br>isn’t the breach.<br><em>It’s the way in.</em></h2>
+            <p class="article-deck">A fake interview. A trusted developer tool. A deployment token. How small moments of trust can become a path into production.</p>
+            <div class="article-byline"><img src="{{ '/img/kunal.png' | relative_url }}" alt="" width="40" height="40"><span><strong>Kunal Kohli</strong><small>07 Nov 2026 · 4 min read</small></span><a class="text-link" href="{{ '/articles/2026-11/binance-incident.html' | relative_url }}" target="_blank" rel="noopener">Read the actual post ↗</a></div>
+          </header>
+          <div class="article-layout">
+            <aside class="article-toc" aria-label="On this page"><details class="toc-disclosure" open><summary class="eyebrow">IN THIS STORY <span aria-hidden="true">⌄</span></summary><a href="#the-opening" aria-current="location">01 &nbsp; The opening</a><a href="#attack-path">02 &nbsp; Follow the chain</a><a href="#the-lesson">03 &nbsp; The human layer</a><div class="toc-note"><span>↘</span>Clear prose.<br>Room for the diagrams.</div></details></aside>
+            <div class="article-copy" id="the-opening"><p class="article-intro">A security incident rarely starts where the headline ends.</p><p>It can start with an ordinary task: installing a developer tool, replying to a recruiter, or running a take-home assignment. Each step feels familiar. Together, they can give an attacker a way in.</p><p>The useful question isn’t just <em>“what broke?”</em> It’s <strong>“what did the system—and the people using it—have to trust?”</strong></p><div class="inline-note"><span>THE SHORT VERSION</span><p>A strong vault doesn’t help if someone can convince the service beside it to open the door.</p></div></div>
+            <section id="attack-path" class="article-breakout" aria-labelledby="chain-title">
+              <div class="chain-header"><div><p class="eyebrow">FOLLOW THE CONNECTIONS</p><h3 id="chain-title">One foothold becomes another.</h3></div><button type="button" class="chain-play" aria-pressed="false">▶ Play the chain</button></div>
+              <div class="chain-scroll" tabindex="0" role="region" aria-label="Interactive attack chain, horizontally scrollable on small screens"><div class="attack-chain" role="group" aria-label="Explore the attack stages"><button type="button" data-step="0" aria-pressed="true"><span class="chain-number">01</span><span class="chain-symbol">⌘</span><strong>Poisoned install</strong><small>A familiar tool</small></button><button type="button" data-step="1" aria-pressed="false"><span class="chain-number">02</span><span class="chain-symbol">↗</span><strong>Interview lure</strong><small>A plausible opportunity</small></button><button type="button" data-step="2" aria-pressed="false"><span class="chain-number">03</span><span class="chain-symbol">&gt;_</span><strong>Hidden foothold</strong><small>A trusted binary</small></button><button type="button" data-step="3" aria-pressed="false"><span class="chain-number">04</span><span class="chain-symbol">⌁</span><strong>Internal pivot</strong><small>A wider reach</small></button><button type="button" data-step="4" aria-pressed="false"><span class="chain-number">05</span><span class="chain-symbol">⚿</span><strong>Signing service</strong><small>A privileged path</small></button></div></div>
+              <p class="chain-summary" aria-live="polite"><span>01 /</span> A tampered install turns an everyday developer task into the first point of access.</p><p class="chain-hint">Select any step to explore · Swipe on smaller screens</p>
+            </section>
+            <section class="article-copy article-ending" id="the-lesson"><p class="eyebrow">THE HUMAN LAYER</p><h3>Patch the code.<br><em>Protect the person, too.</em></h3><p>Technical controls and human judgment aren’t competing defenses. They need to support each other.</p><ul class="takeaways"><li><span>01</span><div><strong>Verify the unexpected.</strong><p>Confirm a recruiter or unusual request through an independent channel.</p></div></li><li><span>02</span><div><strong>Make the safe path easy.</strong><p>Use isolated environments for unfamiliar code and make suspicious requests easy to report.</p></div></li><li><span>03</span><div><strong>Limit the blast radius.</strong><p>Keep credentials scoped so a compromised laptop doesn’t become a production incident.</p></div></li></ul><div class="end-note"><span class="spark">✳</span><p>Understanding the chain is the first step<br>toward breaking it.</p></div><a class="text-link" href="#writing" data-writing>Back to more stories ↗</a></section>
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer class="site-footer shell"><a class="wordmark" href="#" data-home>data musings<span class="wordmark-period">.</span></a><p>Making sense of what’s underneath.</p><span>BY KUNAL KOHLI / DESIGN EXPLORATION 2026</span></footer>
+  </div>
+
+  <footer class="lab-footer"><p><strong>Which direction feels like you?</strong> Pick 01, 02, or 03 before we redesign the actual site.</p><p>All three include light/dark themes, responsive layouts, and reduced-motion support. Preview copy is illustrative.</p><a href="{{ '/' | relative_url }}">Return to the unchanged site ↗</a></footer>
+  <dialog class="about-dialog" aria-labelledby="about-title"><button class="dialog-close" type="button" aria-label="Close about dialog">×</button><img src="{{ '/img/kunal.png' | relative_url }}" alt="Kunal Kohli" width="88" height="88"><p class="eyebrow">THE PERSON BEHIND THE NOTES</p><h2 id="about-title">Hi, I’m Kunal.</h2><p>I write about technology by taking it apart, building with it, and trying to explain what I learn along the way.</p><a class="text-link" href="{{ '/resume/' | relative_url }}" target="_blank" rel="noopener">See my background ↗</a><p class="dialog-note">This is a design preview. The existing site hasn’t changed.</p></dialog>
+  <noscript><p class="no-script">JavaScript is needed to switch concepts and themes. You’re viewing the Fieldnotes homepage; the current site is unchanged.</p></noscript>
+</body>
+</html>
