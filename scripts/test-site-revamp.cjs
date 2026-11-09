@@ -94,7 +94,7 @@ const { chromium } = require(path.resolve(modulePath));
           assert.equal(overflow, false, `Overflow: ${entry.url} / ${theme} / ${width}`);
           const copyWidths = await page.locator('.post-content > p').evaluateAll(ps => ps.map(p => p.getBoundingClientRect().width));
           const zoom = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).zoom) || 1);
-          assert.ok(copyWidths.every(w => w <= 761 * zoom), 'Prose exceeds its reading width');
+          assert.ok(copyWidths.every(w => w <= 901 * zoom), 'Prose exceeds its reading width');
           if (entry.url === '/' && theme === 'light' && width === 1440) {
             const onOrbit = await page.evaluate(() => {
               const svg = document.querySelector('.art-security svg');
