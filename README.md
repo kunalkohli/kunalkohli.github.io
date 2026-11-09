@@ -1,6 +1,6 @@
 # Data Musings
 
-Kunal Kohli's Jekyll blog. The site uses the approved **Signal layout with Workbench colors**: compact top navigation, a technical reading index, blue/lavender light mode, and midnight-navy dark mode.
+Kunal Kohli's Jekyll blog. The site uses the approved **Signal layout with Workbench colors**: compact top navigation, a technical reading index, blue/lavender light mode, midnight-navy dark mode, and a grapefruit accent for signature marks (dots, sparks, arrows, category tags, reading progress).
 
 ## Publishing
 
