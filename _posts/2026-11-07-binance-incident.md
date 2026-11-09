@@ -69,21 +69,25 @@ flowchart LR
 
 ## The breach
 
-That token let the attackers deploy a malicious container next to Binance's internal signing service. They triggered transfers outside the normal withdrawal process, skipping the withdrawal service, risk checks and approvals. MPC protected the private keys; it did not stop a trusted service from signing the wrong transaction.
+- **Malicious deployment.** The token let the attackers deploy a malicious container next to Binance's internal signing service.
+- **Controls bypassed.** They triggered transfers outside the normal withdrawal process, skipping the withdrawal service, risk checks and approvals.
+- **Keys protected, transactions not.** MPC protected the private keys; it did not stop a trusted service from signing the wrong transaction.
 
 ## The drain
 
-The first XRP transfers began at **20:05 UTC**. Within about 20 minutes, hot wallets on ten chains were empty. One Ethereum transaction at **20:24** moved **$2.53 billion** — 187,464 ETH and 63 tokens, including 1.6B USDT. The last unauthorized transfer, **2,961.9 ETH**, settled at **23:56**.
-
-On Ethereum, the attackers had already used **EIP-7702** to delegate a hot wallet to their own contract. Pausing withdrawals did not revoke that on-chain permission, so funds kept leaving until Binance cleared the delegation.
+- **First transfers:** XRP began moving at **20:05 UTC**. Within about 20 minutes, hot wallets on ten chains were empty.
+- **Largest sweep:** One Ethereum transaction at **20:24** moved **$2.53 billion** — 187,464 ETH and 63 tokens, including 1.6B USDT.
+- **Last transfer:** The final unauthorized transfer, **2,961.9 ETH**, settled at **23:56**.
+- **Why pausing wasn't enough:** The attackers had used **EIP-7702** to delegate an Ethereum hot wallet to their own contract. Pausing withdrawals did not revoke that permission, so funds kept leaving until Binance cleared the delegation.
 
 ## Aftermath
 
-**Following the money.** About **$3.49 billion** was out of reach. Bitcoin, ETH, XRP and SOL have no issuer that can freeze them. The attackers swapped roughly **$760 million** of stablecoins into ETH and TRX before the freezes landed, at a 12–20% loss, then split the Bitcoin across 19 addresses and moved Tron funds through bridges. Elliptic and Chainalysis linked the laundering to the September Bitget theft; the FBI attributed the campaign to North Korea.
-
-**What was frozen.** Issuers froze **$2.85 billion**, 94% of it stablecoins. Tether froze $1.57B and Circle $823M; Ripple, Paxos, First Digital and World Liberty Financial also froze their tokens. Arbitrum and Optimism governance moved stolen assets out of reach.
-
-Binance refilled the wallets, absorbed the loss, and reopened withdrawals on **1 November at 06:39 UTC**. Users lost nothing.
+- **Out of reach:** About **$3.49 billion** was out of reach. Bitcoin, ETH, XRP and SOL have no issuer that can freeze them.
+- **Following the money:** The attackers swapped roughly **$760 million** of stablecoins into ETH and TRX before the freezes landed, at a 12–20% loss, then split the Bitcoin across 19 addresses and moved Tron funds through bridges.
+- **Attribution:** Elliptic and Chainalysis linked the laundering to the September Bitget theft; the FBI attributed the campaign to North Korea.
+- **What was frozen:** Issuers froze **$2.85 billion**, 94% of it stablecoins. Tether froze $1.57B and Circle $823M; Ripple, Paxos, First Digital and World Liberty Financial also froze their tokens.
+- **Chain-level response:** Arbitrum and Optimism governance moved stolen assets out of reach.
+- **Recovery:** Binance refilled the wallets, absorbed the loss, and reopened withdrawals on **1 November at 06:39 UTC**. Users lost nothing.
 
 ## Lessons for everyone
 
