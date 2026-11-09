@@ -11,6 +11,7 @@
   --attack-faint: #6b7c7c;
   position: relative;
   width: 100%;
+  max-width: none;
   min-width: 0;
   box-sizing: border-box;
   margin: 2em auto 2.2em;
@@ -312,7 +313,7 @@
 .attack-scene .scene-svg {
   display: block;
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
   height: auto;
   margin: 0 auto;
   overflow: visible;

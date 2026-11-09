@@ -87,10 +87,12 @@ Binance refilled the wallets, absorbed the loss, and reopened withdrawals on **1
 
 ## Lessons for everyone
 
-- **Don't install untrusted third-party tools.** A package that looks normal can replace a trusted binary with a same-name copy.
-- **Treat job interviews as an attack surface.** Fake recruiters, fake assignments and fake repos are standard social engineering now.
-- **Train people, not just systems.** The first click was human; the controls around it were not enough.
-- **Scope credentials tightly.** A deployment token on a laptop turned a workstation breach into a path to production.
-- **Pausing is not revoking.** On-chain permissions live outside your infrastructure. Design the emergency path before you need it.
+- 🧰 **Don't install untrusted third-party tools.** A package that looks normal can replace a trusted binary with a same-name copy.
+- 🎭 **Treat job interviews as an attack surface.** Fake recruiters, fake assignments and fake repos are standard social engineering now.
+- 🧠 **Train people, not just systems.** The first click was human; the controls around it were not enough. Make it easy to question unexpected requests and report them without blame.
+- 🔑 **Scope credentials tightly.** A deployment token on a laptop turned a workstation breach into a path to production.
+- 🛑 **Pausing is not revoking.** On-chain permissions live outside your infrastructure. Design the emergency path before you need it.
+
+**Humans can still be the weakest link.** Alongside technical weaknesses, attackers exploit human trust. Companies should invest in understanding how social engineering is evolving—not just patching code. Verify recruiters through independent channels, run unfamiliar assignments in isolated environments, and give staff realistic, recurring training backed by controls that limit the damage when someone is deceived.
 
 *Sources: [Binance initial findings](https://www.binance.com/en/blog/community/3229153443759566763), 3 Nov 2026; [Elliptic](https://www.elliptic.co/blog); [FBI](https://www.fbi.gov/news/press-releases); [Chainalysis](https://www.chainalysis.com/blog).*

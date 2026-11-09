@@ -48,8 +48,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ site.url }}/css/binance-attack.css">
-  <script src="{{ site.url }}/js/binance-attack.js" defer></script>
+  <link rel="stylesheet" href="{{ site.url }}/css/binance-attack.css?v={{ site.time | date: '%s' }}">
+  <script src="{{ site.url }}/js/binance-attack.js?v={{ site.time | date: '%s' }}" defer></script>
   {% endif %}
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}">
