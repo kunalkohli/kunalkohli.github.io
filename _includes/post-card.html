@@ -6,7 +6,13 @@
   <div class="story-body">
     <div class="story-meta"><span>{{ card_post.categories | first | default: 'Notes' | replace: '-', ' ' }}</span><time datetime="{{ card_post.date | date_to_xmlschema }}">{{ card_post.date | date: '%d %b %Y' }}</time>{% include read_time.html post=card_post %}</div>
     <h2><a href="{{ card_post.url | relative_url }}">{{ card_post.title }}</a></h2>
-    <p>{{ card_post.description | default: card_post.excerpt | strip_html | normalize_whitespace | truncate: 180 }}</p>
+    {% assign card_description = card_post.description | default: card_post.excerpt | strip_html | normalize_whitespace | truncate: 180 %}
+    {% if card_post.url contains 'little-adventurers' %}
+      {% assign card_description = 'I built a free, screen-free learning app for kids.' %}
+    {% elsif card_post.url contains 'healthify' %}
+      {% assign card_description = 'I built a locally deployed health tracker app.' %}
+    {% endif %}
+    <p>{{ card_description }}</p>
     <div class="story-footer"><span>{{ card_post.categories | join: ' / ' }}</span><a class="round-link" href="{{ card_post.url | relative_url }}" aria-label="Read {{ card_post.title | escape }}">↗</a></div>
   </div>
 </article>
