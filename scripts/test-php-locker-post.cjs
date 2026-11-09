@@ -7,7 +7,7 @@ if (!site || !playwright) throw new Error('Supply the built site and Playwright 
 const { chromium } = require(path.resolve(playwright));
 
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined });
   try {
     const page = await browser.newPage({ javaScriptEnabled: false, reducedMotion: 'reduce' });
     // All assets are local: this check does not need analytics, fonts, or a server.
@@ -22,9 +22,9 @@ const { chromium } = require(path.resolve(playwright));
       return route.fulfill({ contentType, body: fs.readFileSync(file) });
     });
     await page.goto('http://blog.test/articles/2026-10/php-vulnerabilities-locker-room.html');
-    assert.equal(await page.locator('.nav-list a[href*="/img/php-lockers/"]').count(), 0);
-    assert.equal(await page.locator('.nav-list a[href*="/categories/"]').count(), 1);
-    assert.equal(await page.locator('.nav-list a[href*="/resume/"]').count(), 1);
+    assert.equal(await page.locator('.site-nav a[href*="/img/php-lockers/"]').count(), 0);
+    assert.equal(await page.locator('.site-nav a[href*="/categories/"]').count(), 1);
+    assert.equal(await page.locator('.site-nav a[href*="/resume/"]').count(), 1);
     assert.equal(await page.locator('#post.php-locker-post').count(), 1);
     assert.equal(await page.locator('.php-explainer table').count(), 3);
     const unfinishedExample = page.locator('#php-unfinished-example');
@@ -71,7 +71,8 @@ const { chromium } = require(path.resolve(playwright));
     for (const width of [320, 390, 600, 768, 1280, 1920, 3440]) {
       await page.setViewportSize({ width, height: 1000 });
       const columnWidth = await page.locator('#post').evaluate(el => el.getBoundingClientRect().width);
-      assert(columnWidth <= 1040.1, 'Reading column exceeds 1040px');
+      assert(columnWidth <= 1440.1, 'Visual canvas exceeds 1440px');
+      assert(await page.locator('.php-explainer > p').first().evaluate(el => el.getBoundingClientRect().width <= 760.1), 'Prose exceeds its 760px reading measure');
       if (width >= 1280) assert(columnWidth > 720, 'Desktop column still uses the old narrow measure');
       assert(!await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), 'Overflow at ' + width);
       assert.equal(await page.locator('.php-story-panel svg:visible').count(), 11);
@@ -117,7 +118,6 @@ const { chromium } = require(path.resolve(playwright));
         await page.setViewportSize({ width, height: 1000 });
         await page.evaluate(() => {
           window.scrollTo(0, 0);
-          document.querySelector('.post-listing').scrollTop = 0;
         });
         await page.screenshot({ path: path.join(screenshots, 'article-' + width + '.png') });
         await unfinishedExample.screenshot({ path: path.join(screenshots, 'unfinished-example-' + width + '.png') });
@@ -133,9 +133,9 @@ const { chromium } = require(path.resolve(playwright));
       }
     }
     await page.goto('http://blog.test/articles/2020-01/welcome-to-jekyll.html');
-    assert.equal(await page.locator('.nav-list a[href*="/img/php-lockers/"]').count(), 0);
+    assert.equal(await page.locator('.site-nav a[href*="/img/php-lockers/"]').count(), 0);
     assert.equal(await page.locator('#post').count(), 1);
-    assert.equal(await page.locator('#post').getAttribute('class'), null);
+    assert.equal(await page.locator('#post.php-locker-post').count(), 0);
     assert.equal(await page.locator('link[href*="php-locker-post.css"]').count(), 0);
     console.log('PASS: both examples collapsed by default and mouse/keyboard accessible, requested Cloudflare copy removed, diagram docs excluded from navigation, three illustrated strips and boxed tables preserved, and no overflow at 320–3440px without JavaScript.');
   } finally {

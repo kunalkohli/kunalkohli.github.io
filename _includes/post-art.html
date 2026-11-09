@@ -1,0 +1,18 @@
+{% assign art_post = include.post %}
+{% if art_post.image.feature %}
+  {% assign cover_src = art_post.image.feature %}
+  {% unless cover_src contains '://' %}{% assign cover_src = cover_src | prepend: '/img/' | relative_url %}{% endunless %}
+  <img class="post-cover-image" src="{{ cover_src }}" alt=""{% unless include.hero %} loading="lazy"{% endunless %}>
+{% elsif art_post.categories contains 'security' %}
+  <div class="post-art art-security" aria-hidden="true">
+    <span class="art-tag">FOLLOW THE CONNECTIONS</span>
+    <svg viewBox="0 0 480 300" fill="none"><g class="art-orbits"><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(-30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(90 240 150)"/></g><g class="art-lock"><rect x="207" y="137" width="66" height="56" rx="10"/><path d="M222 137v-20a18 18 0 0 1 36 0v20m-18 19v15"/></g><g class="art-labels"><rect x="66" y="83" width="104" height="28"/><text x="118" y="101" text-anchor="middle">THE WAY IN</text><rect x="316" y="161" width="111" height="28"/><text x="371" y="179" text-anchor="middle">THE SYSTEM</text><rect x="180" y="251" width="120" height="28"/><text x="240" y="269" text-anchor="middle">THE LESSON</text></g><circle class="orbit-dot" cx="240" cy="31" r="4"/></svg>
+    <span class="art-caption">SYSTEMS. PEOPLE. TRUST.<span>↗</span></span>
+  </div>
+{% elsif art_post.categories contains 'ai' or art_post.categories contains 'projects' %}
+  <div class="post-art art-building" aria-hidden="true"><span class="art-tag">FROM QUESTION TO EXPERIMENT</span><svg viewBox="0 0 480 300" fill="none"><path class="art-grid" d="M0 75h480M0 150h480M0 225h480M80 0v300M160 0v300M240 0v300M320 0v300M400 0v300"/><path class="art-chart" d="M30 180h60l25-25 24 49 36-100 38 132 35-81h55l30-43 35 43h82"/><circle cx="248" cy="155" r="6" fill="currentColor"/></svg><span class="art-caption">IDEAS, TESTED IN THE REAL WORLD.<span>↗</span></span></div>
+{% elsif art_post.categories contains 'books' %}
+  <div class="post-art art-books" aria-hidden="true"><span class="art-tag">NOTES IN THE MARGINS</span><svg viewBox="0 0 480 300" fill="none"><g transform="rotate(-8 240 150)"><rect x="126" y="60" width="102" height="182" rx="4"/><path d="M143 60v182m14-149h51m-51 12h51m-51 12h31"/><rect x="242" y="78" width="103" height="165" rx="4"/><path d="M258 78v165m17-129h52m-52 12h52m-52 12h35"/></g></svg><span class="art-caption">A DIFFERENT WAY TO THINK.<span>↗</span></span></div>
+{% else %}
+  <div class="post-art art-systems" aria-hidden="true"><span class="art-tag">UNDER THE SURFACE</span><svg viewBox="0 0 480 300" fill="none"><path class="system-wires" d="M115 90 240 150 365 90M115 220 240 150 365 220"/><rect x="194" y="105" width="92" height="92" rx="18"/><path d="m220 138-15 12 15 12m40-24 15 12-15 12m-15-31-10 38"/><circle cx="115" cy="90" r="21"/><circle cx="115" cy="220" r="21"/><circle cx="365" cy="90" r="21"/><circle cx="365" cy="220" r="21"/></svg><span class="art-caption">OBSERVE → EXPERIMENT → UNDERSTAND<span>↗</span></span></div>
+{% endif %}

@@ -1,5 +1,4 @@
-<script type="text/javascript" src="{{ site.url }}/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="{{ site.url }}/js/main.js"></script>
+<script src="{{ '/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 {% if site.owner.google.analytics %}
 <!-- Asynchronous Google Analytics snippet -->
 <script>

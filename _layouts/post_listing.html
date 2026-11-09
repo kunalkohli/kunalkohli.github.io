@@ -1,62 +1,29 @@
 ---
 layout: default
 ---
-
-{% for post in site.posts %}
-<section class="post">
-  <header class="post-header">
-    <p class="post-meta">
-      <span class="post-date">
-        {{ post.date | date: "%-d %b %Y" | upcase }}
-      </span>
-      {% if post.categories.size > 0 %}
-      •
-      {% for cat in post.categories %}
-        <a class="post-cat" href="{{ site.url }}/categories/#{{ cat }}">{{ cat }}</a>
-        {% unless forloop.last %}
-        <span>/</span>
-        {% endunless %}
-      {% endfor %}
-      {% endif %}
-    </p>
-    <h4>
-      <a href="{{ site.url }}{{ post.url }}" class="post-title" title="{{ post.title | escape }}">{{ post.title }}</a>
-      {% if post.link %}
-      <a class="post-title-link" href="{{ post.link }}" target="_blank" title="{{ post.title | escape }}"><i class="fa fa-external-link"></i></a>
-      {% endif %}
-    </h4>
-
-    {% if post.author %}
-      {% assign author = site.data.authors[post.author] %}
-    {% else %}
-      {% assign author = site.owner %}
-    {% endif %}
-
-    </header>
-
-    {% if post.excerpt %}
-    <div class="post-description">
-      <p>
-        {{ post.excerpt }}
-      </p>
-    </div>
-    {% endif %}
-
-    {% if post.image.feature %}
-    <div class="post-image-feature">
-      <img src=
-      {% if post.image.feature contains 'http' %}
-      "{{ post.image.feature }}"
-      {% else %}
-      "{{ site.url }}/img/{{ post.image.feature }}"
-      {% endif %}
-      alt="{{ post.title | escape }} feature image">
-
-      {% if post.image.credit %}
-      <span class="image-credit">Photo Credit: <a href="{{ post.image.creditlink }}">{{ post.image.credit }}</a></span>
-      {% endif %}
-    </div><!-- /.image-wrap -->
-    {% endif %}
-
+{% assign published_posts = site.posts | where_exp: 'post', 'post.published != false' | where_exp: 'post', 'post.date <= site.time' | sort: 'date' | reverse %}
+{% assign latest_post = published_posts | first %}
+{% if latest_post %}
+<section class="latest-story shell" aria-labelledby="latest-title" data-latest-post="{{ latest_post.url }}">
+  <div class="latest-copy">
+    <p class="eyebrow"><span class="status-dot"></span> LATEST STORY / <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: '%d %b %Y' }}</time></p>
+    <div class="latest-meta">{{ latest_post.categories | first | replace: '-', ' ' }} <span>·</span> {% include read_time.html post=latest_post %}</div>
+    <h1 id="latest-title"><a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a></h1>
+    <p class="latest-description">{{ latest_post.description | default: latest_post.excerpt | strip_html | normalize_whitespace | truncate: 245 }}</p>
+    <div class="latest-bottom"><a class="text-link" href="{{ latest_post.url | relative_url }}">Read the story <span aria-hidden="true">↗</span></a><div class="author-mini"><img src="{{ site.owner.avatar | prepend: '/img/' | relative_url }}" width="36" height="36" alt=""><span>By Kunal Kohli<small>Engineer. Builder. Always learning.</small></span></div></div>
+  </div>
+  <a class="latest-visual" href="{{ latest_post.url | relative_url }}" aria-label="Read the latest story: {{ latest_post.title | escape }}">
+    <div class="visual-caption"><span>{{ latest_post.categories | first | default: 'Notes' | upcase }} / FEATURED</span><span>001 ↗</span></div>
+    {% include post-art.html post=latest_post hero=true %}
+    <div class="visual-foot"><span>Follow the story. Find the connections.</span><span aria-hidden="true">✳</span></div>
+  </a>
 </section>
-{% endfor %}
+{% endif %}
+<section id="writing" class="writing shell" aria-labelledby="writing-title">
+  <div class="section-heading"><div><p class="eyebrow">THE NOTEBOOK</p><h2 id="writing-title">A few things I’ve been thinking about<span>.</span></h2></div><span class="section-count">{{ published_posts.size }} PUBLISHED STORIES</span></div>
+  <div class="feed-tools" data-feed-controls hidden><div class="topic-filters" role="group" aria-label="Filter stories"><button type="button" data-filter="all" aria-pressed="true">Everything</button><button type="button" data-filter="security" aria-pressed="false">Security</button><button type="button" data-filter="building" aria-pressed="false">AI & building</button><button type="button" data-filter="books" aria-pressed="false">Books</button><button type="button" data-filter="systems" aria-pressed="false">Systems</button></div><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search stories</span><input type="search" placeholder="Find a story…" data-search autocomplete="off"></label></div>
+  <div class="story-list">{% for post in published_posts %}{% include post-card.html post=post %}{% endfor %}</div>
+  <p class="empty-state" data-empty-state hidden>No stories match. Try another word or topic.</p>
+  <p class="sr-only" data-feed-status role="status" aria-live="polite"></p>
+  <div class="notebook-note"><span class="spark" aria-hidden="true">✳</span><p>Not hot takes.<br><strong>Things worth understanding.</strong></p><a class="text-link" href="{{ '/archive/' | relative_url }}">Explore the full archive ↗</a></div>
+</section>
