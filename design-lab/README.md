@@ -4,6 +4,26 @@ Three standalone, interactive directions for review **before** redesigning the a
 
 Open `/design-lab/` in a Jekyll build. The page is marked `noindex, nofollow`, and is intentionally not linked from the existing site.
 
+## Updated shortlist: A / B / C
+
+Open `/design-lab/?compare=signal&palette=workbench&theme=light` for the focused comparison requested after the original review:
+
+| Option | Layout | Palette |
+| --- | --- | --- |
+| **A · Signal × Workbench** | Signal's compact technical index and persistent article contents rail | Workbench's blue/lavender, with midnight navy in dark mode |
+| **B · Signal × Citrus** | Exactly the same layout as A | Bright lime/chartreuse, charcoal, off-white and muted sage, inspired by the supplied Ronas IT crypto-landing screenshot |
+| **C · The Daily Musings** | Newspaper-style masthead, ruled columns, large lead story, grayscale artwork and serif headlines | Paper/charcoal with restrained sepia details; also includes dark mode |
+
+Use `palette=citrus` or `palette=paper` for direct links to B/C; `view=article` previews the article. All three preserve a sticky article contents sidebar, a collapsible contents menu on mobile, reduced-motion support, and the theme toggle. Only A/B are palette-only variants; C deliberately explores a different layout.
+
+The original three concepts remain available at `/design-lab/` without the comparison query parameters. The reference screenshots are interpreted as visual inspiration; their images and product UI are not copied into the blog.
+
+| A · Signal × Workbench | B · Signal × Citrus | C · The Daily Musings |
+| --- | --- | --- |
+| ![Signal with Workbench colors](previews/shortlist-workbench.png) | ![Signal with the reference lime palette](previews/shortlist-citrus.png) | ![Newspaper-inspired layout](previews/shortlist-paper.png) |
+
+![Newspaper-style article in dark mode with persistent contents](previews/shortlist-paper-article.png)
+
 | Direction | Visual language | Best fit |
 | --- | --- | --- |
 | **01 Fieldnotes** | Warm paper/ink colors, expressive serif titles, editorial feature, asymmetric story grid | A writing-first journal with strong visual explainers. |
@@ -59,3 +79,5 @@ The requested [Dribbble web UI gallery](https://dribbble.com/tags/web-ui) blocks
 ## Regression checks
 
 `scripts/test-design-lab.cjs` accepts a preview base URL, an installed Playwright module path, and an optional screenshot directory. Set `CHROME_PATH` if using installed Chrome. It checks three concepts × two themes × eight viewport widths × both pages, as well as filters/search, theme persistence, shareable URLs, article-chain controls, contents navigation, reduced motion, existing-site links, and browser errors.
+
+`scripts/test-design-shortlist.cjs` uses the same arguments. It checks A/B/C in both themes across the same eight widths and page previews, verifies A/B geometry and typography are identical, and exercises the persistent/mobile contents and comparison URLs.

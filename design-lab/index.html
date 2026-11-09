@@ -26,6 +26,7 @@ permalink: /design-lab/
 
   <section class="concept-picker" aria-label="Choose a design direction">
     <div class="picker-heading"><h1>A new home for curious minds.</h1><p>Choose a direction, explore the homepage & article, and try both themes.</p></div>
+    <a class="original-concepts-link" href="{{ '/design-lab/' | relative_url }}" hidden>← Back to the original three concepts</a>
     <div class="concept-options" role="group" aria-label="Design directions">
       <button class="concept-choice" type="button" data-choice="fieldnotes" aria-pressed="true">
         <span class="choice-number">01</span><span><strong>Fieldnotes</strong><small>Editorial · thoughtful · warm</small></span><span class="swatches fieldnotes-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -35,6 +36,17 @@ permalink: /design-lab/
       </button>
       <button class="concept-choice" type="button" data-choice="signal" aria-pressed="false">
         <span class="choice-number">03</span><span><strong>Signal</strong><small>Technical · focused · precise</small></span><span class="swatches signal-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+    <div class="palette-options" role="group" aria-label="Signal color palettes" hidden>
+      <button class="concept-choice" type="button" data-palette-choice="workbench" aria-pressed="true">
+        <span class="choice-number">A</span><span><strong>Signal × Workbench</strong><small>Blue · lavender · midnight navy</small></span><span class="swatches workbench-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <button class="concept-choice" type="button" data-palette-choice="citrus" aria-pressed="false">
+        <span class="choice-number">B</span><span><strong>Signal × Citrus</strong><small>Lime · charcoal · soft sage</small></span><span class="swatches citrus-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <button class="concept-choice" type="button" data-palette-choice="paper" aria-pressed="false">
+        <span class="choice-number">C</span><span><strong>The Daily Musings</strong><small>Newspaper · monochrome · editorial</small></span><span class="swatches paper-swatches" aria-hidden="true"><i></i><i></i><i></i></span>
       </button>
     </div>
     <div class="preview-tools">

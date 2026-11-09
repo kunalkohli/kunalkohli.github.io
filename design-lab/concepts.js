@@ -27,8 +27,22 @@
       line: 'Less noise.',
       emphasis: 'More understanding.',
       intro: 'Trace the connections. Question the defaults. Notes on security, AI, and the systems we put our trust in.'
+    },
+    gazette: {
+      description: 'C / The Daily Musings — A newspaper-inspired journal. Editorial columns, serif headlines, and quiet monochrome.',
+      eyebrow: 'THE DAILY MUSINGS / AN INDEPENDENT TECHNOLOGY JOURNAL',
+      line: 'Technology, explained.',
+      emphasis: 'One story at a time.',
+      intro: 'Field reports from the world of code, systems, and small experiments. By Kunal Kohli, for people who want to understand what’s underneath.'
     }
   };
+  var palettes = {
+    workbench: 'A / Signal × Workbench — Signal’s compact layout, with blue, lavender, and midnight-navy colors.',
+    citrus: 'B / Signal × Citrus — The same Signal layout, with the reference’s lime, charcoal, off-white, and sage palette.',
+    paper: directions.gazette.description
+  };
+  var comparing = params.get('compare') === 'signal' || Object.prototype.hasOwnProperty.call(palettes, params.get('palette'));
+  var palette = Object.prototype.hasOwnProperty.call(palettes, params.get('palette')) ? params.get('palette') : 'workbench';
   var theme = params.get('theme');
   var explicitTheme = theme === 'light' || theme === 'dark';
   if (!explicitTheme) {
@@ -37,6 +51,7 @@
     if (!explicitTheme) theme = systemTheme.matches ? 'dark' : 'light';
   }
   var direction = Object.prototype.hasOwnProperty.call(directions, params.get('concept')) ? params.get('concept') : 'fieldnotes';
+  if (comparing) direction = palette === 'paper' ? 'gazette' : 'signal';
   var view = params.get('view') === 'article' ? 'article' : 'home';
   var filter = 'all';
   var search = '';
@@ -56,6 +71,13 @@
     next.searchParams.set('concept', direction);
     next.searchParams.set('view', view);
     next.searchParams.set('theme', theme);
+    if (comparing) {
+      next.searchParams.set('compare', 'signal');
+      next.searchParams.set('palette', palette);
+    } else {
+      next.searchParams.delete('compare');
+      next.searchParams.delete('palette');
+    }
     window.history.replaceState(null, '', next);
   }
 
@@ -69,16 +91,34 @@
   function setDirection(next, animate) {
     direction = next;
     root.dataset.concept = direction;
+    if (comparing) {
+      root.dataset.palette = palette;
+      root.dataset.compare = 'signal';
+    } else {
+      delete root.dataset.palette;
+      delete root.dataset.compare;
+    }
+    document.querySelector('.concept-options').hidden = comparing;
+    document.querySelector('.palette-options').hidden = !comparing;
+    document.querySelector('.original-concepts-link').hidden = !comparing;
+    if (comparing) {
+      document.querySelector('.picker-heading h1').textContent = 'Your shortlist. Three ways to tell the story.';
+      document.querySelector('.picker-heading p').textContent = 'A & B share the Signal layout. C explores an editorial newspaper. Try home, article, and both themes.';
+      document.querySelector('.lab-footer > p').textContent = 'Which one feels like you? Pick A, B, or C before we redesign the actual site.';
+    }
+    document.querySelectorAll('[data-palette-choice]').forEach(function (button) {
+      button.setAttribute('aria-pressed', String(button.dataset.paletteChoice === palette));
+    });
     document.querySelectorAll('[data-choice]').forEach(function (button) {
       button.setAttribute('aria-pressed', String(button.dataset.choice === direction));
     });
     var content = directions[direction];
-    document.getElementById('direction-description').textContent = content.description;
+    document.getElementById('direction-description').textContent = comparing ? palettes[palette] : content.description;
     document.querySelector('[data-hero-eyebrow]').textContent = content.eyebrow;
     document.querySelector('[data-hero-line]').textContent = content.line;
     document.querySelector('[data-hero-emphasis]').textContent = content.emphasis;
     document.querySelector('[data-hero-description]').textContent = content.intro;
-    document.title = direction.charAt(0).toUpperCase() + direction.slice(1) + ' · Data Musings design lab';
+    document.title = (comparing ? document.querySelector('[data-palette-choice="' + palette + '"] strong').textContent : direction.charAt(0).toUpperCase() + direction.slice(1)) + ' · Data Musings design lab';
     if (animate) animateView();
     updateURL();
   }
@@ -170,6 +210,12 @@
 
   document.querySelectorAll('[data-choice]').forEach(function (button) {
     button.addEventListener('click', function () { setDirection(button.dataset.choice, true); });
+  });
+  document.querySelectorAll('[data-palette-choice]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      palette = button.dataset.paletteChoice;
+      setDirection(palette === 'paper' ? 'gazette' : 'signal', true);
+    });
   });
   document.querySelectorAll('[data-view-choice]').forEach(function (button) {
     button.addEventListener('click', function () { setView(button.dataset.viewChoice, false); });
