@@ -21,20 +21,18 @@ const { chromium } = require(path.resolve(modulePath));
     });
     await page.goto(base, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
-    const posts = await page.locator('.story h2 a').evaluateAll(links => links.map(link => ({ title: link.textContent.trim(), url: link.getAttribute('href') })));
-    assert.equal(posts.length, fs.readdirSync('_posts').filter(name => name.endsWith('.md')).length);
-    assert.equal(await page.locator('#latest-title').innerText(), posts[0].title);
-    assert.equal(await page.locator('#latest-title a').getAttribute('href'), posts[0].url);
-    assert.equal(await page.locator('.latest-story').getAttribute('data-latest-post'), posts[0].url);
+    const postCount = fs.readdirSync('_posts').filter(name => name.endsWith('.md')).length;
+    const latest = { title: (await page.locator('#latest-title a').innerText()).trim(), url: await page.locator('#latest-title a').getAttribute('href') };
+    const stories = await page.locator('.story h2 a').evaluateAll(links => links.map(link => ({ title: link.textContent.trim(), url: link.getAttribute('href') })));
+    const archive = await page.locator('.prior-index li a').evaluateAll(links => links.map(link => ({ title: link.querySelector('b').textContent.trim(), url: link.getAttribute('href') })));
+    assert.equal(stories.length + archive.length + 1, postCount, 'Hero, highlight cards and compressed index must list every published story');
+    const articleUrls = [latest, ...stories, ...archive];
+    assert.equal(await page.locator('.latest-story').getAttribute('data-latest-post'), latest.url);
     assert.equal(await page.locator('.latest-meta .read-time').innerText(), '4 min read');
-    await page.locator('[data-filter="security"]').click();
-    assert.equal(await page.locator('[data-story]:visible').count(), 2);
-    await page.locator('[data-search]').fill('binance');
-    assert.equal(await page.locator('[data-story]:visible').count(), 1);
-    await page.locator('[data-search]').fill('not-a-story');
-    assert.ok(await page.locator('[data-empty-state]').isVisible());
-    await page.locator('[data-search]').fill('');
-    await page.locator('[data-filter="all"]').click();
+    assert.equal(await page.locator('#writing-title').innerText(), 'Prior blogs.');
+    assert.equal((await page.locator('.prior-band .section-count').innerText()).trim(), (postCount - 1) + ' OLDER STORIES');
+    assert.equal(await page.locator('[data-feed-controls]').count(), 0, 'Filter chips and search live on the topics page now');
+    assert.equal(await page.locator('.prior-index-head').innerText(), 'GOING FURTHER BACK\nfull archive ↗');
     await page.locator('[data-theme-toggle]').click();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
     await page.reload({ waitUntil: 'networkidle' });
@@ -54,10 +52,10 @@ const { chromium } = require(path.resolve(modulePath));
     assert.equal(await page.locator('[data-text-label]').innerText(), '70%');
     assert.equal(await page.locator('[data-text-step="-"]').isDisabled(), true, '70% is the minimum');
     await page.locator('[data-text-step="+"]').click();
-    console.log('PASS latest published hero, all-post index, filtering/search, persisted theme and text-size control');
+    console.log('PASS latest hero, prior-blogs band (3 highlights + compressed index), persisted theme and text-size control');
 
     for (const size of ['0.7', '1.1']) {
-      for (const target of ['/', posts[0].url]) {
+      for (const target of ['/', latest.url]) {
         await page.goto(base + target, { waitUntil: 'domcontentloaded' });
         await page.waitForFunction(() => !document.querySelector('[data-theme-toggle]').hidden);
         await page.evaluate(value => { document.documentElement.style.zoom = value; }, size);
@@ -70,7 +68,7 @@ const { chromium } = require(path.resolve(modulePath));
     await page.setViewportSize({ width: 1440, height: 1100 });
     console.log('PASS no overflow at 70% and 110% text sizes across home and article');
 
-    const pages = [{ title: 'home', url: '/' }, ...posts, { title: 'topics', url: '/categories/' }, { title: 'archive', url: '/archive/' }, { title: 'about', url: '/resume/' }, { title: 'tags', url: '/tags/' }];
+    const pages = [{ title: 'home', url: '/' }, ...articleUrls, { title: 'topics', url: '/categories/' }, { title: 'archive', url: '/archive/' }, { title: 'about', url: '/resume/' }, { title: 'tags', url: '/tags/' }];
     for (const entry of pages) {
       // Older posts embed remote images; those must not hold up local layout checks.
       const response = await page.goto(base + entry.url, { waitUntil: 'domcontentloaded' });
@@ -111,7 +109,7 @@ const { chromium } = require(path.resolve(modulePath));
             });
             assert.ok(onOrbit, 'Cover-art dot must ride the drawn orbit ellipse');
           }
-          if (screenshots && (width === 1440 || width === 390) && [posts[0].url, '/'].includes(entry.url)) {
+          if (screenshots && (width === 1440 || width === 390) && [latest.url, '/'].includes(entry.url)) {
             fs.mkdirSync(screenshots, { recursive: true });
             await page.evaluate(() => scrollTo(0, 0));
             await page.screenshot({ path: path.join(screenshots, `${entry.url === '/' ? 'home' : 'binance'}-${theme}-${width}.png`) });
@@ -122,7 +120,7 @@ const { chromium } = require(path.resolve(modulePath));
     }
 
     await page.setViewportSize({ width: 1440, height: 1000 });
-    await page.goto(base + posts[0].url, { waitUntil: 'networkidle' });
+    await page.goto(base + latest.url, { waitUntil: 'networkidle' });
     assert.equal(await page.locator('[data-attack-stage]').count(), 6);
     assert.equal(await page.locator('[data-attack-scene]').count(), 6);
     for (let i = 0; i < 6; i++) {
@@ -170,13 +168,14 @@ const { chromium } = require(path.resolve(modulePath));
     console.log('PASS internal links, legacy aliases and no page script/local asset errors');
 
     const fallback = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 900 } });
-    await fallback.goto(base + posts[0].url, { waitUntil: 'networkidle' });
+    await fallback.goto(base + latest.url, { waitUntil: 'networkidle' });
     assert.equal(await fallback.locator('.attack-scene:visible').count(), 6);
     assert.equal(await fallback.locator('.post-toc nav a').count(), 7);
     assert.equal(await fallback.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     await fallback.goto(base, { waitUntil: 'networkidle' });
-    assert.equal(await fallback.locator('[data-story]:visible').count(), posts.length);
-    console.log('PASS no-JavaScript article contents, original animation fallback and full post index');
+    assert.equal(await fallback.locator('[data-story]:visible').count(), stories.length);
+    assert.equal(await fallback.locator('.prior-index li').count(), archive.length);
+    console.log('PASS no-JavaScript article contents, original animation fallback and prior-blogs band');
     await fallback.close();
     const blockedStorage = await browser.newPage({ colorScheme: 'dark' });
     await blockedStorage.addInitScript(() => {

@@ -19,11 +19,21 @@ layout: default
   </a>
 </section>
 {% endif %}
+{% assign prior_highlights = '' | split: '|' %}
+{% assign prior_rest = '' | split: '|' %}
+{% for linked_post in published_posts %}{% if forloop.first %}{% continue %}{% elsif forloop.index <= 4 %}{% assign prior_highlights = prior_highlights | push: linked_post %}{% else %}{% assign prior_rest = prior_rest | push: linked_post %}{% endif %}{% endfor %}
+{% if prior_highlights.size > 0 %}
+<div class="prior-band">
 <section id="writing" class="writing shell" aria-labelledby="writing-title">
-  <div class="section-heading"><div><p class="eyebrow">THE NOTEBOOK</p><h2 id="writing-title">A few things I’ve been thinking about<span>.</span></h2></div><span class="section-count">{{ published_posts.size }} PUBLISHED STORIES</span></div>
-  <div class="feed-tools" data-feed-controls hidden><div class="topic-filters" role="group" aria-label="Filter stories"><button type="button" data-filter="all" aria-pressed="true">Everything</button><button type="button" data-filter="security" aria-pressed="false">Security</button><button type="button" data-filter="building" aria-pressed="false">AI & building</button><button type="button" data-filter="books" aria-pressed="false">Books</button><button type="button" data-filter="systems" aria-pressed="false">Systems</button></div><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search stories</span><input type="search" placeholder="Find a story…" data-search autocomplete="off"></label></div>
-  <div class="story-list">{% for post in published_posts %}{% include post-card.html post=post %}{% endfor %}</div>
-  <p class="empty-state" data-empty-state hidden>No stories match. Try another word or topic.</p>
-  <p class="sr-only" data-feed-status role="status" aria-live="polite"></p>
+  <div class="section-heading"><div><h2 id="writing-title">Prior blogs<span>.</span></h2></div><span class="section-count">{{ published_posts.size | minus: 1 }} OLDER STORIES</span></div>
+  <div class="story-list">{% for post in prior_highlights %}{% include post-card.html post=post %}{% endfor %}</div>
+  {% if prior_rest.size > 0 %}
+  <div class="prior-index">
+    <div class="prior-index-head"><span>GOING FURTHER BACK</span><a href="{{ '/archive/' | relative_url }}">full archive ↗</a></div>
+    <ol>{% for post in prior_rest %}{% assign prior_no = forloop.index | plus: 4 %}<li><a href="{{ post.url | relative_url }}"><i>{% if prior_no < 10 %}0{{ prior_no }}{% else %}{{ prior_no }}{% endif %}</i><b>{{ post.title }}</b><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b %Y' }}</time></a></li>{% endfor %}</ol>
+  </div>
+  {% endif %}
   <div class="notebook-note"><span class="spark" aria-hidden="true">✳</span><p>Not hot takes.<br><strong>Things worth understanding.</strong></p><a class="text-link" href="{{ '/archive/' | relative_url }}">Explore the full archive ↗</a></div>
 </section>
+</div>
+{% endif %}
