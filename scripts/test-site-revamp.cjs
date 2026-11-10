@@ -119,6 +119,28 @@ const { chromium } = require(path.resolve(modulePath));
       console.log('PASS page/light+dark/seven widths', entry.url);
     }
 
+    const categoryNames = new Set();
+    for (const name of fs.readdirSync('_posts').filter(name => name.endsWith('.md'))) {
+      const frontMatter = fs.readFileSync(path.join('_posts', name), 'utf8').slice(0, 2000);
+      const match = frontMatter.match(/^categories:\s*\[(.*?)\]/m);
+      if (match) for (const part of match[1].split(',')) { const value = part.trim(); if (value) categoryNames.add(value); }
+    }
+    await page.setViewportSize({ width: 1440, height: 1100 });
+    await page.goto(base + '/categories/', { waitUntil: 'networkidle' });
+    assert.equal(await page.locator('[data-topic-rail] li a').count(), categoryNames.size, 'One rail thread per category');
+    assert.equal((await page.locator('[data-topic-rail] .rt').innerText()).trim(), `THREADS · ${categoryNames.size}`);
+    const activeTopic = await page.locator('[data-topic-rail] a[aria-current="true"]').getAttribute('data-topic');
+    const newestPostFile = fs.readdirSync('_posts').filter(name => name.endsWith('.md')).sort().pop();
+    const newestMatch = fs.readFileSync(path.join('_posts', newestPostFile), 'utf8').match(/^categories:\s*\[(.*?)\]/m);
+    assert.equal(activeTopic, newestMatch[1].split(',')[0].trim(), "Default open thread is the latest post's first category");
+    assert.equal(await page.locator('[data-topic-panel]:visible').count(), 1, 'Exactly one thread is open by default');
+    const otherTopic = [...categoryNames].find(name => name !== activeTopic);
+    await page.locator(`[data-topic-rail] a[data-topic="${otherTopic}"]`).click();
+    assert.ok(await page.locator(`[data-topic-panel="${otherTopic}"]`).isVisible());
+    assert.equal(await page.locator('[data-topic-panel]:visible').count(), 1, 'Swapping threads keeps a single open panel');
+    assert.equal(await page.locator(`[data-topic-panel="${activeTopic}"]`).isVisible(), false);
+    console.log('PASS topics side rail: thread per category, default open = latest post category, single-panel swap');
+
     await page.setViewportSize({ width: 1440, height: 1000 });
     await page.goto(base + latest.url, { waitUntil: 'networkidle' });
     assert.equal(await page.locator('[data-attack-stage]').count(), 6);
@@ -175,7 +197,9 @@ const { chromium } = require(path.resolve(modulePath));
     await fallback.goto(base, { waitUntil: 'networkidle' });
     assert.equal(await fallback.locator('[data-story]:visible').count(), stories.length);
     assert.equal(await fallback.locator('.prior-index li').count(), archive.length);
-    console.log('PASS no-JavaScript article contents, original animation fallback and prior-blogs band');
+    await fallback.goto(base + '/categories/', { waitUntil: 'networkidle' });
+    assert.equal(await fallback.locator('[data-topic-panel]:visible').count(), categoryNames.size, 'No-JS: every thread stays readable on the topics page');
+    console.log('PASS no-JavaScript article contents, original animation fallback, prior-blogs band and topics rail');
     await fallback.close();
     const blockedStorage = await browser.newPage({ colorScheme: 'dark' });
     await blockedStorage.addInitScript(() => {

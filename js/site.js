@@ -84,6 +84,31 @@
     filterStories();
   }
 
+  var topicRail = document.querySelector('[data-topic-rail]');
+  if (topicRail) {
+    var topicPanels = Array.from(document.querySelectorAll('[data-topic-panel]'));
+    var showTopic = function (tag) {
+      topicPanels.forEach(function (panel) { panel.hidden = panel.dataset.topicPanel !== tag; });
+      topicRail.querySelectorAll('a').forEach(function (link) {
+        if (link.dataset.topic === tag) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+      var openPanel = topicPanels.find(function (panel) { return panel.dataset.topicPanel === tag; });
+      if (openPanel) {
+        openPanel.style.animation = 'none';
+        void openPanel.offsetWidth;
+        openPanel.style.animation = '';
+      }
+    };
+    topicRail.addEventListener('click', function (event) {
+      var link = event.target.closest('a[data-topic]');
+      if (!link) return;
+      event.preventDefault();
+      showTopic(link.dataset.topic);
+    });
+    showTopic(topicRail.dataset.defaultTopic);
+  }
+
   var copyButton = document.querySelector('[data-copy-link]');
   if (copyButton && navigator.clipboard && window.isSecureContext) {
     copyButton.hidden = false;

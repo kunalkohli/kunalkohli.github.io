@@ -1,9 +1,27 @@
 ---
 layout: page
 title: Follow a thread.
-description: Security, AI, systems, books—and the connections between them.
+description: Threads live on the shelf to the left. Everything else stays out of view until you open it.
 permalink: /categories/
 ---
+{% assign visible_posts = site.posts | where_exp: 'post', 'post.published != false' | where_exp: 'post', 'post.date <= site.time' | sort: 'date' | reverse %}
+{% assign latest_post = visible_posts | first %}
+{% assign default_topic = latest_post.categories | first %}
 {% assign categories = site.categories | sort %}
-<nav class="category-index" aria-label="Jump to a topic">{% for category in categories %}<a href="#{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' }} <span>{{ category[1].size }}</span></a>{% endfor %}</nav>
-<div class="topic-groups">{% for category in categories %}<section class="topic-group" aria-labelledby="{{ category[0] | slugify }}"><h2 id="{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' }}</h2><ul>{% assign topic_posts = category[1] | sort: 'date' | reverse %}{% for post in topic_posts %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b %Y' }}</time></li>{% endfor %}</ul></section>{% endfor %}</div>
+<noscript><style>[data-topic-panel] { display: block !important; }</style></noscript>
+<div class="shelf">
+  <aside class="rail" data-topic-rail data-default-topic="{{ default_topic }}">
+    <p class="rt">THREADS · {{ categories.size }}</p>
+    <ol>{% for category in categories %}<li><a href="#{{ category[0] | slugify }}" data-topic="{{ category[0] }}"><b>{{ category[0] | replace: '-', ' ' }}</b><i>{{ category[1].size }}</i></a></li>{% endfor %}</ol>
+    <p class="note">✳ default open: latest post's thread</p>
+  </aside>
+  <div class="read">
+    {% for category in categories %}
+    {% assign topic_posts = category[1] | sort: 'date' | reverse %}
+    <section class="panel" data-topic-panel="{{ category[0] }}" id="{{ category[0] | slugify }}"{% unless category[0] == default_topic %} hidden{% endunless %} aria-labelledby="{{ category[0] | slugify }}-title">
+      <div class="rh"><h2 id="{{ category[0] | slugify }}-title">{{ category[0] | replace: '-', ' ' }}</h2><span class="rc">{{ category[1].size }} {% if category[1].size == 1 %}STORY{% else %}STORIES{% endif %} · NEWEST FIRST</span></div>
+      <ul>{% for post in topic_posts %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><div class="m"><span class="ft">{{ post.categories | last | replace: '-', ' ' }}</span><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b %Y' }}</time>{% include read_time.html post=post %}</div></li>{% endfor %}</ul>
+    </section>
+    {% endfor %}
+  </div>
+</div>
