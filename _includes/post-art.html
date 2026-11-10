@@ -1,0 +1,54 @@
+{% assign art_post = include.post %}
+{% if art_post.image.feature %}
+  {% assign cover_src = art_post.image.feature %}
+  {% unless cover_src contains '://' %}{% assign cover_src = cover_src | prepend: '/img/' | relative_url %}{% endunless %}
+  <img class="post-cover-image" src="{{ cover_src }}" alt=""{% unless include.hero %} loading="lazy"{% endunless %}>
+{% elsif art_post.slug contains 'binance-incident' %}
+  <div class="post-art art-security" aria-hidden="true">
+    <span class="art-tag">FOLLOW THE CONNECTIONS</span>
+    <svg viewBox="0 0 480 300" fill="none"><g class="art-orbits"><path d="M114.43 77.5A145 85 30 1 1 365.57 222.5A145 85 30 1 1 114.43 77.5"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(-30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(90 240 150)"/></g><g class="art-lock"><rect x="207" y="137" width="66" height="56" rx="10"/><path d="M222 137v-20a18 18 0 0 1 36 0v20m-18 19v15"/></g><g class="art-labels"><rect x="66" y="83" width="104" height="28"/><text x="118" y="101" text-anchor="middle">THE WAY IN</text><rect x="316" y="161" width="111" height="28"/><text x="371" y="179" text-anchor="middle">THE SYSTEM</text><rect class="art-lesson" x="180" y="251" width="120" height="28"/><text class="art-lesson-text" x="240" y="269" text-anchor="middle">THE LESSON</text></g><circle class="orbit-dot" cx="114.43" cy="77.5" r="4"/></svg>
+    <span class="art-caption">SYSTEMS. PEOPLE. TRUST.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'locker-room' %}
+  <div class="post-art art-robot" aria-hidden="true">
+    <span class="art-tag">TWO BUGS. TWO SLIPS.</span>
+    <svg viewBox="0 0 480 300" fill="none"><path class="art-grid" d="M0 75h480M0 150h480M0 225h480M96 0v300M240 0v300M384 0v300"/><path d="M240 60V48"/><circle cx="240" cy="42" r="6" fill="currentColor"/><rect class="robot-plate" x="204" y="60" width="72" height="56" rx="12"/><circle cx="226" cy="86" r="6" fill="currentColor"/><circle cx="254" cy="86" r="6" fill="currentColor"/><path d="M228 102q12 8 24 0M204 88h-12M276 88h-12"/><rect class="robot-plate" x="192" y="130" width="96" height="100" rx="14"/><rect x="212" y="148" width="56" height="30" rx="6"/><path d="M222 157h36M222 167h22"/><circle cx="226" cy="200" r="8"/><circle cx="254" cy="200" r="8"/><path d="M226 196v8M250.5 196.5l7 7M257.5 196.5l-7 7"/><rect x="168" y="142" width="18" height="56" rx="9"/><rect x="294" y="142" width="18" height="56" rx="9"/><path d="M226 230v12M254 230v12"/><rect x="196" y="242" width="30" height="10" rx="5"/><rect x="254" y="242" width="30" height="10" rx="5"/><path d="M96 262h288M118 262v9M362 262v9"/></svg>
+    <span class="art-caption">ONE UNFINISHED RECORD. ONE STALE SLIP.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'healthify' %}
+  <div class="post-art art-steth" aria-hidden="true">
+    <span class="art-tag">EVERY GUESS GETS A GUARDRAIL</span>
+    <svg viewBox="0 0 480 300" fill="none"><path class="art-grid" d="M0 75h480M0 150h480M0 225h480M96 0v300M240 0v300M384 0v300"/><circle cx="176" cy="90" r="6" fill="currentColor"/><circle cx="272" cy="76" r="6" fill="currentColor"/><path d="M178 92C162 126 216 136 244 128M270 80C302 102 268 128 242 127M243 128C241 164 264 182 286 188"/><circle cx="306" cy="206" r="28"/><circle cx="306" cy="206" r="18"/><circle cx="306" cy="206" r="4" fill="currentColor"/><path class="art-chart" d="M40 216h44l16-22 12 34 10-16h34"/><circle cx="156" cy="212" r="5" fill="currentColor"/></svg>
+    <span class="art-caption">CHAT IS THE ONLY GATEWAY.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'little-adventurers' %}
+  <div class="post-art art-paper" aria-hidden="true">
+    <span class="art-tag">PENCIL FIRST. SCREEN NEVER.</span>
+    <svg viewBox="0 0 480 300" fill="none"><g transform="rotate(-6 240 150)"><rect x="126" y="64" width="168" height="176" rx="4"/><path d="M152 96h96M152 112h64"/><path d="M154 146q22-14 44 0t44 0q22-14 44 0"/><rect x="152" y="176" width="16" height="16" rx="3"/><path d="M155 184l4 5 8-10"/><rect x="188" y="176" width="16" height="16" rx="3"/><path d="M191 184l4 5 8-10"/><rect x="224" y="176" width="16" height="16" rx="3"/><path d="M229 188l3 4 9-11"/><path d="M154 218h116"/></g><g class="pencil" transform="rotate(38 356 128)"><rect x="330" y="116" width="104" height="24" rx="3"/><path d="M330 116l-24 12 24 22M430 120v16"/><path d="M346 116v24"/></g></svg>
+    <span class="art-caption">WORKSHEETS THEIR KIDS CAN HOLD.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'jit' %}
+  <div class="post-art art-branch" aria-hidden="true">
+    <span class="art-tag">WATCH. MEASURE. COMPILE.</span>
+    <svg viewBox="0 0 480 300" fill="none"><path d="M96 74v152"/><path class="system-wires" d="M96 74c60 0 60 66 120 66s60-66 120-66M96 226c60 0 60-84 120-84h120"/><path class="system-wires" d="M96 150c40 0 80 34 120 34"/><circle cx="96" cy="74" r="13"/><circle cx="96" cy="150" r="13"/><circle cx="96" cy="226" r="13"/><circle cx="216" cy="140" r="13"/><circle cx="336" cy="74" r="13"/><circle cx="336" cy="184" r="13"/><rect x="270" y="108" width="132" height="40" rx="8"/><path d="M282 122h56M282 136h76"/></svg>
+    <span class="art-caption">HOT PATHS BECOME MACHINE CODE.<span>↗</span></span>
+  </div>
+{% elsif art_post.slug contains 'welcome-to-jekyll' %}
+  <div class="post-art art-hello" aria-hidden="true">
+    <span class="art-tag">ZERO TO PUBLISHED</span>
+    <svg viewBox="0 0 480 300" fill="none"><rect x="76" y="66" width="328" height="172" rx="10"/><path d="M76 100h328"/><circle cx="98" cy="83" r="5"/><circle cx="116" cy="83" r="5"/><circle cx="134" cy="83" r="5"/><text x="100" y="140">$ jekyll serve</text><text x="100" y="168">Server running... press ctrl-c to stop</text><rect x="100" y="188" width="150" height="10" rx="3" fill="none"/><text x="100" y="196">$</text><path d="M116 186l10 5-10 5"/></svg>
+    <span class="art-caption">HELLO, WORLD. IT COMPUTES.<span>↗</span></span>
+  </div>
+{% elsif art_post.categories contains 'security' %}
+  <div class="post-art art-security" aria-hidden="true">
+    <span class="art-tag">FOLLOW THE CONNECTIONS</span>
+    <svg viewBox="0 0 480 300" fill="none"><g class="art-orbits"><path d="M114.43 77.5A145 85 30 1 1 365.57 222.5A145 85 30 1 1 114.43 77.5"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(-30 240 150)"/><ellipse cx="240" cy="150" rx="145" ry="85" transform="rotate(90 240 150)"/></g><g class="art-lock"><rect x="207" y="137" width="66" height="56" rx="10"/><path d="M222 137v-20a18 18 0 0 1 36 0v20m-18 19v15"/></g><g class="art-labels"><rect x="66" y="83" width="104" height="28"/><text x="118" y="101" text-anchor="middle">THE WAY IN</text><rect x="316" y="161" width="111" height="28"/><text x="371" y="179" text-anchor="middle">THE SYSTEM</text><rect class="art-lesson" x="180" y="251" width="120" height="28"/><text class="art-lesson-text" x="240" y="269" text-anchor="middle">THE LESSON</text></g><circle class="orbit-dot" cx="114.43" cy="77.5" r="4"/></svg>
+    <span class="art-caption">SYSTEMS. PEOPLE. TRUST.<span>↗</span></span>
+  </div>
+{% elsif art_post.categories contains 'ai' or art_post.categories contains 'projects' %}
+  <div class="post-art art-building" aria-hidden="true"><span class="art-tag">FROM QUESTION TO EXPERIMENT</span><svg viewBox="0 0 480 300" fill="none"><path class="art-grid" d="M0 75h480M0 150h480M0 225h480M80 0v300M160 0v300M240 0v300M320 0v300M400 0v300"/><path class="art-chart" d="M30 180h60l25-25 24 49 36-100 38 132 35-81h55l30-43 35 43h82"/><circle cx="248" cy="155" r="6" fill="currentColor"/></svg><span class="art-caption">IDEAS, TESTED IN THE REAL WORLD.<span>↗</span></span></div>
+{% elsif art_post.categories contains 'books' %}
+  <div class="post-art art-books" aria-hidden="true"><span class="art-tag">NOTES IN THE MARGINS</span><svg viewBox="0 0 480 300" fill="none"><g transform="rotate(-8 240 150)"><rect x="126" y="60" width="102" height="182" rx="4"/><path d="M143 60v182m14-149h51m-51 12h51m-51 12h31"/><rect x="242" y="78" width="103" height="165" rx="4"/><path d="M258 78v165m17-129h52m-52 12h52m-52 12h35"/></g></svg><span class="art-caption">A DIFFERENT WAY TO THINK.<span>↗</span></span></div>
+{% else %}
+  <div class="post-art art-systems" aria-hidden="true"><span class="art-tag">UNDER THE SURFACE</span><svg viewBox="0 0 480 300" fill="none"><path class="system-wires" d="M115 90 240 150 365 90M115 220 240 150 365 220"/><rect x="194" y="105" width="92" height="92" rx="18"/><path d="m220 138-15 12 15 12m40-24 15 12-15 12m-15-31-10 38"/><circle cx="115" cy="90" r="21"/><circle cx="115" cy="220" r="21"/><circle cx="365" cy="90" r="21"/><circle cx="365" cy="220" r="21"/></svg><span class="art-caption">OBSERVE → EXPERIMENT → UNDERSTAND<span>↗</span></span></div>
+{% endif %}

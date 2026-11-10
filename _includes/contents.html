@@ -1,0 +1,25 @@
+{% assign toc_parts = include.content | split: '<h' %}
+{% capture toc_links %}
+  {% for part in toc_parts offset:1 %}
+    {% assign heading_level = part | slice: 0, 1 %}
+    {% if heading_level == '2' or heading_level == '3' or heading_level == '4' %}
+      {% assign heading_tag = part | split: '>' | first %}
+      {% if heading_tag contains 'id="' %}
+        {% assign heading_id = heading_tag | split: 'id="' | last | split: '"' | first %}
+        {% assign heading_text = part | split: '</h' | first | remove_first: heading_tag | remove_first: '>' | strip_html | strip %}
+        <li data-heading-level="{{ heading_level }}"><a href="#{{ heading_id }}">{% assign toc_number = forloop.index %}{% if toc_number < 10 %}{% capture toc_index %}0{{ toc_number }}{% endcapture %}{% else %}{% capture toc_index %}{{ toc_number }}{% endcapture %}{% endif %}<span class="toc-index" aria-hidden="true">{{ toc_index }}</span><span class="toc-text">{{ heading_text }}</span></a></li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+{% assign has_contents = toc_links | strip %}
+{% unless has_contents == '' %}
+<aside class="post-toc" aria-label="Article contents">
+  <details class="toc-disclosure" open>
+    <summary>ON THIS PAGE <span aria-hidden="true">⌄</span></summary>
+    <nav aria-label="Table of contents"><ol>{{ toc_links }}</ol></nav>
+    <p class="toc-left" hidden data-toc-note><span data-toc-remaining></span></p>
+    <p class="toc-footnote"><span aria-hidden="true">↘</span>Follow the story.<br>Find the connections.</p>
+  </details>
+</aside>
+{% endunless %}

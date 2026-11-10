@@ -1,18 +1,9 @@
 ---
 layout: page
-title:  Categories
+title: Follow a thread.
+description: Security, AI, systems, books—and the connections between them.
 permalink: /categories/
 ---
-<div class="tag-list">
-{% for cat in site.categories %}
-  <div class="tag-group">
-    {% capture cat_name %}{{ cat | first }}{% endcapture %}
-    <h5 class="tag-group-title" id="{{ cat_name | slugize }}">{{ cat_name }}</h5>
-    {% for post in site.categories[cat_name] %}
-    <article class="tag-item">
-      <a class="tag-item-title" href="{{ site.url }}{{ post.url }}">{{post.title}}</a>
-    </article>
-    {% endfor %}
-  </div>
-{% endfor %}
-</div>
+{% assign categories = site.categories | sort %}
+<nav class="category-index" aria-label="Jump to a topic">{% for category in categories %}<a href="#{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' }} <span>{{ category[1].size }}</span></a>{% endfor %}</nav>
+<div class="topic-groups">{% for category in categories %}<section class="topic-group" aria-labelledby="{{ category[0] | slugify }}"><h2 id="{{ category[0] | slugify }}">{{ category[0] | replace: '-', ' ' }}</h2><ul>{% assign topic_posts = category[1] | sort: 'date' | reverse %}{% for post in topic_posts %}<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b %Y' }}</time></li>{% endfor %}</ul></section>{% endfor %}</div>

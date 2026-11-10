@@ -1,0 +1,18 @@
+{% assign card_post = include.post %}
+{% assign card_group = 'systems' %}
+{% if card_post.categories contains 'security' %}{% assign card_group = 'security' %}{% elsif card_post.categories contains 'ai' or card_post.categories contains 'projects' %}{% assign card_group = 'building' %}{% elsif card_post.categories contains 'books' %}{% assign card_group = 'books' %}{% endif %}
+<article class="story" data-story data-topic="{{ card_group }}" data-search-text="{{ card_post.title | append: ' ' | append: card_post.categories | append: ' ' | append: card_post.description | strip_html | downcase | escape }}">
+  <a class="story-art-link" href="{{ card_post.url | relative_url }}" tabindex="-1" aria-hidden="true">{% include post-art.html post=card_post %}</a>
+  <div class="story-body">
+    <div class="story-meta"><span>{{ card_post.categories | first | default: 'Notes' | replace: '-', ' ' }}</span><time datetime="{{ card_post.date | date_to_xmlschema }}">{{ card_post.date | date: '%d %b %Y' }}</time>{% include read_time.html post=card_post %}</div>
+    <h2><a href="{{ card_post.url | relative_url }}">{{ card_post.title }}</a></h2>
+    {% assign card_description = card_post.description | default: card_post.excerpt | strip_html | normalize_whitespace | truncate: 180 %}
+    {% if card_post.url contains 'little-adventurers' %}
+      {% assign card_description = 'I built a free, screen-free learning app for kids.' %}
+    {% elsif card_post.url contains 'healthify' %}
+      {% assign card_description = 'I built a locally deployed health tracker app.' %}
+    {% endif %}
+    <p>{{ card_description }}</p>
+    <div class="story-footer"><span>{{ card_post.categories | join: ' / ' }}</span><a class="round-link" href="{{ card_post.url | relative_url }}" aria-label="Read {{ card_post.title | escape }}">↗</a></div>
+  </div>
+</article>

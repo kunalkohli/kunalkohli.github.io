@@ -1,32 +1,17 @@
 ---
 layout: default
 ---
-<div class="row">
-    <div class="col l7">
-        <div class="row">
-            <div class="col">
-                {% include sections/about.html %}        
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col">
-                {% include sections/projects.html %}
-            </div>
-        </div>
+<div class="about-page shell">
+  <header class="about-header"><div><p class="eyebrow">THE PERSON BEHIND THE NOTES</p><h1>Hi, I’m Kunal.</h1><p class="about-deck">Engineer. Builder. Always learning.</p></div><img src="{{ site.owner.avatar | prepend: '/img/' | relative_url }}" width="150" height="150" alt="Kunal Kohli"></header>
+  <div class="about-grid">
+    <div>
+      <section class="about-section">{% include sections/about.html %}</section>
+      <section class="about-section"><h2>Projects</h2>{% for project in site.data.index.projects %}<article class="project-card"><h3>{{ project.name }}</h3><div>{{ project.descr }}</div><div class="project-links">{% if project.github %}<a href="{{ project.github }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}{% if project.website %}<a href="{{ project.website }}" target="_blank" rel="noopener">Visit project ↗</a>{% endif %}</div></article>{% endfor %}</section>
     </div>
-
-    <div class="col l4 offset-l1">
-        <div class="row">
-            {% include sections/skills.html %}    
-        </div>
-        <div class="row">
-            {% include sections/career.html %}    
-        </div>
-        <div class="row">
-            {% include sections/education.html %}    
-        </div>
+    <div>
+      <section class="about-section"><h2>Skills & tools</h2><ul class="skill-list">{% assign skills = site.data.index.skills.aspects | split: ',' %}{% for skill in skills %}<li>{{ skill | strip }}</li>{% endfor %}</ul></section>
+      <section class="about-section"><h2>Experience</h2><ol class="career-list">{% for career in site.data.index.careers %}<li><span>{{ career.date }}</span><h3>{{ career.job }}</h3><a href="{{ career.link }}" target="_blank" rel="noopener">{{ career.name }} ↗</a></li>{% endfor %}</ol></section>
+      <section class="about-section"><h2>Education</h2><ol class="career-list">{% for education in site.data.index.education %}<li><span>{{ education.date }}</span><h3>{{ education.stream }}</h3><a href="{{ education.link }}" target="_blank" rel="noopener">{{ education.name }} ↗</a></li>{% endfor %}</ol></section>
     </div>
-    
-
+  </div>
 </div>

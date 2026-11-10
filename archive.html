@@ -1,24 +1,11 @@
-<!-- ---
+---
 layout: page
-title:  Archive
+title: The full notebook.
+description: Every published story, from the newest questions to the first experiments.
 permalink: /archive/
---- -->
-
-<div class="archive">
-  <div class="timeline" id="timeline">
-    {% assign posts_by_year = site.posts | group_by_exp:"post", "post.date | date: '%Y' " %}
-    {% for group in posts_by_year %}
-      <div class="archive-title">
-        <h4 class="archive-year">{{ group.name }}</h4>
-      </div>
-
-      <ul>
-      {% for post in group.items %}
-        <li><div style="width:60px;float:left;">{{ post.date | date: "%b %-d" }}</div> <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></li>
-      {% endfor %}
-      </ul>
-
-    {% endfor %}
-  </div>
-
-</div>
+---
+{% assign archive_posts = site.posts | where_exp: 'post', 'post.published != false' | where_exp: 'post', 'post.date <= site.time' | sort: 'date' | reverse %}
+{% assign years = archive_posts | group_by_exp: 'post', "post.date | date: '%Y'" %}
+{% for year in years %}
+<section class="archive-group" aria-labelledby="year-{{ year.name }}"><h2 id="year-{{ year.name }}">{{ year.name }} <span>{{ year.items.size }} stories</span></h2><ol class="archive-list">{% for post in year.items %}<li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b' }}</time><a href="{{ post.url | relative_url }}">{{ post.title }}</a><span>{% include read_time.html post=post %}</span></li>{% endfor %}</ol></section>
+{% endfor %}
