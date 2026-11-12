@@ -7,7 +7,7 @@ const [base, modulePath, screenshots] = process.argv.slice(2);
 if (!base || !modulePath) throw new Error('Supply a preview URL and Playwright module path.');
 const { chromium } = require(path.resolve(modulePath));
 const articlePath = '/articles/2026-11/dsconcepts-learning-journeys';
-const title = 'DSConcepts: Learn the Idea, Then Try It';
+const title = 'DSConcepts: Learn Data Science with Examples';
 
 (async () => {
   // This is an additive post PR: do not change older authored posts or the shared design.
@@ -29,7 +29,8 @@ const title = 'DSConcepts: Learn the Idea, Then Try It';
     assert.equal(await page.locator('#latest-title a').getAttribute('href'), articlePath);
     await page.locator('#latest-title a').click();
     assert.equal(await page.locator('h1').innerText(), title);
-    assert.equal(await page.locator('.post-content h2').count(), 6);
+    assert.equal(await page.locator('.post-content h2').count(), 3);
+    assert.match(await page.locator('.post-byline .read-time').innerText(), /[45] min read/);
     const prose = await page.locator('.post-content').innerText();
     for (const claim of ['31 stops', '24 stops', '24 problems: 12 basic and 12 advanced', 'DuckDB-Wasm', 'CodeMirror', 'MIT licence', 'pull request']) {
       assert.ok(prose.includes(claim), `Missing article content: ${claim}`);
@@ -37,7 +38,7 @@ const title = 'DSConcepts: Learn the Idea, Then Try It';
     const headings = await page.locator('.post-toc nav a').evaluateAll(links => links.map(link => ({
       target: link.hash, exists: !!document.getElementById(decodeURIComponent(link.hash.slice(1))),
     })));
-    assert.equal(headings.length, 6);
+    assert.equal(headings.length, 3);
     assert.ok(headings.every(heading => heading.exists), 'Contents links must target real headings');
 
     const images = page.locator('.post-content figure img');
@@ -85,7 +86,7 @@ const title = 'DSConcepts: Learn the Idea, Then Try It';
     const staticPage = await noJs.newPage();
     await staticPage.goto(base + articlePath, { waitUntil: 'domcontentloaded' });
     assert.equal(await staticPage.locator('h1').innerText(), title);
-    assert.equal(await staticPage.locator('.post-toc nav a').count(), 6);
+    assert.equal(await staticPage.locator('.post-toc nav a').count(), 3);
     assert.ok((await staticPage.locator('.post-content').innerText()).includes('DuckDB-Wasm'));
     await noJs.close();
     assert.deepEqual(errors, []);

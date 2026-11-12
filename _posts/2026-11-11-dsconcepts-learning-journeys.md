@@ -1,124 +1,91 @@
 ---
 layout: post
-title: "DSConcepts: Learn the Idea, Then Try It"
+title: "DSConcepts: Learn Data Science with Examples"
 date: 2026-11-11 20:00:00 -0500
 categories: [projects, data-science, education, sql, open-source]
-description: "A hands-on learning journey through forecasting and experimentation, plus a browser-based SQL code lab—built on open-source tools and open to contributions from fellow data scientists."
+description: "An app for learning forecasting and experimentation through simple examples, with a SQL code lab for interview prep. Built on open-source tools, with contributions welcome."
 comments: true
 published: true
 ---
 
-**[Try DSConcepts](https://dsconcepts.vercel.app) · [Explore the source](https://github.com/kunalkohli/stats_learning)**
+I built **[DSConcepts](https://dsconcepts.vercel.app)** to help people understand data science concepts through simple examples and hands-on practice. The goal was to build an app that explains concepts in an easy-to-follow way, with diagrams you can play with and questions to check your understanding.
 
-Recognising a term is not the same as understanding when to use it. You can know what a prediction interval is and still plan around one sales number. You can calculate a p-value and still run an experiment that answers the wrong question.
+It currently has two parts:
 
-I built **DSConcepts** around that gap: short learning journeys that connect an idea to a decision, give you something to change, and ask you to explain what happened. The starting points are **forecasting and experimentation**. Alongside them is a **SQL code lab**, with data you can inspect and queries you can actually run.
+- 🧠 **Concepts:** learning journeys for forecasting and experimentation.
+- 💻 **Code lab:** SQL practice with a dataset, an editor, and exercises for interview prep.
 
 <!--more-->
 
-## A journey, not a glossary
+## 🧠 Concepts: learn with examples
 
-The goal is not to collect as many definitions as possible. It is to build understanding in an order that makes the next idea easier to reason about.
+There are two learning streams, both using **Northstar**, a fictional online retailer, as the running example:
 
-Both journeys follow one fictional ecommerce business, **Northstar**. Keeping the business context familiar means the question can evolve without introducing a new company and dataset at every stop.
+- 📈 **[Forecasting](https://dsconcepts.vercel.app/forecasting) — 31 stops.** How much might Northstar sell next week? Start with trends, seasonality, and uncertainty, then work through baselines, backtesting, and forecasting methods.
+- 🧪 **[Experimentation](https://dsconcepts.vercel.app/experimentation) — 24 stops.** Northstar is testing a faster product page. Does it help customers buy more, and is checkout still reliable? Follow the example through randomization, metrics, confidence intervals, power, and rollout decisions.
 
-In the Lab layout, each lesson has three modes:
-
-- **Learn:** short cards for the big idea, why it matters, how it works, and what to remember.
-- **Explore:** change a control, inspect a diagram, or compare scenarios. Make a prediction before looking at the result.
-- **Check:** answer a question, read the feedback, and save a note in your own words.
-
-You can follow the route or jump back to a particular concept. There is no account to create; learning notes and progress stay in your browser, and the journal can be exported.
-
-## Forecasting: start with the decision, not the model
-
-The [forecasting journey](https://dsconcepts.vercel.app/forecasting) currently has **31 stops**. It begins with a practical question: what sales are plausible next Tuesday, and how should Northstar prepare stock and capacity?
-
-That is a different starting point from “Which forecasting model should I fit?” The journey builds toward that choice:
-
-1. **Understand the series.** Separate trend, seasonality, cycles, and unexplained variation. A November climb might be a holiday pattern, not permanent growth.
-2. **Build a benchmark.** Try simple baselines before asking whether a more complex method adds value.
-3. **Test honestly.** Hold out future observations, walk forward through historical forecast origins, and compare errors at the horizons the decision needs.
-4. **Diagnose what remains.** Explore autocorrelation, residual patterns, and the difference between useful memory and noise.
-5. **Choose a method for a reason.** Connect smoothing, Fourier terms, ARIMA, and other approaches to the patterns they are intended to represent.
-6. **Return to the decision.** Consider uncertainty, driver availability, coherent totals, and the distinction between a forecast, a target, and a plan.
+Each journey builds up gradually. You can follow it from the beginning or jump to a topic you want to revisit. The same business example carries through the lessons, so you can focus on the concept rather than learn a new setting every time.
 
 <figure>
   <a href="{{ '/img/dsconcepts/forecasting-journey.jpg' | relative_url }}"><img src="{{ '/img/dsconcepts/forecasting-journey.jpg' | relative_url }}" alt="The six parts of the forecasting journey, from time-series foundations and evaluation to models and practical decisions." width="1160" height="577" loading="lazy"></a>
-  <figcaption>The forecasting route: foundations first, model choices later. Open the image for a closer look.</figcaption>
+  <figcaption>📈 The forecasting journey. Click the image to explore the topics.</figcaption>
 </figure>
-
-The playgrounds make those distinctions tangible. Change the amount of history used for a forecast. Step through a rolling backtest. Add Fourier waves and compare how a flexible fit behaves with one year of history versus five.
-
-These are **small teaching implementations using constructed data**, not a production forecasting service. The point is to reveal an assumption or a failure mode—not to suggest that a convincing curve proves a model is good. Lessons also link to deeper reading, including [Forecasting: Principles and Practice](https://otexts.com/fpp3/).
-
-## Experimentation: from a change to a defensible decision
-
-The [experimentation journey](https://dsconcepts.vercel.app/experimentation) has **24 stops**, following Northstar as it tests a new product-page cache. A faster page sounds useful. But does it help buyers complete purchases, and does checkout remain reliable?
-
-The sequence follows the questions an experiment needs to answer:
-
-- **Design the comparison:** define the hypothesis, success metrics, assignment unit, and population being measured.
-- **Measure the right outcomes:** distinguish conversion lift from latency improvements, and keep reliability guardrails visible.
-- **Reason about evidence:** explore sampling variation, confidence intervals, p-values, power, and minimum detectable effects.
-- **Avoid misleading wins:** examine underpowered tests, repeated peeking, multiple comparisons, and interference through shared infrastructure.
-- **Make the call:** bring the evidence, uncertainty, cost, and operational risks together before shipping, holding, or stopping.
 
 <figure>
   <a href="{{ '/img/dsconcepts/experimentation-journey.jpg' | relative_url }}"><img src="{{ '/img/dsconcepts/experimentation-journey.jpg' | relative_url }}" alt="The experimentation journey, moving from randomization and measurement through inference, hidden traps, and rollout decisions." width="1160" height="509" loading="lazy"></a>
-  <figcaption>One running experiment, with each stage adding another part of the decision.</figcaption>
+  <figcaption>🧪 The experimentation journey, from setting up a test to deciding what to ship.</figcaption>
 </figure>
 
-For example, keep the observed lift fixed while changing the sample size. The estimated effect can stay the same while its precision changes substantially. That is easier to internalise when you can manipulate it than when it appears only as a formula.
+In the Lab layout, lessons follow a simple flow:
 
-The examples are simulated, not results from a real marketplace. Each playground makes its assumptions and limitations explicit, with further reading from sources such as [Microsoft's Experimentation Platform](https://www.microsoft.com/en-us/research/group/experimentation-platform-exp/).
+- 📖 **Learn:** read a short explanation with examples and a takeaway.
+- 🎛️ **Explore:** change a slider or compare scenarios to see what happens.
+- ✅ **Check:** answer a question and read the explanation.
 
-## The SQL code lab: query the data yourself
+For example, you can change how much sales history a forecast uses, or increase an experiment's sample size while keeping its observed lift the same. Watching the result change helps explain what the method is doing and what its assumptions mean.
 
-Conceptual understanding is one half of the work. The other half is being able to ask a precise question of a dataset—and notice when your query answers a different one.
+The data is simulated, and the playgrounds are teaching tools—not production forecasting or experimentation systems. Lessons include limitations and links to further reading. You can also save notes and export your learning journal.
 
-The [SQL lab](https://dsconcepts.vercel.app/sql-practice) has **24 problems: 12 basic and 12 advanced**. They use six related Northstar tables: customers, products, orders, order items, payments, and refunds.
+## 💻 Code lab: SQL interview prep
 
-You start with filtering, aggregation, and joins, then move to cohorts, ranking, `LEAD`/`LAG`, running totals, and refund-safe financial calculations. The data includes deliberately awkward cases: missing emails, customers without orders, ties, failed payments, and multiple refunds.
+The second part is a **[SQL code lab](https://dsconcepts.vercel.app/sql-practice)** for practising interview-style questions. It has **24 problems: 12 basic and 12 advanced**, using six related Northstar tables: customers, products, orders, order items, payments, and refunds.
 
-The workspace gives you:
+The exercises cover:
 
-- A problem statement and required output columns.
-- A blank SQL editor, with schema and sample data alongside it.
-- Real query execution and result tables—not a multiple-choice approximation of SQL.
-- Progressive hints and an optional solution with an explanation.
-- An answer check based on results, rather than matching your query text to one prescribed solution.
+- 🟢 **Basics:** filtering, aggregation, joins, dates, and missing values.
+- 🔵 **Advanced topics:** cohorts, ranking, `LEAD`/`LAG`, running totals, and calculations involving payments and refunds.
+
+Each problem starts with a blank editor. The schema and sample data are available alongside it, so you can inspect the tables before writing your query.
+
+The practice loop is straightforward:
+
+1. 📝 Read the question and required output columns.
+2. ▶️ Write and run your SQL against the provided data.
+3. 🔍 Inspect the results and check your answer.
+4. 💡 Use a hint or reveal the solution and explanation if you get stuck.
 
 <figure>
   <a href="{{ '/img/dsconcepts/sql-lab.jpg' | relative_url }}"><img src="{{ '/img/dsconcepts/sql-lab.jpg' | relative_url }}" alt="The SQL lab showing a monthly-revenue query, its six result rows, and the orders table schema beside the editor." width="1160" height="1082" loading="lazy"></a>
-  <figcaption>A query executed against the simulated Northstar data. Monetary values are stored in USD cents; the engine uses DuckDB SQL.</figcaption>
+  <figcaption>💻 Running a monthly-revenue query, with the schema beside the editor. Amounts are stored in USD cents.</figcaption>
 </figure>
 
-One advanced problem asks for customers whose **first-ever completed order was in March and exceeded $100**. Filtering to March before finding the first order answers a subtly different question. The exercise is about the business definition as much as the window function.
+One question asks for customers whose **first-ever completed order was in March and exceeded $100**. Finding the first order *after* filtering to March gives a different answer. These exercises are designed to practise both SQL and reading the question carefully.
 
-Checking also runs against an amount-variation dataset to catch some hardcoded answers and threshold mistakes. Passing both datasets is useful feedback, not proof that a query is correct for every possible input.
+Answer checking compares results, not your query text, and uses a second dataset variation to catch some common mistakes. It is useful practice feedback, not a guarantee that a query works for every possible dataset. The dialect is **DuckDB SQL**.
 
-## Built on open source—and open to other data scientists
+## 🤝 Open source: help improve it
 
-The SQL lab is powered by **[DuckDB-Wasm](https://github.com/duckdb/duckdb-wasm)**, the open-source WebAssembly build of DuckDB. It runs SQL in a browser worker, so there is no database server to set up and your queries are not uploaded to a query service. **[CodeMirror](https://codemirror.net/)** provides the editor, including syntax highlighting and completion.
+The SQL lab is powered by **[DuckDB-Wasm](https://github.com/duckdb/duckdb-wasm)**, which runs DuckDB in your browser. There is no database server to install, and queries are not uploaded to a query service. **[CodeMirror](https://codemirror.net/)** provides the editor, and the app is built with Next.js and React.
 
-The application is built with [Next.js](https://nextjs.org/) and [React](https://react.dev/). The lesson content, diagrams, and teaching calculations live in the project itself; they are not a closed course hidden behind those libraries.
+**[DSConcepts is open source under the MIT licence](https://github.com/kunalkohli/stats_learning/blob/main/LICENSE)**, including the lesson content and teaching code. I would love fellow data scientists to contribute:
 
-**[DSConcepts is open source under the MIT licence](https://github.com/kunalkohli/stats_learning/blob/main/LICENSE).** I want fellow data scientists to be able to improve the concepts, not just use the finished pages.
+- ✍️ A simpler explanation or a better example.
+- 📊 A diagram or interactive exercise for a concept.
+- 🧩 A SQL question, dataset variation, or alternative solution.
+- 🐛 A correction where a calculation or explanation is wrong.
 
-Useful contributions can be small:
+You do not need to build a whole learning stream to help. Improving one confusing lesson is a useful contribution. The [README](https://github.com/kunalkohli/stats_learning#readme) explains how to run the app and where the content lives. [Open an issue](https://github.com/kunalkohli/stats_learning/issues) or send a pull request with your suggestion.
 
-- **Clarify an explanation:** point out where an assumption is missing or an example could be misunderstood.
-- **Add a counterexample:** show when an apparently sensible forecasting or experimentation rule breaks down.
-- **Improve a playground:** make a concept more visible, fix a calculation, or add a test for an edge case.
-- **Extend the SQL lab:** propose a problem, a dataset variation, or an alternative correct solution that the checker should accept.
+No sign-up is needed to try it. Notes, progress, and SQL drafts stay in your browser, so they do not sync across devices.
 
-The [repository README](https://github.com/kunalkohli/stats_learning#readme) explains how to run the app and where the curricula, teaching helpers, and SQL exercises live. [Open an issue](https://github.com/kunalkohli/stats_learning/issues) with a concrete example, or fork the repository and send a pull request. A clearer explanation backed by a good example is just as welcome as a code change.
-
-## Pick a starting point
-
-- **[Forecasting](https://dsconcepts.vercel.app/forecasting):** follow a series from uncertainty to a useful planning decision.
-- **[Experimentation](https://dsconcepts.vercel.app/experimentation):** follow a proposed change from random assignment to a rollout decision.
-- **[SQL practice](https://dsconcepts.vercel.app/sql-practice):** inspect the data, write a query, and test your understanding.
-
-The ambition is simple: fewer terms we merely recognise, more ideas we can explain, test, and use. And, with other data scientists contributing, better explanations than any one person could write alone.
+🚀 **[Try DSConcepts](https://dsconcepts.vercel.app)** or **[explore the source on GitHub](https://github.com/kunalkohli/stats_learning)**. Pick a concept, try an example, or work through a SQL problem—and let me know what would make it more useful.
