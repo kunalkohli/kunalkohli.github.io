@@ -195,7 +195,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .copy-link { margin-left: auto; all: unset; cursor: pointer; font: 10px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 4px 8px; }
 .copy-link:hover { color: var(--ink); border-color: var(--accent-line); }
 .art-title { font: 600 40px/1.12 var(--display); letter-spacing: -.03em; color: var(--ink); margin: 0 0 20px; overflow-wrap: break-word; }
-.art-intro { font: 400 18.5px/1.6 var(--display); color: var(--intro); margin: 0 0 34px; }
+/* TL;DR callout: the deck is the post's summary, so frame it as one */
+.art-tldr { margin: 0 0 34px; padding: 14px 18px; background: var(--accent-dim); border: 1px solid var(--accent-line); border-radius: 8px; }
+.art-tldr .tldr-label { display: block; margin: 0 0 6px; font: 600 10px var(--mono); letter-spacing: .16em; color: var(--accent); }
+.art-intro { font: 400 17.5px/1.6 var(--display); color: var(--intro); margin: 0; }
 .post-feature { margin: 0 0 30px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .post-feature img { display: block; max-height: 460px; width: 100%; object-fit: cover; }
 .post-feature .post-art { min-height: 280px; }

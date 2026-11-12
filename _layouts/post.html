@@ -14,7 +14,7 @@ layout: default
         <span class="sr-only" role="status" data-copy-status></span>
       </div>
       <h1 class="art-title">{{ page.title }}</h1>
-      {% if page.description %}<p class="art-intro">{{ page.description }}</p>{% endif %}
+      {% if page.description %}<aside class="art-tldr"><span class="tldr-label">TL;DR</span><p class="art-intro">{{ page.description }}</p></aside>{% endif %}
     </header>
     {% if page.image.feature %}
       {% assign feature_src = page.image.feature %}{% unless feature_src contains '://' %}{% assign feature_src = feature_src | prepend: '/img/' | relative_url %}{% endunless %}
