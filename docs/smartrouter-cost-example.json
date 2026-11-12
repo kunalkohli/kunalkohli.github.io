@@ -1,0 +1,39 @@
+{
+  "description": "Sanitized token counters from the initial GLM Free build, with a hypothetical same-usage Sol API price calculation. Not a measured Sol execution or subscription-bill saving.",
+  "checkpoint": "Initial build ending at the 26.9K (13%) context indicator; later follow-up requests excluded",
+  "recordedAt": "2026-11-11T22:49:31.887-05:00",
+  "usageSource": "Sum of completed Build assistant-message token counters in the local OpenCode session context API, through this checkpoint. No prompts, message/session IDs, plan text, credentials, or financial records are included.",
+  "model": "opencode/glm-5.3-flash-free",
+  "completedBuildRequests": 25,
+  "lastRequestContextTokens": 26928,
+  "totals": {
+    "input": 34658,
+    "output": 13363,
+    "reasoning": 5057,
+    "cache": {
+      "read": 444992,
+      "write": 0
+    }
+  },
+  "reportedBuildCostUSD": 0,
+  "solStandardUSDPerMillionTokens": {
+    "input": 2,
+    "cachedInputRead": 0.1,
+    "cacheWrite": 2.5,
+    "outputIncludingReasoning": 10
+  },
+  "ratesSource": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+  "ratesCheckedOn": "2026-11-11",
+  "sameUsageSolEstimateUSD": 0.2980152,
+  "sameUsageAllInputUncachedSolEstimateUSD": 1.1435,
+  "assumptions": [
+    "The same token counts are priced at Sol's Standard API rates; Sol was not run as a comparison executor.",
+    "The cache-aware estimate assumes the same cache-hit profile; it does not imply GLM cache entries transfer to Sol.",
+    "None of the recorded individual requests reached the 272K-input long-context price threshold.",
+    "Output and reasoning are separate counters in OpenCode and are added once for output pricing.",
+    "The all-input-uncached scenario reprices existing cached reads at the regular input rate; it is not an upper bound on a different executor's usage.",
+    "No Fast, Batch, Flex, regional processing, or separate paid hosted-tool charges are included.",
+    "Astra planning, the fixed subscription fee, and Jev classification are excluded from these build-only totals.",
+    "OpenAI OAuth subscription usage draws allowance; this API-equivalent estimate is not a cash invoice or a measured allowance saving."
+  ]
+}
