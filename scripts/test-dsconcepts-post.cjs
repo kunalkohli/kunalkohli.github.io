@@ -10,9 +10,9 @@ const articlePath = '/articles/2026-11/dsconcepts-learning-journeys';
 const title = 'DSConcepts: Learn Data Science with Examples';
 
 (async () => {
-  // This is an additive post PR: do not change older authored posts or the shared design.
-  // Exception: _includes/post-art.html was intentionally redrawn (laptop learning art) at the author's request.
-  const originals = execFileSync('git', ['ls-tree', '-r', '--name-only', 'origin/master', '--', '_posts', '_layouts', '_includes', 'css', 'js'], { encoding: 'utf8' }).trim().split('\n').filter(file => file !== '_includes/post-art.html');
+  // Additive post: the authored DSConcepts post and its art must survive later design work.
+  // The shared layout evolves in design PRs and is covered by scripts/test-site-revamp.cjs.
+  const originals = ['_posts/2026-11-11-dsconcepts-learning-journeys.md', '_includes/post-art.html'];
   for (const file of originals) {
     assert.ok(fs.readFileSync(file).equals(execFileSync('git', ['show', `origin/master:${file}`])), `Existing source changed: ${file}`);
   }
@@ -26,26 +26,22 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     });
 
     await page.goto(base, { waitUntil: 'domcontentloaded' });
-    assert.equal(await page.locator('#latest-title a').innerText(), title);
-    assert.equal(await page.locator('#latest-title a').getAttribute('href'), articlePath);
-    const featuredArt = page.locator('.latest-visual .post-art svg');
-    assert.ok(await featuredArt.locator('rect').count() >= 1, 'Featured card should render the laptop learning art');
-    assert.ok(await featuredArt.locator('.art-chart').count() === 1, 'Featured art keeps the animated progress line');
-    await page.locator('#latest-title a').click();
+    const firstEntry = page.locator('.feed .entry').first();
+    assert.equal(await firstEntry.getAttribute('href'), articlePath, 'Newest story leads the feed');
+    assert.equal((await firstEntry.locator('h3').innerText()).replace('↗', '').trim(), title);
+    await firstEntry.click();
     assert.equal(await page.locator('h1').innerText(), title);
     assert.equal(await page.locator('.post-content h2').count(), 3);
-    const readTime = (await page.locator('.post-byline .read-time').innerText()).trim();
+    const readTime = (await page.locator('.art-meta .read-time').innerText()).trim();
     assert.match(readTime, /^[1-9]\d* min read$/);
     assert.ok(parseInt(readTime, 10) >= 3, 'The post should have at least three minutes of reading content');
     const prose = await page.locator('.post-content').innerText();
     for (const claim of ['31 stops', '24 stops', 'real-world business situations', 'aggregations', 'ROW_NUMBER', 'open source on GitHub', 'pull request']) {
       assert.ok(prose.includes(claim), `Missing article content: ${claim}`);
     }
-    const headings = await page.locator('.post-toc nav a').evaluateAll(links => links.map(link => ({
-      target: link.hash, exists: !!document.getElementById(decodeURIComponent(link.hash.slice(1))),
-    })));
+    const headings = await page.locator('.post-content h2').evaluateAll(hs => hs.map(h => ({ id: h.id, text: h.textContent.trim() })));
     assert.equal(headings.length, 3);
-    assert.ok(headings.every(heading => heading.exists), 'Contents links must target real headings');
+    assert.ok(headings.every(heading => heading.id), 'Section headings carry anchor ids for deep links');
 
     const image = page.locator('.post-content img');
     assert.equal(await image.count(), 1, 'Include only the requested homepage overview screenshot');
@@ -58,9 +54,8 @@ const title = 'DSConcepts: Learn Data Science with Examples';
       assert.ok(await page.locator(`.post-content a[href="${url}"]`).count(), `Missing destination: ${url}`);
     }
 
-    for (const theme of ['light', 'dark']) {
-      await page.waitForFunction(() => !document.querySelector('[data-theme-toggle]').hidden);
-      if (await page.locator('html').getAttribute('data-theme') !== theme) await page.locator('[data-theme-toggle]').click();
+    for (const theme of ['dev', 'dark', 'light']) {
+      if (await page.locator('html').getAttribute('data-theme') !== theme) await page.locator(`[data-theme-opt="${theme}"]`).click();
       for (const width of [320, 390, 768, 1440, 2560]) {
         await page.setViewportSize({ width, height: 1000 });
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Article overflow: ${theme}/${width}`);
@@ -91,11 +86,11 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     const staticPage = await noJs.newPage();
     await staticPage.goto(base + articlePath, { waitUntil: 'domcontentloaded' });
     assert.equal(await staticPage.locator('h1').innerText(), title);
-    assert.equal(await staticPage.locator('.post-toc nav a').count(), 3);
+    assert.equal(await staticPage.locator('.post-content h2').count(), 3);
     assert.ok((await staticPage.locator('.post-content').innerText()).includes('ROW_NUMBER'));
     await noJs.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: existing sources preserved (featured laptop art intentionally updated); new latest post, contents, homepage screenshot, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
+    console.log('PASS: dsconcepts post preserved (newest story leads the feed); mono meta, section anchors, screenshot, links, archive/topics/feed, dev/dark/light, five widths, 110% mobile text, and no-JS reading.');
   } finally {
     await browser.close();
   }

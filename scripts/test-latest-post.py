@@ -35,14 +35,14 @@ with tempfile.TemporaryDirectory(prefix='latest-post-fixture-', dir=os.environ.g
         return (destination / 'index.html').read_text()
 
     html = build()
-    hero = html.split('<h1 id="latest-title">', 1)[1].split('</h1>', 1)[0]
-    assert 'Current published story' in hero
+    strip = html.split('LATEST: <b>', 1)[1].split('</b>', 1)[0]
+    assert 'Current published story' in strip
     assert 'Unpublished story' not in html
     assert 'Future story' not in html
     post('2023-01-01-newer.md', 'Newly published story')
     html = build()
-    hero = html.split('<h1 id="latest-title">', 1)[1].split('</h1>', 1)[0]
-    assert 'Newly published story' in hero
+    strip = html.split('LATEST: <b>', 1)[1].split('</b>', 1)[0]
+    assert 'Newly published story' in strip
     assert 'Unpublished story' not in html
     assert 'Future story' not in html
-    print('PASS: hero advances to the newest published post, excluding drafts and future posts; no real posts were edited.')
+    print('PASS: strip advances to the newest published post, excluding drafts and future posts; no real posts were edited.')

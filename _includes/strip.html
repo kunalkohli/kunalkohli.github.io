@@ -1,0 +1,16 @@
+{% comment %}
+  Top banner strip, per page type:
+  - homepage: latest story
+  - article: another recent story (the runner-up when this is the latest)
+{% endcomment %}
+{% assign strip_posts = site.posts | where_exp: 'post', 'post.published != false' | where_exp: 'post', 'post.date <= site.time' | sort: 'date' | reverse %}
+{% assign strip_latest = strip_posts | first %}
+{% if page.layout == 'post_listing' and strip_latest %}
+<a class="strip" href="{{ strip_latest.url | relative_url }}">LATEST: <b>{{ strip_latest.title }}</b><span class="strip-note"> — {{ strip_latest.description | strip_html | normalize_whitespace | truncate: 90 }}</span></a>
+{% elsif page.layout == 'post' and strip_latest %}
+{% assign strip_post = strip_latest %}
+{% if page.url == strip_latest.url %}{% assign strip_post = strip_posts[1] %}{% endif %}
+{% if strip_post %}
+<a class="strip" href="{{ strip_post.url | relative_url }}">MORE LIKE THIS: <b>{{ strip_post.title }}</b><span class="strip-note"> — {{ strip_post.description | strip_html | normalize_whitespace | truncate: 90 }}</span></a>
+{% endif %}
+{% endif %}
