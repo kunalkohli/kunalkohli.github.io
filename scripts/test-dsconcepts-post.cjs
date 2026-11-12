@@ -11,7 +11,8 @@ const title = 'DSConcepts: Learn Data Science with Examples';
 
 (async () => {
   // This is an additive post PR: do not change older authored posts or the shared design.
-  const originals = execFileSync('git', ['ls-tree', '-r', '--name-only', 'origin/master', '--', '_posts', '_layouts', '_includes', 'css', 'js'], { encoding: 'utf8' }).trim().split('\n');
+  // Exception: _includes/post-art.html was intentionally redrawn (laptop learning art) at the author's request.
+  const originals = execFileSync('git', ['ls-tree', '-r', '--name-only', 'origin/master', '--', '_posts', '_layouts', '_includes', 'css', 'js'], { encoding: 'utf8' }).trim().split('\n').filter(file => file !== '_includes/post-art.html');
   for (const file of originals) {
     assert.ok(fs.readFileSync(file).equals(execFileSync('git', ['show', `origin/master:${file}`])), `Existing source changed: ${file}`);
   }
@@ -27,6 +28,9 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     await page.goto(base, { waitUntil: 'domcontentloaded' });
     assert.equal(await page.locator('#latest-title a').innerText(), title);
     assert.equal(await page.locator('#latest-title a').getAttribute('href'), articlePath);
+    const featuredArt = page.locator('.latest-visual .post-art svg');
+    assert.ok(await featuredArt.locator('rect').count() >= 1, 'Featured card should render the laptop learning art');
+    assert.ok(await featuredArt.locator('.art-chart').count() === 1, 'Featured art keeps the animated progress line');
     await page.locator('#latest-title a').click();
     assert.equal(await page.locator('h1').innerText(), title);
     assert.equal(await page.locator('.post-content h2').count(), 3);
@@ -91,7 +95,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.ok((await staticPage.locator('.post-content').innerText()).includes('ROW_NUMBER'));
     await noJs.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: existing sources preserved; new latest post, contents, homepage screenshot, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
+    console.log('PASS: existing sources preserved (featured laptop art intentionally updated); new latest post, contents, homepage screenshot, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
   } finally {
     await browser.close();
   }
