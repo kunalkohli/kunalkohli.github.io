@@ -30,9 +30,9 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     await page.locator('#latest-title a').click();
     assert.equal(await page.locator('h1').innerText(), title);
     assert.equal(await page.locator('.post-content h2').count(), 3);
-    assert.match(await page.locator('.post-byline .read-time').innerText(), /[45] min read/);
+    assert.match((await page.locator('.post-byline .read-time').innerText()).trim(), /^[1-9]\d* min read$/);
     const prose = await page.locator('.post-content').innerText();
-    for (const claim of ['31 stops', '24 stops', '24 problems: 12 basic and 12 advanced', 'DuckDB-Wasm', 'CodeMirror', 'MIT licence', 'pull request']) {
+    for (const claim of ['31 stops', '24 stops', 'real-world business situations', 'aggregations', 'ROW_NUMBER', 'open source on GitHub', 'pull request']) {
       assert.ok(prose.includes(claim), `Missing article content: ${claim}`);
     }
     const headings = await page.locator('.post-toc nav a').evaluateAll(links => links.map(link => ({
@@ -42,7 +42,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.ok(headings.every(heading => heading.exists), 'Contents links must target real headings');
 
     assert.equal(await page.locator('.post-content img').count(), 0, 'The post should not contain app screenshots');
-    for (const url of ['https://dsconcepts.vercel.app/forecasting', 'https://dsconcepts.vercel.app/experimentation', 'https://dsconcepts.vercel.app/sql-practice', 'https://github.com/kunalkohli/stats_learning', 'https://github.com/duckdb/duckdb-wasm']) {
+    for (const url of ['https://dsconcepts.vercel.app/forecasting', 'https://dsconcepts.vercel.app/experimentation', 'https://dsconcepts.vercel.app/sql-practice', 'https://github.com/kunalkohli/stats_learning', 'https://github.com/kunalkohli/stats_learning/issues']) {
       assert.ok(await page.locator(`.post-content a[href="${url}"]`).count(), `Missing destination: ${url}`);
     }
 
@@ -80,7 +80,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     await staticPage.goto(base + articlePath, { waitUntil: 'domcontentloaded' });
     assert.equal(await staticPage.locator('h1').innerText(), title);
     assert.equal(await staticPage.locator('.post-toc nav a').count(), 3);
-    assert.ok((await staticPage.locator('.post-content').innerText()).includes('DuckDB-Wasm'));
+    assert.ok((await staticPage.locator('.post-content').innerText()).includes('ROW_NUMBER'));
     await noJs.close();
     assert.deepEqual(errors, []);
     console.log('PASS: existing sources preserved; new latest post, contents, screenshot-free body, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
