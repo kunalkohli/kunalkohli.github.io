@@ -30,7 +30,9 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     await page.locator('#latest-title a').click();
     assert.equal(await page.locator('h1').innerText(), title);
     assert.equal(await page.locator('.post-content h2').count(), 3);
-    assert.match((await page.locator('.post-byline .read-time').innerText()).trim(), /^[1-9]\d* min read$/);
+    const readTime = (await page.locator('.post-byline .read-time').innerText()).trim();
+    assert.match(readTime, /^[1-9]\d* min read$/);
+    assert.ok(parseInt(readTime, 10) >= 3, 'The post should have at least three minutes of reading content');
     const prose = await page.locator('.post-content').innerText();
     for (const claim of ['31 stops', '24 stops', 'real-world business situations', 'aggregations', 'ROW_NUMBER', 'open source on GitHub', 'pull request']) {
       assert.ok(prose.includes(claim), `Missing article content: ${claim}`);
@@ -41,7 +43,13 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.equal(headings.length, 3);
     assert.ok(headings.every(heading => heading.exists), 'Contents links must target real headings');
 
-    assert.equal(await page.locator('.post-content img').count(), 0, 'The post should not contain app screenshots');
+    const image = page.locator('.post-content img');
+    assert.equal(await image.count(), 1, 'Include only the requested homepage overview screenshot');
+    assert.equal(await image.getAttribute('src'), '/img/dsconcepts/homepage.jpg');
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate(img => img.decode());
+    assert.ok((await image.getAttribute('alt')).length > 40);
+    assert.ok(await image.evaluate(img => img.naturalWidth === Number(img.getAttribute('width')) && img.naturalHeight === Number(img.getAttribute('height'))));
     for (const url of ['https://dsconcepts.vercel.app/forecasting', 'https://dsconcepts.vercel.app/experimentation', 'https://dsconcepts.vercel.app/sql-practice', 'https://github.com/kunalkohli/stats_learning', 'https://github.com/kunalkohli/stats_learning/issues']) {
       assert.ok(await page.locator(`.post-content a[href="${url}"]`).count(), `Missing destination: ${url}`);
     }
@@ -83,7 +91,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.ok((await staticPage.locator('.post-content').innerText()).includes('ROW_NUMBER'));
     await noJs.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: existing sources preserved; new latest post, contents, screenshot-free body, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
+    console.log('PASS: existing sources preserved; new latest post, contents, homepage screenshot, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
   } finally {
     await browser.close();
   }
