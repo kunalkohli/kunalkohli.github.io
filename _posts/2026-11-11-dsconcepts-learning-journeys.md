@@ -35,8 +35,12 @@ We use fictional examples based on real-world business situations to help you un
 
 Here are two examples of the kinds of questions we explore:
 
-- 📦 **Planning stock:** Northstar’s sales increase before the holidays. Should the team expect that growth to continue into January? Looking at previous years helps explain the difference between a lasting trend and a seasonal pattern. That distinction matters when deciding how much stock to order.
-- 🛒 **Testing a change:** More customers buy after a new page launches. Was it the new page, or did a promotion bring in different customers? This gives random assignment a practical purpose: creating a fair comparison. We also consider whether a change improves purchases while making another part of the experience worse.
+- 📦 **Planning stock:** Northstar’s sales increase before the holidays. Should the team expect that growth to continue into January?
+  - Looking at previous years helps explain the difference between a lasting trend and a seasonal pattern.
+  - That distinction matters when deciding how much stock to order.
+- 🛒 **Testing a change:** More customers buy after a new page launches. Was it the new page, or did a promotion bring in different customers?
+  - This gives random assignment a practical purpose: creating a fair comparison.
+  - We also consider whether a change improves purchases while making another part of the experience worse.
 
 The examples give you something concrete to think about as the ideas become more detailed. Terms such as seasonality, uncertainty, or guardrail metrics are easier to discuss when you can relate them to a decision a team needs to make.
 
