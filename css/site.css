@@ -1,6 +1,6 @@
 /* Data Musings — turbopuffer-style layout.
-   Space Grotesk display + JetBrains Mono meta. Three themes:
-   dev (default: Homebrew amber on black), dark (navy/mint), light (paper/monochrome). */
+   Space Grotesk display + JetBrains Mono meta. Two themes:
+   dev (default: Homebrew amber on black) and light (paper/monochrome). */
 
 :root {
   --display: 'Space Grotesk', system-ui, sans-serif;
@@ -32,32 +32,6 @@
   --citrus-ink: #f2a33c;
   --band: #0c0c0c;
   --bandline: rgba(255, 255, 255, .15);
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0b1220;
-  --bg-strip: #0f172b;
-  --ink: #f1f5f9;
-  --intro: #cfd9e6;
-  --body: #b6c2d4;
-  --muted: #94a3b8;
-  --faint: #64748b;
-  --line: rgba(148, 163, 184, .16);
-  --accent: #5dd7b9;
-  --accent-dim: rgba(93, 215, 185, .12);
-  --accent-line: rgba(93, 215, 185, .35);
-  --code-ink: #9fb3c8;
-  --code-bg: #0f172b;
-  --sheet-line: rgba(148, 163, 184, .35);
-  --sheet-bg: #0d1526;
-  --dots: rgba(148, 163, 184, .4);
-  --surface: #0f172b;
-  --soft: #16203a;
-  --citrus: #5dd7b9;
-  --citrus-ink: #5dd7b9;
-  --band: #0f172b;
-  --bandline: rgba(148, 163, 184, .16);
 }
 
 :root[data-theme="light"] {
@@ -191,7 +165,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .footer-credit { color: var(--faint); font: 10px var(--mono); }
 
 /* article sheet frame: bordered panel, × corner, dotted rail on the right edge */
-.sheet-wrap { max-width: 940px; margin: 10px auto 0; padding: 0 28px; }
+.sheet-wrap { max-width: 1100px; margin: 10px auto 0; padding: 0 28px; }
 .sheet {
   position: relative;
   background: var(--sheet-bg);
@@ -221,7 +195,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .copy-link { margin-left: auto; all: unset; cursor: pointer; font: 10px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 4px 8px; }
 .copy-link:hover { color: var(--ink); border-color: var(--accent-line); }
 .art-title { font: 600 40px/1.12 var(--display); letter-spacing: -.03em; color: var(--ink); margin: 0 0 20px; overflow-wrap: break-word; }
-.art-intro { font: 400 18.5px/1.6 var(--display); color: var(--intro); margin: 0 0 34px; max-width: 62ch; }
+.art-intro { font: 400 18.5px/1.6 var(--display); color: var(--intro); margin: 0 0 34px; }
 .post-feature { margin: 0 0 30px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .post-feature img { display: block; max-height: 460px; width: 100%; object-fit: cover; }
 .post-feature .post-art { min-height: 280px; }
@@ -230,6 +204,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 /* article body */
 .post-content { min-width: 0; font-size: 16.5px; line-height: 1.8; color: var(--body); overflow-wrap: break-word; counter-reset: section; }
 .post-content p { margin: 0 0 18px; }
+/* a post's closing line (CTA) gets breathing room before it */
+.post-content > p:last-child { margin-top: 36px; margin-bottom: 0; }
 .post-content a:not(.attack-player a) { color: var(--accent); border-bottom: 1px solid var(--accent-line); }
 .post-content a:not(.attack-player a):hover { border-bottom-color: var(--accent); }
 .post-content strong { color: var(--ink); font-weight: 600; }

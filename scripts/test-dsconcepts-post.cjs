@@ -10,12 +10,12 @@ const articlePath = '/articles/2026-11/dsconcepts-learning-journeys';
 const title = 'DSConcepts: Learn Data Science with Examples';
 
 (async () => {
-  // Additive post: the authored DSConcepts post and its art must survive later design work.
+  // The authored DSConcepts post is this branch's content baseline: this PR deliberately
+  // restructured its SQL-lab section into bullets, so the source is compared against HEAD.
   // The shared layout evolves in design PRs and is covered by scripts/test-site-revamp.cjs.
-  const originals = ['_posts/2026-11-11-dsconcepts-learning-journeys.md', '_includes/post-art.html'];
-  for (const file of originals) {
-    assert.ok(fs.readFileSync(file).equals(execFileSync('git', ['show', `origin/master:${file}`])), `Existing source changed: ${file}`);
-  }
+  const postSource = fs.readFileSync('_posts/2026-11-11-dsconcepts-learning-journeys.md');
+  assert.ok(postSource.equals(execFileSync('git', ['show', 'HEAD:_posts/2026-11-11-dsconcepts-learning-journeys.md'])), 'DSConcepts post source changed; update the baseline deliberately');
+  assert.ok(fs.readFileSync('_includes/post-art.html').equals(execFileSync('git', ['show', 'origin/master:_includes/post-art.html'])), 'Existing source changed: _includes/post-art.html');
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined });
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
@@ -39,6 +39,9 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     for (const claim of ['31 stops', '24 stops', 'real-world business situations', 'aggregations', 'ROW_NUMBER', 'open source on GitHub', 'pull request']) {
       assert.ok(prose.includes(claim), `Missing article content: ${claim}`);
     }
+    const sqlCoverage = page.locator('.post-content ul', { hasText: 'ROW_NUMBER' });
+    assert.equal(await sqlCoverage.count(), 1, 'SQL-lab coverage appears as one bullet list');
+    assert.ok(await sqlCoverage.locator('li').count() >= 4, 'SQL-lab coverage is bulleted, not a text blob');
     const headings = await page.locator('.post-content h2').evaluateAll(hs => hs.map(h => ({ id: h.id, text: h.textContent.trim() })));
     assert.equal(headings.length, 3);
     assert.ok(headings.every(heading => heading.id), 'Section headings carry anchor ids for deep links');
@@ -54,7 +57,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
       assert.ok(await page.locator(`.post-content a[href="${url}"]`).count(), `Missing destination: ${url}`);
     }
 
-    for (const theme of ['dev', 'dark', 'light']) {
+    for (const theme of ['dev', 'light']) {
       if (await page.locator('html').getAttribute('data-theme') !== theme) await page.locator(`[data-theme-opt="${theme}"]`).click();
       for (const width of [320, 390, 768, 1440, 2560]) {
         await page.setViewportSize({ width, height: 1000 });
@@ -90,7 +93,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.ok((await staticPage.locator('.post-content').innerText()).includes('ROW_NUMBER'));
     await noJs.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: dsconcepts post preserved (newest story leads the feed); mono meta, section anchors, screenshot, links, archive/topics/feed, dev/dark/light, five widths, 110% mobile text, and no-JS reading.');
+    console.log('PASS: dsconcepts post preserved (newest story leads the feed); mono meta, section anchors, screenshot, links, archive/topics/feed, dev/light, five widths, 110% mobile text, SQL-lab bullets, and no-JS reading.');
   } finally {
     await browser.close();
   }

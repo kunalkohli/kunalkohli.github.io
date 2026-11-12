@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var root = document.documentElement;
-  var themeColors = { dev: '#000000', dark: '#0b1220', light: '#fdfdfe' };
+  var themeColors = { dev: '#000000', light: '#fdfdfe' };
 
   function updateTheme(theme, save) {
     root.dataset.theme = theme;

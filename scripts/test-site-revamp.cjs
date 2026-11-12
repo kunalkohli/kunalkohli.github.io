@@ -1,6 +1,6 @@
 // node scripts/test-site-revamp.cjs BASE_URL PLAYWRIGHT_MODULE [SCREENSHOT_DIR]
 // CHROME_PATH may point to an installed Chrome.
-// Suite for the tpuf-style layout: dev/dark/light themes (dev default), tight feed
+// Suite for the tpuf-style layout: dev/light themes (dev default), tight feed
 // homepage, framed article sheet, topics side rail, original attack animation.
 const assert = require('node:assert/strict');
 const path = require('node:path');
@@ -10,11 +10,14 @@ const [base, modulePath, screenshots] = process.argv.slice(2);
 if (!base || !modulePath) throw new Error('Supply a preview URL and Playwright module path.');
 const { chromium } = require(path.resolve(modulePath));
 
-const THEMES = ['dev', 'dark', 'light'];
+const THEMES = ['dev', 'light'];
 
 (async () => {
-  const preserved = execFileSync('git', ['diff', 'origin/master', '--', '_posts', '_includes/binance-attack-animation.html', 'css/binance-attack.css', 'js/binance-attack.js'], { encoding: 'utf8' });
-  assert.equal(preserved, '', 'Authored posts and original attack animation must not change');
+  // Authored posts and the original attack animation are preserved, with one
+  // deliberate exception: the DSConcepts post's SQL-lab section was restructured
+  // into bullets (its content is guarded by scripts/test-dsconcepts-post.cjs).
+  const changedAuthored = execFileSync('git', ['diff', 'origin/master', '--name-only', '--', '_posts', '_includes/binance-attack-animation.html', 'css/binance-attack.css', 'js/binance-attack.js'], { encoding: 'utf8' }).trim().split('\n').filter(name => name && name !== '_posts/2026-11-11-dsconcepts-learning-journeys.md');
+  assert.deepEqual(changedAuthored, [], 'Authored posts (except the DSConcepts bullets edit) and the original attack animation must not change');
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined });
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, colorScheme: 'light', reducedMotion: 'reduce' });
@@ -48,15 +51,14 @@ const THEMES = ['dev', 'dark', 'light'];
     assert.ok((await page.locator('.entry .meta').first().innerText()).includes('min read'), 'Entries carry mono meta with read time');
     const articleUrls = entries.map(entry => entry.url);
 
-    // Theme switch: dev -> light persists across reloads; all three buttons work.
+    // Theme switch: dev <-> light persists across reloads; dark is gone.
     await page.locator('[data-theme-opt="light"]').click();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
     await page.reload({ waitUntil: 'networkidle' });
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'light', 'Theme choice persists');
-    await page.locator('[data-theme-opt="dark"]').click();
-    assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
     await page.locator('[data-theme-opt="dev"]').click();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dev');
+    assert.equal(await page.locator('[data-theme-opt="dark"]').count(), 0, 'Dark theme option is removed');
 
     // Text-size control (kept from the previous design).
     assert.equal(await page.locator('[data-text-label]').innerText(), '90%');
@@ -74,7 +76,7 @@ const THEMES = ['dev', 'dark', 'light'];
     assert.equal(await page.locator('[data-text-label]').innerText(), '70%');
     assert.equal(await page.locator('[data-text-step="-"]').isDisabled(), true, '70% is the minimum');
     await page.locator('[data-text-step="+"]').click();
-    console.log('PASS tight feed homepage (every story, newest first), dev default, 3-theme switch persistence, text-size control');
+    console.log('PASS tight feed homepage (every story, newest first), dev default, dev/light theme persistence, text-size control');
 
     for (const size of ['0.7', '1.1']) {
       for (const target of ['/', articleUrls[0]]) {
@@ -123,7 +125,7 @@ const THEMES = ['dev', 'dark', 'light'];
           }
         }
       }
-      console.log('PASS page/dev+dark+light/seven widths', entry.url);
+      console.log('PASS page/dev+light/seven widths', entry.url);
     }
 
     // Cover-art SVG still rides its drawn orbit (article feature art).
