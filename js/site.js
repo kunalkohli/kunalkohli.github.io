@@ -71,6 +71,30 @@
     showTopic(topicRail.dataset.defaultTopic);
   }
 
+  var toc = document.querySelector('[data-toc]');
+  if (toc) {
+    var tocLinks = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
+    var tocTargets = tocLinks.map(function (link) {
+      return document.getElementById(decodeURIComponent(link.hash.slice(1)));
+    });
+    var tocTicking = false;
+    var updateToc = function () {
+      tocTicking = false;
+      var active = -1;
+      for (var i = 0; i < tocTargets.length; i++) {
+        if (tocTargets[i] && tocTargets[i].getBoundingClientRect().top <= 120) active = i;
+      }
+      tocLinks.forEach(function (link, i) {
+        if (i === active) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    window.addEventListener('scroll', function () {
+      if (!tocTicking) { tocTicking = true; requestAnimationFrame(updateToc); }
+    }, { passive: true });
+    updateToc();
+  }
+
   var copyButton = document.querySelector('[data-copy-link]');
   if (copyButton && navigator.clipboard && window.isSecureContext) {
     copyButton.hidden = false;

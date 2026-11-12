@@ -190,6 +190,21 @@ const THEMES = ['dev', 'light'];
     assert.ok((await page.locator('.sheet-x').getAttribute('href')).startsWith('/'), '× returns to the writing list');
     assert.ok(await page.locator('.sheet-dots').isVisible(), 'Perforated rail hugs the article edge');
     assert.ok(await page.locator('.crumbs').isVisible(), 'Mono breadcrumb above the title');
+    // Left "on this page" rail: sections listed, scrollspy follows, hides when narrow.
+    const tocLinks = page.locator('.toc li a');
+    const tocCount = await tocLinks.count();
+    assert.ok(tocCount >= 2, 'Article shows a left contents rail with its sections');
+    await tocLinks.nth(1).click();
+    let marked = false;
+    for (let i = 0; i < 10 && !marked; i++) {
+      marked = (await tocLinks.nth(1).getAttribute('aria-current')) === 'true';
+      if (!marked) await page.waitForTimeout(200);
+    }
+    assert.ok(marked, 'Scrollspy marks the section you jumped to');
+    assert.equal(await tocLinks.nth(0).getAttribute('aria-current'), null, 'Earlier section is no longer marked');
+    await page.setViewportSize({ width: 1150, height: 1000 });
+    assert.equal(await page.locator('.toc').isVisible(), false, 'Contents rail hides below 1200px');
+    await page.setViewportSize({ width: 1440, height: 1000 });
     console.log('PASS original six animated scenes, stage TL;DR, keyboard controls, article sheet frame');
 
     // Mermaid rendering and theme re-render.

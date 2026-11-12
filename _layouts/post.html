@@ -1,7 +1,10 @@
 ---
 layout: default
 ---
-<div class="sheet-wrap">
+{% capture toc_html %}{% include toc.html content=content %}{% endcapture %}
+<div class="sheet-outer{% unless toc_html contains '<li>' %} no-toc{% endunless %}">
+{{ toc_html }}
+  <div class="sheet-wrap">
   <article id="post" class="sheet{% if page.post_class %} {{ page.post_class | escape }}{% endif %}">
     <a class="sheet-x" href="{{ '/' | relative_url }}" aria-label="Close article — back to all writing">×</a>
     <header class="art-head">
@@ -26,6 +29,7 @@ layout: default
       <span class="end-next"><a href="{{ '/archive/' | relative_url }}">full archive ↗</a></span>
     </div>
   </article>
+  </div>
 </div>
 <span class="sheet-dots" aria-hidden="true"></span>
 {% if page.mermaid %}<script src="{{ '/js/site-mermaid.js' | relative_url }}?v={{ site.time | date: '%s' }}" type="module"></script>{% endif %}
