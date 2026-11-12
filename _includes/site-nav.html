@@ -1,17 +1,20 @@
 <header class="site-header">
   <nav class="site-nav shell" aria-label="Main navigation">
-    <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="Data Musings home"><span class="brand-mark" aria-hidden="true">d<span>m</span></span><span>data musings<span class="wordmark-period">.</span></span></a>
+    <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="Data Musings home">data musings<span class="wordmark-period">.</span></a>
     <div class="nav-links">
       <a href="{{ '/' | relative_url }}#writing"{% if page.url == '/' %} aria-current="page"{% endif %}>Writing</a>
       <a href="{{ '/categories/' | relative_url }}"{% if page.url contains '/categories/' %} aria-current="page"{% endif %}>Topics</a>
       <a href="{{ '/resume/' | relative_url }}"{% if page.url == '/resume/' %} aria-current="page"{% endif %}>About</a>
+      <a href="https://github.com/{{ site.owner.github }}" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
-    <span class="nav-note"><span></span> Notes from a curious engineer</span>
     <div class="text-size" role="group" aria-label="Text size" hidden>
       <button type="button" data-text-step="-" aria-label="Smaller text" disabled>A−</button>
       <span data-text-label aria-live="polite">90%</span>
       <button type="button" data-text-step="+" aria-label="Larger text">A+</button>
     </div>
-    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" hidden><span data-theme-icon aria-hidden="true">◐</span><span data-theme-label>Dark mode</span></button>
+    <div class="theme-switch" role="group" aria-label="Theme">
+      <button type="button" data-theme-opt="dev" aria-pressed="false">dev</button>
+      <button type="button" data-theme-opt="light" aria-pressed="false">light</button>
+    </div>
   </nav>
 </header>

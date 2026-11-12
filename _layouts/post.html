@@ -1,23 +1,35 @@
 ---
 layout: default
 ---
-<div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div>
-<div id="post" class="post shell{% if page.post_class %} {{ page.post_class | escape }}{% endif %}">
-  <header class="post-header">
-    <a class="back-link" href="{{ '/' | relative_url }}#writing">← All writing</a>
-    <div class="post-topics">{% for category in page.categories %}<a href="{{ '/categories/' | relative_url }}#{{ category | slugify }}">{{ category | replace: '-', ' ' }}</a>{% endfor %}</div>
-    <h1>{{ page.title }}</h1>
-    {% if page.description %}<p class="post-deck">{{ page.description }}</p>{% endif %}
-    <div class="post-byline"><img src="{{ site.owner.avatar | prepend: '/img/' | relative_url }}" width="40" height="40" alt=""><div><a href="{{ '/resume/' | relative_url }}">Kunal Kohli</a><p><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%d %b %Y' }}</time><span>·</span>{% include read_time.html %}</p></div><button type="button" class="copy-link" data-copy-link hidden>Copy link ↗</button><span class="sr-only" role="status" data-copy-status></span></div>
-  </header>
-  {% if page.image.feature %}
-    {% assign feature_src = page.image.feature %}{% unless feature_src contains '://' %}{% assign feature_src = feature_src | prepend: '/img/' | relative_url %}{% endunless %}
-    <figure class="post-feature"><img src="{{ feature_src }}" alt="{{ page.title | escape }}">{% if page.image.credit %}<figcaption>Photo: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></figcaption>{% endif %}</figure>
-  {% endif %}
-  <div class="post-layout">
-    {% include contents.html content=content %}
-    <article class="post-content" data-post-content>{{ content }}</article>
+{% capture toc_html %}{% include toc.html content=content %}{% endcapture %}
+<div class="sheet-outer{% unless toc_html contains '<li>' %} no-toc{% endunless %}">
+{{ toc_html }}
+  <div class="sheet-wrap">
+  <article id="post" class="sheet{% if page.post_class %} {{ page.post_class | escape }}{% endif %}">
+    <a class="sheet-x" href="{{ '/' | relative_url }}" aria-label="Close article — back to all writing">×</a>
+    <header class="art-head">
+      <p class="crumbs"><a href="{{ '/' | relative_url }}">writing</a> / <a href="{{ '/categories/' | relative_url }}">{{ page.categories | first | default: 'notes' | replace: '-', ' ' }}</a></p>
+      <div class="art-meta">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%d %b %Y' }}</time><span class="dot" aria-hidden="true">•</span>
+        <span>Kunal Kohli (Engineer)</span><span class="dot" aria-hidden="true">•</span>
+        {% include read_time.html %}
+        <button type="button" class="copy-link" data-copy-link hidden>Copy link ↗</button>
+        <span class="sr-only" role="status" data-copy-status></span>
+      </div>
+      <h1 class="art-title">{{ page.title }}</h1>
+      {% if page.description %}<aside class="art-tldr"><span class="tldr-label">TL;DR</span><p class="art-intro">{{ page.description }}</p></aside>{% endif %}
+    </header>
+    {% if page.image.feature %}
+      {% assign feature_src = page.image.feature %}{% unless feature_src contains '://' %}{% assign feature_src = feature_src | prepend: '/img/' | relative_url %}{% endunless %}
+      <figure class="post-feature"><img src="{{ feature_src }}" alt="{{ page.title | escape }}">{% if page.image.credit %}<figcaption>Photo: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></figcaption>{% endif %}</figure>
+    {% endif %}
+    <div class="post-content" data-post-content>{{ content }}</div>
+    <div class="end-note">
+      <span>← <a href="{{ '/' | relative_url }}">all writing</a></span>
+      <span class="end-next"><a href="{{ '/archive/' | relative_url }}">full archive ↗</a></span>
+    </div>
+  </article>
   </div>
-  <div class="post-end"><span class="spark" aria-hidden="true">✳</span><p>More questions worth following.</p><a class="text-link" href="{{ '/' | relative_url }}#writing">Back to the notebook ↗</a></div>
 </div>
+<span class="sheet-dots" aria-hidden="true"></span>
 {% if page.mermaid %}<script src="{{ '/js/site-mermaid.js' | relative_url }}?v={{ site.time | date: '%s' }}" type="module"></script>{% endif %}

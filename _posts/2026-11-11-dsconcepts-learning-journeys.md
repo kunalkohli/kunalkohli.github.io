@@ -35,10 +35,10 @@ We use fictional examples based on real-world business situations to help you un
 
 Here are two examples of the kinds of questions we explore:
 
-- 📦 **Planning stock:** Northstar’s sales increase before the holidays. Should the team expect that growth to continue into January?
+- 📈 **Forecasting growth:** Northstar’s sales increase before the holidays. Should the team expect that growth to continue into January?
   - 📅 Looking at previous years helps explain the difference between a lasting trend and a seasonal pattern.
   - 🚚 That distinction matters when deciding how much stock to order.
-- 🛒 **Testing a change:** More customers buy after a new page launches. Was it the new page, or did a promotion bring in different customers?
+- 🛒 **Experimenting with a new feature (A/B test):** More customers buy after a new page launches. Was it the new page, or did a promotion bring in different customers?
   - 🧪 This gives random assignment a practical purpose: creating a fair comparison.
   - ⚖️ We also consider whether a change improves purchases while making another part of the experience worse.
 
@@ -46,11 +46,12 @@ The examples give you something concrete to think about as the ideas become more
 
 ## 💻 Code lab: SQL interview prep
 
-The second part is a **[SQL code lab](https://dsconcepts.vercel.app/sql-practice)** for practising interview-style questions. It includes multiple SQL problems covering aggregations, joins, ranking, `ROW_NUMBER`, and other window functions to help you improve your SQL skills.
+The second part is a **[SQL code lab](https://dsconcepts.vercel.app/sql-practice)** for practising interview-style questions and sharpening your SQL skills. The problems cover:
 
-The questions use business data, so the practice includes deciding what should be counted and how tables relate. For example, joining orders to payments can repeat an order when it has multiple payment attempts. Understanding the data helps you spot why a total is too high, even when the SQL runs without an error.
-
-Window functions introduce another useful set of questions: how do you rank customers, compare a purchase with the previous one, or calculate spending over time? These are skills that come up in both interviews and day-to-day analysis. The lab gives you a place to practise them on provided data without setting up your own database.
+- 🧮 **Core topics:** aggregations, joins, ranking, `ROW_NUMBER`, and other window functions.
+- 🏢 **Business data:** deciding what should be counted and how tables relate is part of the practice. Joining orders to payments, for example, can repeat an order when it has multiple payment attempts — which is why a total can come out too high even when the SQL runs without an error.
+- 🪟 **Window functions:** rank customers, compare a purchase with the previous one, or calculate spending over time. These skills come up in both interviews and day-to-day analysis.
+- 💾 **No setup:** everything runs on provided data, so you can practise without building your own database.
 
 ## 🤝 Open source: help improve it
 
