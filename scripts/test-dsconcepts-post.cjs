@@ -41,14 +41,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.equal(headings.length, 3);
     assert.ok(headings.every(heading => heading.exists), 'Contents links must target real headings');
 
-    const images = page.locator('.post-content figure img');
-    assert.equal(await images.count(), 3);
-    for (const image of await images.all()) {
-      await image.scrollIntoViewIfNeeded();
-      await image.evaluate(img => img.decode());
-      assert.ok((await image.getAttribute('alt')).length > 40, 'Screenshots need descriptive alt text');
-      assert.ok(await image.evaluate(img => img.naturalWidth === Number(img.getAttribute('width')) && img.naturalHeight === Number(img.getAttribute('height'))), 'Screenshot dimensions must match their markup');
-    }
+    assert.equal(await page.locator('.post-content img').count(), 0, 'The post should not contain app screenshots');
     for (const url of ['https://dsconcepts.vercel.app/forecasting', 'https://dsconcepts.vercel.app/experimentation', 'https://dsconcepts.vercel.app/sql-practice', 'https://github.com/kunalkohli/stats_learning', 'https://github.com/duckdb/duckdb-wasm']) {
       assert.ok(await page.locator(`.post-content a[href="${url}"]`).count(), `Missing destination: ${url}`);
     }
@@ -90,7 +83,7 @@ const title = 'DSConcepts: Learn Data Science with Examples';
     assert.ok((await staticPage.locator('.post-content').innerText()).includes('DuckDB-Wasm'));
     await noJs.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: existing sources preserved; new latest post, contents, screenshots, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
+    console.log('PASS: existing sources preserved; new latest post, contents, screenshot-free body, links, archive/topics/feed, light/dark, five widths, 110% mobile text, and no-JS reading.');
   } finally {
     await browser.close();
   }

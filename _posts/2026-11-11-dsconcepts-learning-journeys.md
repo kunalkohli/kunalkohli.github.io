@@ -26,16 +26,6 @@ There are two learning streams, both using **Northstar**, a fictional online ret
 
 Each journey builds up gradually. You can follow it from the beginning or jump to a topic you want to revisit. The same business example carries through the lessons, so you can focus on the concept rather than learn a new setting every time.
 
-<figure>
-  <a href="{{ '/img/dsconcepts/forecasting-journey.jpg' | relative_url }}"><img src="{{ '/img/dsconcepts/forecasting-journey.jpg' | relative_url }}" alt="The six parts of the forecasting journey, from time-series foundations and evaluation to models and practical decisions." width="1160" height="577" loading="lazy"></a>
-  <figcaption>📈 The forecasting journey. Click the image to explore the topics.</figcaption>
-</figure>
-
-<figure>
-  <a href="{{ '/img/dsconcepts/experimentation-journey.jpg' | relative_url }}"><img src="{{ '/img/dsconcepts/experimentation-journey.jpg' | relative_url }}" alt="The experimentation journey, moving from randomization and measurement through inference, hidden traps, and rollout decisions." width="1160" height="509" loading="lazy"></a>
-  <figcaption>🧪 The experimentation journey, from setting up a test to deciding what to ship.</figcaption>
-</figure>
-
 In the Lab layout, lessons follow a simple flow:
 
 - 📖 **Learn:** read a short explanation with examples and a takeaway.
@@ -63,11 +53,6 @@ The practice loop is straightforward:
 2. ▶️ Write and run your SQL against the provided data.
 3. 🔍 Inspect the results and check your answer.
 4. 💡 Use a hint or reveal the solution and explanation if you get stuck.
-
-<figure>
-  <a href="{{ '/img/dsconcepts/sql-lab.jpg' | relative_url }}"><img src="{{ '/img/dsconcepts/sql-lab.jpg' | relative_url }}" alt="The SQL lab showing a monthly-revenue query, its six result rows, and the orders table schema beside the editor." width="1160" height="1082" loading="lazy"></a>
-  <figcaption>💻 Running a monthly-revenue query, with the schema beside the editor. Amounts are stored in USD cents.</figcaption>
-</figure>
 
 One question asks for customers whose **first-ever completed order was in March and exceeded $100**. Finding the first order *after* filtering to March gives a different answer. These exercises are designed to practise both SQL and reading the question carefully.
 
