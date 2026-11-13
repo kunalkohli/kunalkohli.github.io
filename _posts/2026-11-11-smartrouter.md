@@ -12,7 +12,7 @@ excerpt: "Why use the biggest model for every turn? I built an OpenCode plugin t
 
 The part of using an AI coding agent that started bothering me wasn't writing prompts. It was **choosing the model**.
 
-- 🧠 **Pick the strongest model:** it does everything—understand the problem, make a plan, read files, change a label, add boilerplate, run tests, even fix a typo—but at a high cost. **For the majority of use cases, we don't want the best model:** the same model handles both the hard thinking and the routine work, wasting expensive tokens on easy tasks.
+- 🧠 **Pick the strongest model:** it does everything, from planning to fixing a typo—but at a high cost. **Most use cases don't need the best model**, so expensive tokens go to waste on routine work.
 - 💸 **Pick a cheaper model:** it saves money, but **underperforms on high-complexity tasks**, and we waste tokens getting sub-optimal output.
 
 I wanted a different arrangement:
