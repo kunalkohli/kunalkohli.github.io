@@ -6,8 +6,8 @@ date: 2026-11-11 22:45:00 -0500
 categories: [projects, ai, developer-tools]
 comments: true
 published: true
-description: "Model choice shouldn't be manual. I built a connector that intelligently picks the model based on task complexity — planning stays with a strong model, builds go to a model that's good enough — cutting waste and saving money."
-excerpt: "Model choice shouldn't be manual. I built a connector that intelligently picks the model based on task complexity — planning stays with a strong model, builds go to a model that's good enough — cutting waste and saving money."
+description: "LLM model selection shouldn't be manual. I built a connector that intelligently picks the model based on task complexity — planning stays with a strong model, builds go to a model that's good enough — cutting waste and saving money."
+excerpt: "LLM model selection shouldn't be manual. I built a connector that intelligently picks the model based on task complexity — planning stays with a strong model, builds go to a model that's good enough — cutting waste and saving money."
 ---
 
 The part of using an AI coding agent that started bothering me wasn't writing prompts. It was **choosing the model**.
