@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I Built a Model Router for My Coding Agent"
+title: "I Built an LLM Router to Route Requests Efficiently and Save $$"
 date: 2026-11-11 22:45:00 -0500
 categories: [projects, ai, developer-tools]
 comments: true

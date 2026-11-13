@@ -9,7 +9,7 @@ const [base, modulePath, screenshots] = process.argv.slice(2);
 if (!base || !modulePath) throw new Error('Supply a preview URL and Playwright module path.');
 const { chromium } = require(path.resolve(modulePath));
 const article = '/articles/2026-11/smartrouter';
-const title = 'I Built a Model Router for My Coding Agent';
+const title = 'I Built an LLM Router to Route Requests Efficiently and Save $$';
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined });
