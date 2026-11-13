@@ -12,15 +12,15 @@ excerpt: "Why use the biggest model for every turn? I built an OpenCode plugin t
 
 The part of using an AI coding agent that started bothering me wasn't writing prompts. It was **choosing the model**.
 
-- 🧠 **Pick the strongest model:** it does everything—understand the problem, make a plan, read files, change a label, add boilerplate, run tests, even fix a typo. **The same model handles both the hard thinking and the routine work, wasting expensive tokens on easy tasks.**
-- 💸 **Pick a cheaper model:** it saves money, but **output quality can fall short on tough tasks**.
+- 🧠 **Pick the strongest model:** it does everything—understand the problem, make a plan, read files, change a label, add boilerplate, run tests, even fix a typo—but at a high cost. **For the majority of use cases, we don't want the best model:** the same model handles both the hard thinking and the routine work, wasting expensive tokens on easy tasks.
+- 💸 **Pick a cheaper model:** it saves money, but **underperforms on high-complexity tasks**, and we waste tokens getting sub-optimal output.
 
 I wanted a different arrangement:
 
-- **Choose a model with sufficient quality for the task at hand.** Optimize for both cost and output quality, with **quality as the primary driver**.
+- 🔬 **Choose a model with sufficient quality for the task at hand.** Optimize for both cost and output quality, with **quality as the primary driver**.
 - **Pick the execution model once for the full implementation in a session**, rather than choosing again on every turn.
 
-So I built [smartLLMrouter](https://github.com/kunalkohli/smartLLMrouter), a plugin for [OpenCode](https://opencode.ai/).
+So I built [smartLLMrouter](https://github.com/kunalkohli/smartLLMrouter){:target="_blank" rel="noopener"}, a plugin for [OpenCode](https://opencode.ai/){:target="_blank" rel="noopener"}.
 
 <!--more-->
 
@@ -29,12 +29,12 @@ So I built [smartLLMrouter](https://github.com/kunalkohli/smartLLMrouter), a plu
 The entry in the model picker is **smartrouter - openai**. The OpenAI suffix identifies the planning family, not a restriction that every build must use OpenAI.
 
 1. 🧠 **Plan with Astra**, through my existing OpenAI sign-in in OpenCode.
-2. 🎯 **Classify with [Jev](https://www.typesafe.ai/):** switch to Build and send an instruction. Jev reads the finished plan and the build request.
+2. 🎯 **Classify with [Jev](https://www.typesafe.ai/){:target="_blank" rel="noopener"}:** switch to Build and send an instruction. Jev reads the finished plan and the build request.
 3. 🛠️ **Choose the executor:** an eligible **free model**, or **OpenAI Terra/Sol** when the work calls for it.
 4. ✋ **Ask before proceeding** if routing confidence is below **0.80**.
 5. 💾 **Cache the choice for the session** and reuse it for later Build turns.
 
-**Astra is Plan-only.** It is not an emergency Build fallback.
+**Astra is only used for planning.** We use lower cost models for building, based on the classification from Jev.
 
 <figure>
   <a href="{{ '/img/smartrouter/05-user-sketch.png' | relative_url }}">
@@ -47,9 +47,9 @@ The entry in the model picker is **smartrouter - openai**. The OpenAI suffix ide
 
 This is a **live recording of the implementation in play**.
 
-- **At the start:** Smart Router is selected in Plan, and Astra prepares a stock-dashboard plan.
-- **Around 22 seconds:** the first Build instruction triggers routing, and **💰 OpenCode reports the switch to GLM Free.**
-- **After the handoff:** the picker shows GLM Free and the session contains a Jev decision notice.
+- ▶️ **At the start:** Smart Router is selected in Plan, and Astra prepares a stock-dashboard plan.
+- ⏱️ **Around 22 seconds:** the first Build instruction triggers routing, and OpenCode reports the switch to GLM Free.
+- 🤝 **After the handoff:** the picker shows GLM Free and the session contains a Jev decision notice.
 
 <figure>
   <video controls playsinline preload="none" width="3018" height="1578" poster="{{ '/img/smartrouter/demo-poster.jpg' | relative_url }}" aria-label="Silent live demonstration of Smart Router in OpenCode" aria-describedby="smartrouter-demo-caption" style="display:block;width:100%;height:auto;border-radius:8px;background:#111;">
@@ -74,7 +74,7 @@ And this is the resulting stock-dashboard UI after letting the router choose GLM
 
 ## 🎯 Why Jev for classification?
 
-Choosing from a fixed set of models is a **classification problem**, not another open-ended coding task. [Jev](https://www.typesafe.ai/) is built for structured decisions, so I don't need a second conversational LLM to deliberate about the route.
+Choosing from a fixed set of models is a **classification problem**, not another open-ended coding task. [Jev](https://www.typesafe.ai/){:target="_blank" rel="noopener"} is built for structured decisions, so I don't need a second conversational LLM to deliberate about the route.
 
 - **One request** chooses the execution family and model, while assessing infrastructure and security risks.
 - **Structured answers and confidence values** make the choice visible and let the plugin ask for approval when uncertain.
@@ -97,7 +97,7 @@ The saving is small here because the requirements were simple. For larger projec
 
 ## 🚀 Try it
 
-The code and setup instructions are in [smartLLMrouter on GitHub](https://github.com/kunalkohli/smartLLMrouter).
+The code and setup instructions are in [smartLLMrouter on GitHub](https://github.com/kunalkohli/smartLLMrouter){:target="_blank" rel="noopener"}.
 
 **To use native routing, you need:**
 
