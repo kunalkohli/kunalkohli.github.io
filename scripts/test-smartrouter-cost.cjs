@@ -21,10 +21,11 @@ assert.equal(allInput + output, 498070);
 assert.equal(output, 18420);
 assert.ok(Math.abs(cached - snapshot.sameUsageSolEstimateUSD) < 1e-12);
 assert.ok(Math.abs(uncached - snapshot.sameUsageAllInputUncachedSolEstimateUSD) < 1e-12);
-for (const value of ['$0.2980152', '$1.14', '498,070', '34,658', '444,992', '18,420']) {
+for (const value of ['$0.2980 ≈ $0.30', '498,070', '34,658', '444,992', '18,420']) {
   assert.ok(post.includes(value), 'Published post must match the snapshot: ' + value);
 }
-assert.ok(post.includes('not a measured Sol run'));
-assert.ok(post.includes('not the cumulative tokens'));
-assert.ok(post.includes('Jev is separate'));
+assert.ok(post.includes('same token usage and cache split'));
+assert.ok(post.includes('GLM build cost $0'));
+assert.ok(snapshot.description.includes('Not a measured Sol execution'));
+assert.ok(snapshot.assumptions.some(value => value.includes('Astra planning') && value.includes('Jev classification')));
 console.log(`PASS cost arithmetic: $${cached.toFixed(7)} cache-aware; $${uncached.toFixed(4)} all-input-uncached; actual GLM build $0`);

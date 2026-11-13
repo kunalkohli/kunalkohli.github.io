@@ -9,7 +9,7 @@ const [base, modulePath, screenshots] = process.argv.slice(2);
 if (!base || !modulePath) throw new Error('Supply a preview URL and Playwright module path.');
 const { chromium } = require(path.resolve(modulePath));
 const article = '/articles/2026-11/smartrouter';
-const title = 'I Built an LLM Router to Route Requests Efficiently and Save $$';
+const title = 'I Built an LLM Router to Pick Models Intelligently and Save $$';
 
 (async () => {
   const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || undefined });
@@ -39,13 +39,28 @@ const title = 'I Built an LLM Router to Route Requests Efficiently and Save $$';
       .filter(link => !document.getElementById(decodeURIComponent(link.hash.slice(1))))
       .map(link => link.hash));
     assert.deepEqual(brokenContents, []);
-    assert.ok(await page.locator('.post-toc nav a').count() >= 8, 'Article headings must populate the contents');
+    assert.equal(await page.locator('.post-toc nav a').count(), 6, 'The concise article must populate the contents');
+    assert.equal(await page.locator('.post-content h3').innerText(), '🖼️ What the routed model built');
+    assert.equal(await page.locator('.post-content table').count(), 1, 'Keep only the token-cost table');
+    assert.equal(await page.locator('.post-content a[href="https://www.typesafe.ai/"]').count(), 2, 'Link Jev in the workflow and classification section');
+    const spacing = await page.locator('.post-content').evaluate(el => {
+      const body = getComputedStyle(el);
+      const item = getComputedStyle(el.querySelector('li'));
+      return { lineHeight: parseFloat(body.lineHeight) / parseFloat(body.fontSize), itemGap: parseFloat(item.marginBottom) / parseFloat(item.fontSize) };
+    });
+    assert.ok(spacing.lineHeight <= 1.66 && spacing.itemGap <= 0.31, 'Use compact post-scoped spacing');
 
     const image = page.locator('.post-content img[src$="05-user-sketch.png"]');
     await image.scrollIntoViewIfNeeded();
     await image.evaluate(el => el.decode());
     assert.deepEqual(await image.evaluate(el => [el.naturalWidth, el.naturalHeight]), [2370, 1320]);
     assert.ok((await image.getAttribute('alt')).includes('0.80'));
+
+    const result = page.locator('.post-content img[src$="stock-trends-result.jpg"]');
+    await result.scrollIntoViewIfNeeded();
+    await result.evaluate(el => el.decode());
+    assert.deepEqual(await result.evaluate(el => [el.naturalWidth, el.naturalHeight]), [2000, 870]);
+    assert.equal(await result.locator('..').getAttribute('href'), '/img/smartrouter/stock-trends-result.jpg');
 
     const video = page.locator('.post-content video');
     assert.equal(await video.getAttribute('preload'), 'none');
@@ -54,7 +69,7 @@ const title = 'I Built an LLM Router to Route Requests Efficiently and Save $$';
     assert.ok(await video.getAttribute('aria-label'));
     assert.equal(await page.locator('#' + await video.getAttribute('aria-describedby')).count(), 1);
     assert.equal(await video.locator('source').getAttribute('type'), 'video/mp4');
-    assert.ok((await page.locator('.post-content').innerText()).includes('$0.2980152'));
+    assert.ok((await page.locator('.post-content').innerText()).includes('$0.2980 ≈ $0.30'));
     const costSnapshot = await page.request.get(base + '/docs/smartrouter-cost-example.json');
     assert.equal(costSnapshot.status(), 200);
     assert.equal((await costSnapshot.json()).completedBuildRequests, 25);
@@ -109,7 +124,7 @@ const title = 'I Built an LLM Router to Route Requests Efficiently and Save $$';
     assert.equal(await fallback.locator('h1').innerText(), title);
     assert.equal(await fallback.locator('video[controls] source').count(), 1);
     assert.equal(await fallback.locator('a[href$="smartrouter-demo.mp4"]').count(), 2);
-    assert.ok(await fallback.locator('.post-toc nav a').count() >= 8);
+    assert.equal(await fallback.locator('.post-toc nav a').count(), 6);
     await noJS.close();
     console.log('PASS homepage/RSS, diagram, responsive light/dark layouts, native MP4 playback and seeking, no-autoload, and no-JavaScript fallbacks');
   } finally {
