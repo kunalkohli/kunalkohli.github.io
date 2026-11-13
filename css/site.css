@@ -175,6 +175,7 @@ code, pre { font-family: var(--mono); }.post-content code { padding: 2px 5px; ba
 .smartrouter-post .post-content p { margin-bottom: .85em; }
 .smartrouter-post .post-content :is(ul, ol) { margin-bottom: .9em; }
 .smartrouter-post .post-content li { margin-bottom: .3em; }
+.smartrouter-post .post-content :is(ul, ol) + p { margin-top: .6em; }
 .smartrouter-post .post-content :is(h2, h3) { margin-top: 1.4em; margin-bottom: .55em; }
 .post-end { display: flex; align-items: center; gap: 22px; border-block: 1px solid var(--line); margin-top: 45px; padding-block: 25px; }.post-end > p { margin: 0; font: 12px var(--mono); }.post-end .text-link { margin-left: auto; }
 .reading-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 30; pointer-events: none; }.reading-progress span { display: block; height: 100%; width: 0; background: var(--citrus); }
