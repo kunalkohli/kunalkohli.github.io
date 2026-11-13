@@ -6,8 +6,8 @@ date: 2026-11-11 22:45:00 -0500
 categories: [projects, ai, developer-tools]
 comments: true
 published: true
-description: "Astra plans. Jev chooses who builds. An OpenCode plugin that routes execution to an eligible free model or Terra/Sol, while keeping native subscription authentication."
-excerpt: "Why use the biggest model for every turn? I built an OpenCode plugin that separates planning from execution, makes one routing decision per session, and asks before proceeding when confidence is low."
+description: "Model choice shouldn't be manual. I built a connector that intelligently picks the model based on task complexity — planning stays with a strong model, builds go to a model that's good enough — cutting waste and saving money."
+excerpt: "Model choice shouldn't be manual. I built a connector that intelligently picks the model based on task complexity — planning stays with a strong model, builds go to a model that's good enough — cutting waste and saving money."
 ---
 
 The part of using an AI coding agent that started bothering me wasn't writing prompts. It was **choosing the model**.
