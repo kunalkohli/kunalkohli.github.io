@@ -26,8 +26,8 @@ const title = 'I Built an LLM Router to Pick Models Intelligently and Save $$';
     });
 
     await page.goto(base, { waitUntil: 'networkidle' });
-    assert.equal((await page.locator('#latest-title a').innerText()).trim(), title);
-    assert.equal(await page.locator('#latest-title a').getAttribute('href'), article);
+    assert.equal((await page.locator('a.strip b').innerText()).trim(), title);
+    assert.equal(await page.locator('a.strip').getAttribute('href'), article);
     const feed = await page.request.get(base + '/feed.xml');
     assert.equal(feed.status(), 200);
     assert.ok((await feed.text()).includes(article), 'The new post must appear in RSS');
@@ -35,11 +35,11 @@ const title = 'I Built an LLM Router to Pick Models Intelligently and Save $$';
     const response = await page.goto(base + article, { waitUntil: 'networkidle' });
     assert.equal(response.status(), 200);
     assert.equal(await page.locator('h1').innerText(), title);
-    const brokenContents = await page.locator('.post-toc nav a').evaluateAll(links => links
+    const brokenContents = await page.locator('aside.toc ol a').evaluateAll(links => links
       .filter(link => !document.getElementById(decodeURIComponent(link.hash.slice(1))))
       .map(link => link.hash));
     assert.deepEqual(brokenContents, []);
-    assert.equal(await page.locator('.post-toc nav a').count(), 6, 'The concise article must populate the contents');
+    assert.equal(await page.locator('aside.toc ol a').count(), 5, 'The concise article must populate the contents');
     assert.equal(await page.locator('.post-content h3').innerText(), '🖼️ What the routed model built');
     assert.equal(await page.locator('.post-content table').count(), 1, 'Keep only the token-cost table');
     assert.equal(await page.locator('.post-content a[href="https://www.typesafe.ai/"]').count(), 2, 'Link Jev in the workflow and classification section');
@@ -124,7 +124,7 @@ const title = 'I Built an LLM Router to Pick Models Intelligently and Save $$';
     assert.equal(await fallback.locator('h1').innerText(), title);
     assert.equal(await fallback.locator('video[controls] source').count(), 1);
     assert.equal(await fallback.locator('a[href$="smartrouter-demo.mp4"]').count(), 2);
-    assert.equal(await fallback.locator('.post-toc nav a').count(), 6);
+    assert.equal(await fallback.locator('aside.toc ol a').count(), 5);
     await noJS.close();
     console.log('PASS homepage/RSS, diagram, responsive light/dark layouts, native MP4 playback and seeking, no-autoload, and no-JavaScript fallbacks');
   } finally {
