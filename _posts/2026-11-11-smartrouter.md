@@ -31,7 +31,7 @@ The entry in the model picker is **smartrouter - openai**. The OpenAI suffix ide
 1. 🧠 **Plan with Astra**, through my existing OpenAI sign-in in OpenCode.
 2. 🎯 **Classify with [Jev](https://www.typesafe.ai/){:target="_blank" rel="noopener"}:** switch to Build and send an instruction. Jev reads the finished plan and the build request.
 3. 🛠️ **Choose the executor:** an eligible **free model**, or **OpenAI Terra/Sol** when the work calls for it.
-4. ✋ **Ask before proceeding** if routing confidence is below **0.80**.
+4. ✋ **Ask before proceeding** if Jev's probability for the output is below **0.8**.
 5. 💾 **Cache the choice for the session** and reuse it for later Build turns.
 
 **Astra is only used for planning.** We use lower cost models for building, based on the classification from Jev.
