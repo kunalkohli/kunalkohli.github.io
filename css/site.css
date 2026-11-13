@@ -282,6 +282,15 @@ code, pre { font-family: var(--mono); }
 .post-content .mermaid { overflow-x: auto; margin: 1.5em 0; min-width: 0; font-size: 13px; }
 .post-content .mermaid > svg { display: block; height: auto; }
 .post-content .mermaid p { margin: 0; font: inherit; line-height: inherit; }
+/* A tighter reading rhythm for the Smart Router post only. */
+.smartrouter-post .post-content { line-height: 1.65; }
+.smartrouter-post .post-content p { margin-bottom: .85em; }
+.smartrouter-post .post-content :is(ul, ol) { margin-bottom: .9em; }
+.smartrouter-post .post-content li { margin-bottom: .3em; }
+/* One blank line of air before a paragraph that follows a list. The value must
+   exceed the list's margin-bottom, since the two collapse to the larger. */
+.smartrouter-post .post-content :is(ul, ol) + p { margin-top: 1.65em; }
+.smartrouter-post .post-content :is(h2, h3) { margin-top: 1.4em; margin-bottom: .55em; }
 .post-content .diagram-error { color: var(--muted); font-size: 12px; }
 .post-content .attack-player { margin: 30px 0; }
 .end-note {
