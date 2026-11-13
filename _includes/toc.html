@@ -1,0 +1,13 @@
+{% comment %}
+  Left "on this page" rail: lists the article's h2 sections with 01/02
+  numbers matching the badges rendered by .post-content h2[id]::before.
+{% endcomment %}
+{% assign toc_parts = include.content | split: '<h2' %}
+{% capture toc_links %}{% for part in toc_parts offset:1 %}{% assign heading_tag = part | split: '>' | first %}{% if heading_tag contains 'id="' %}{% assign heading_id = heading_tag | split: 'id="' | last | split: '"' | first %}{% assign heading_text = part | split: '</h2>' | first | remove_first: heading_tag | remove_first: '>' | strip_html | strip %}{% if heading_text != '' %}<li><a href="#{{ heading_id }}"><span class="toc-index" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span><span class="toc-text">{{ heading_text }}</span></a></li>{% endif %}{% endif %}{% endfor %}{% endcapture %}
+{% assign toc_item_count = toc_links | split: '<li>' | size | minus: 1 %}
+{% if toc_item_count > 0 %}
+<aside class="toc" data-toc aria-label="On this page">
+  <p class="toc-title">ON THIS PAGE</p>
+  <ol>{{ toc_links }}</ol>
+</aside>
+{% endif %}

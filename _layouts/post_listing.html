@@ -2,38 +2,21 @@
 layout: default
 ---
 {% assign published_posts = site.posts | where_exp: 'post', 'post.published != false' | where_exp: 'post', 'post.date <= site.time' | sort: 'date' | reverse %}
-{% assign latest_post = published_posts | first %}
-{% if latest_post %}
-<section class="latest-story shell" aria-labelledby="latest-title" data-latest-post="{{ latest_post.url }}">
-  <div class="latest-copy">
-    <p class="eyebrow"><span class="status-dot"></span> LATEST STORY / <time datetime="{{ latest_post.date | date_to_xmlschema }}">{{ latest_post.date | date: '%d %b %Y' }}</time></p>
-    <div class="latest-meta">{{ latest_post.categories | first | replace: '-', ' ' }} <span>·</span> {% include read_time.html post=latest_post %}</div>
-    <h1 id="latest-title"><a href="{{ latest_post.url | relative_url }}">{{ latest_post.title }}</a></h1>
-    <p class="latest-description">{{ latest_post.description | default: latest_post.excerpt | strip_html | normalize_whitespace | truncate: 245 }}</p>
-    <div class="latest-bottom"><a class="text-link" href="{{ latest_post.url | relative_url }}">Read the story <span aria-hidden="true">↗</span></a><div class="author-mini"><img src="{{ site.owner.avatar | prepend: '/img/' | relative_url }}" width="36" height="36" alt=""><span>By Kunal Kohli<small>Engineer. Builder. Always learning.</small></span></div></div>
+{% if published_posts.size > 0 %}
+<section id="writing" class="page shell writing" aria-labelledby="writing-title">
+  <p class="kicker">KUNAL KOHLI / ENGINEER</p>
+  <h1 class="display" id="writing-title">Writing.</h1>
+  <p class="lede">Security, AI, systems, books — and the connections between them. Newest first.</p>
+  <div class="feed">
+    {% for post in published_posts %}
+    <a class="entry" href="{{ post.url | relative_url }}">
+      <h3>{{ post.title }} <span class="arr" aria-hidden="true">↗</span></h3>
+      <div class="meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b %Y' }}</time><span aria-hidden="true">·</span><span class="chip">{{ post.categories | first | default: 'notes' | replace: '-', ' ' }}</span><span>{% include read_time.html post=post %}</span></div>
+      <p class="desc">{{ post.description | default: post.excerpt | strip_html | normalize_whitespace | truncate: 160 }}</p>
+    </a>
+    {% endfor %}
   </div>
-  <a class="latest-visual" href="{{ latest_post.url | relative_url }}" aria-label="Read the latest story: {{ latest_post.title | escape }}">
-    <div class="visual-caption"><span>{{ latest_post.categories | first | default: 'Notes' | upcase }} / FEATURED</span><span>001 ↗</span></div>
-    {% include post-art.html post=latest_post hero=true %}
-    <div class="visual-foot"><span>Follow the story. Find the connections.</span><span aria-hidden="true">✳</span></div>
-  </a>
+  <p class="section-label">GOING FURTHER BACK</p>
+  <p class="lede archive-note">Every story lives on the <a href="{{ '/archive/' | relative_url }}">full archive ↗</a> · Threads are on <a href="{{ '/categories/' | relative_url }}">topics ↗</a></p>
 </section>
-{% endif %}
-{% assign prior_highlights = '' | split: '|' %}
-{% assign prior_rest = '' | split: '|' %}
-{% for linked_post in published_posts %}{% if forloop.first %}{% continue %}{% elsif forloop.index <= 4 %}{% assign prior_highlights = prior_highlights | push: linked_post %}{% else %}{% assign prior_rest = prior_rest | push: linked_post %}{% endif %}{% endfor %}
-{% if prior_highlights.size > 0 %}
-<div class="prior-band">
-<section id="writing" class="writing shell" aria-labelledby="writing-title">
-  <div class="section-heading"><div><h2 id="writing-title">Prior blogs<span>.</span></h2></div><span class="section-count">{{ published_posts.size | minus: 1 }} OLDER STORIES</span></div>
-  <div class="story-list">{% for post in prior_highlights %}{% include post-card.html post=post %}{% endfor %}</div>
-  {% if prior_rest.size > 0 %}
-  <div class="prior-index">
-    <div class="prior-index-head"><span>GOING FURTHER BACK</span><a href="{{ '/archive/' | relative_url }}">full archive ↗</a></div>
-    <ol>{% for post in prior_rest %}{% assign prior_no = forloop.index | plus: 4 %}<li><a href="{{ post.url | relative_url }}"><i>{% if prior_no < 10 %}0{{ prior_no }}{% else %}{{ prior_no }}{% endif %}</i><b>{{ post.title }}</b><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%d %b %Y' }}</time></a></li>{% endfor %}</ol>
-  </div>
-  {% endif %}
-  <div class="notebook-note"><span class="spark" aria-hidden="true">✳</span><p>Not hot takes.<br><strong>Things worth understanding.</strong></p><a class="text-link" href="{{ '/archive/' | relative_url }}">Explore the full archive ↗</a></div>
-</section>
-</div>
 {% endif %}
