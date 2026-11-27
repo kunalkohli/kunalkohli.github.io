@@ -1,0 +1,87 @@
+<figure class="m365-figure m365-player" data-m365-player aria-labelledby="m365-player-title">
+  <div class="m365-player-head">
+    <div><span class="m365-eyebrow">12–13 November 2026 · from your side of the screen</span><p id="m365-player-title">You open Outlook. Why won't your mail load?</p></div>
+    <div class="m365-controls" hidden><button type="button" data-m365-play aria-pressed="false">▶ Play all</button><span data-m365-count>01 / 06</span></div>
+  </div>
+  <div class="m365-tabs" role="tablist" aria-label="Follow a person opening their mail" hidden>
+    <button type="button" role="tab" id="m365-tab-0" aria-controls="m365-scene-0" aria-selected="true" data-m365-tab="0"><span>01</span>Open Outlook</button>
+    <button type="button" role="tab" id="m365-tab-1" aria-controls="m365-scene-1" aria-selected="false" tabindex="-1" data-m365-tab="1"><span>02</span>A busier entrance</button>
+    <button type="button" role="tab" id="m365-tab-2" aria-controls="m365-scene-2" aria-selected="false" tabindex="-1" data-m365-tab="2"><span>03</span>Mail won't load</button>
+    <button type="button" role="tab" id="m365-tab-3" aria-controls="m365-scene-3" aria-selected="false" tabindex="-1" data-m365-tab="3"><span>04</span>Retry fails</button>
+    <button type="button" role="tab" id="m365-tab-4" aria-controls="m365-scene-4" aria-selected="false" tabindex="-1" data-m365-tab="4"><span>05</span>Elsewhere, too</button>
+    <button type="button" role="tab" id="m365-tab-5" aria-controls="m365-scene-5" aria-selected="false" tabindex="-1" data-m365-tab="5"><span>06</span>Mail returns</button>
+  </div>
+
+  <div class="m365-storyboard" data-m365-board hidden role="img" aria-label="A simplified journey from your Outlook window, through Microsoft's connection gateway, to your stored mailbox.">
+    <div class="m365-story-time"><span data-m365-time>Before the outage</span><span class="m365-illustration-label">Illustrative user journey</span></div>
+    <div class="m365-journey" aria-hidden="true">
+      <div class="m365-your-side">
+        <div class="m365-area-label"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4a8 8 0 0 1 16 0v4"/></svg>You · opening your mail</div>
+        <div class="m365-browser">
+          <div class="m365-browser-bar"><i></i><i></i><i></i><span>outlook.office.com</span></div>
+          <div class="m365-browser-toolbar"><span class="m365-outlook-mark">O</span><strong>Outlook</strong><span class="m365-user-dot">You</span></div>
+          <div class="m365-inbox-body">
+            <span class="m365-inbox-label">Inbox</span>
+            <div class="m365-mail-list"><div><span>J</span><p><b>Project update</b><small>The latest notes…</small></p></div><div><span>S</span><p><b>This week's plan</b><small>Let's catch up…</small></p></div><div><span>A</span><p><b>Meeting notes</b><small>Here's a summary…</small></p></div></div>
+            <div class="m365-mail-wait"><span class="m365-wait-icon">···</span><strong data-m365-screen-title>Opening your mail…</strong><small data-m365-screen-detail>Waiting for a response</small></div>
+          </div>
+          <div class="m365-browser-status"><span class="m365-status-dot"></span><span data-m365-screen-status>Inbox loaded</span></div>
+        </div>
+        <p class="m365-under-screen" data-m365-user-result>Your mail arrives in the window.</p>
+      </div>
+
+      <div class="m365-hop" data-m365-hop="request"><span class="m365-hop-label">request →</span><div class="m365-rail"></div><i class="m365-envelope" data-m365-packet="request"></i><i class="m365-envelope m365-envelope-reply" data-m365-packet="reply"></i><span class="m365-return-label">← response</span></div>
+
+      <div class="m365-front-door">
+        <div class="m365-area-label">Microsoft's front door</div>
+        <div class="m365-gateway-box">
+          <div class="m365-gateway-symbol"><svg viewBox="0 0 60 60"><path d="M8 51h44M14 51V14h32v37M25 51V31h10v20M21 22h3m12 0h3"/><circle cx="31" cy="41" r="1"/></svg><span class="m365-gateway-state-icon" data-m365-gateway-icon>✓</span></div>
+          <strong>Connection gateway</strong><p data-m365-gateway-status>Lets your request through</p>
+          <div class="m365-request-queue"><span>✉</span><span>✉</span><span>✉</span><small>requests waiting</small></div>
+        </div>
+        <div class="m365-extra-traffic"><span class="m365-teams-mark">T</span><p><strong data-m365-extra-title>Teams takes another path</strong><small data-m365-extra-detail>Separate gateway</small></p><span class="m365-extra-arrow">↓</span></div>
+        <div class="m365-fallback"><div class="m365-fallback-route"><span>try another route ↓</span><i class="m365-envelope" data-m365-packet="fallback"></i></div><div class="m365-fallback-box"><strong data-m365-fallback-title>Another server</strong><span data-m365-fallback-status>Same hidden defect</span></div></div>
+        <div class="m365-repair-note">Repair away from traffic<br><strong>restart → patch → restart</strong></div>
+      </div>
+
+      <div class="m365-hop" data-m365-hop="mailbox"><span class="m365-hop-label">fetch mail →</span><div class="m365-rail"></div><i class="m365-envelope" data-m365-packet="fetch"></i><i class="m365-envelope m365-envelope-reply" data-m365-packet="mail"></i><span class="m365-return-label">← mail data</span><span class="m365-blocked-route">×</span></div>
+
+      <div class="m365-mailbox-side"><div class="m365-area-label">Your mailbox</div><div class="m365-mailbox-box"><svg viewBox="0 0 70 60"><rect x="8" y="11" width="54" height="38" rx="5"/><path d="m10 15 25 19 25-19M10 46l17-16m33 16L43 30"/></svg><strong>Your stored mail</strong><p>Still there.<br>Not deleted by the outage.</p></div><span class="m365-mailbox-state" data-m365-mailbox-status>Reachable</span></div>
+    </div>
+    <div class="m365-condition-line" data-m365-condition>Request goes through → mail comes back.</div>
+  </div>
+
+  <div class="m365-live-commentary" hidden><span class="m365-beat-number" data-m365-beat-number>01</span><p data-m365-beat-text>Press Play all to follow the request.</p></div>
+  <div class="m365-playback-track" hidden aria-hidden="true"><span data-m365-progress></span></div>
+  <p class="m365-motion-note" data-m365-motion-note hidden></p>
+
+  <div class="m365-scenes">
+    <section class="m365-scene" id="m365-scene-0" data-m365-scene>
+      <div class="m365-static-route"><span>You open Outlook</span><b>→</b><span>Gateway accepts request</span><b>→</b><strong>Inbox loads ✓</strong></div>
+      <div class="m365-scene-caption"><span>01 / WHAT NORMALLY HAPPENS</span><h3>You open Outlook. Your inbox loads.</h3><p>Your app asks Microsoft for your mail. A connection gateway—the front door—lets that request reach Exchange Online. Your mailbox responds and Outlook displays your inbox. This is the successful journey the outage interrupted.</p></div>
+    </section>
+    <section class="m365-scene" id="m365-scene-1" data-m365-scene>
+      <div class="m365-static-route"><span>You can still read mail</span><b>←</b><span>Gateway now also carries Teams traffic</span><b>←</b><strong>Teams switches paths</strong></div>
+      <div class="m365-scene-caption"><span>02 / YOU DO NOT NOTICE THE CHANGE YET</span><h3>Your mail still works, but the entrance gets busier.</h3><p>At 01:07 UTC on 12 November, a routing problem in US East sends Teams traffic worldwide onto the gateway also serving Exchange. A shift like this is normally safe. Broad mail failures come hours later, near North America's daily peak—not at the instant of failover.</p></div>
+    </section>
+    <section class="m365-scene" id="m365-scene-2" data-m365-scene>
+      <div class="m365-static-route"><span>You open Outlook</span><b>→</b><span>Connection processing gets stuck ×</span><b>→</b><strong>No mailbox response reaches you</strong></div>
+      <div class="m365-scene-caption"><span>03 / NOW YOUR INBOX WILL NOT LOAD</span><h3>Your request reaches the front door—and stalls.</h3><p>Peak load, shifted Teams traffic, and reduced gateway capacity expose a July connection-handling defect on newer servers. Requests compete for a shared resource until servers stop responding. You see a failed or waiting connection, not a deleted mailbox.</p></div>
+    </section>
+    <section class="m365-scene" id="m365-scene-3" data-m365-scene>
+      <div class="m365-static-route"><span>You keep waiting</span><b>←</b><span>Traffic tries another server</span><b>→</b><strong>Same defect, extra load ×</strong></div>
+      <div class="m365-scene-caption"><span>04 / THE BACKUP DOES NOT SAVE THIS REQUEST</span><h3>Microsoft tries another server. That one can fail too.</h3><p>Traffic management sends connections to healthier capacity units in the same region. Those units have the same hidden defect and now absorb more work. More servers stop responding, so your mailbox is still hard to reach. The North American low point exceeds 80% of gateway servers unresponsive.</p></div>
+    </section>
+    <section class="m365-scene" id="m365-scene-4" data-m365-scene>
+      <div class="m365-static-route"><span>You still cannot load mail</span><b>←</b><span>Connections move to other regions</span><b>→</b><strong>Same defect is there too ×</strong></div>
+      <div class="m365-scene-caption"><span>05 / PEOPLE ELSEWHERE START SEEING PROBLEMS</span><h3>A different region has the same hidden problem.</h3><p>When regional capacity runs short, connections move to other regions whose gateways carry the same regression. Within about two hours of broad North American failures, servers in every region are affected. This does not mean every server or every user's request failed.</p></div>
+    </section>
+    <section class="m365-scene" id="m365-scene-5" data-m365-scene>
+      <div class="m365-static-route"><span>Servers repaired away from traffic</span><b>→</b><span>Your connection gets through again</span><b>→</b><strong>Your inbox returns ✓</strong></div>
+      <div class="m365-scene-caption"><span>06 / YOU CAN REACH YOUR MAIL AGAIN</span><h3>The repaired gateway lets your request through.</h3><p>Microsoft removes groups of capacity units from traffic, restarts failed servers, applies the corrective update, restarts again, and returns them to service. The first update is applied at 07:20 UTC on 13 November. Global webmail availability is normal at 14:17; active impact ends at 16:10. Delayed-mail processing and monitoring continue.</p></div>
+    </section>
+  </div>
+  <div class="m365-story-navigation" hidden><button type="button" data-m365-prev>← Previous</button><span data-m365-playback-status>Ready · about 48 seconds for all six steps</span><button type="button" data-m365-next>Next →</button></div>
+  <p class="m365-announcement sr-only" data-m365-status role="status" aria-live="polite"></p>
+  <figcaption class="m365-player-foot"><span>Based on Microsoft's final report, pp. 6–9. Screen text, request movements, and mailbox contents are illustrative—not exact Outlook errors, a trace of one customer, or Microsoft's internal topology. The email-delivery caveat is explained below.</span><button type="button" data-m365-replay hidden>↻ Replay from start</button></figcaption>
+</figure>
