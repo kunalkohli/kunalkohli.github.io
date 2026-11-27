@@ -1,0 +1,11 @@
+<figure class="m365-figure m365-factors" aria-labelledby="m365-factors-caption">
+  <div class="m365-figure-heading"><span class="m365-eyebrow">The combination that mattered</span><p>One hidden defect. Three normal operating conditions.</p></div>
+  <ol class="m365-factor-grid">
+    <li><span class="m365-factor-number">01 / THE DEFECT</span><strong>A shared bottleneck</strong><p>A July connection-handling change created lock contention on newer, high-core gateway servers.</p><span class="m365-tag m365-tag-bad">Latent software defect</span></li>
+    <li><span class="m365-factor-number">02 / LESS HEADROOM</span><strong>Capacity in maintenance</strong><p>Nearly 14% of gateway server capacity was out of service for routine operations.</p><span class="m365-tag">Normally manageable</span></li>
+    <li><span class="m365-factor-number">03 / DIFFERENT TRAFFIC</span><strong>Teams took the backup</strong><p>A routing issue shifted Teams traffic onto the gateway also serving Exchange Online.</p><span class="m365-tag">Normally manageable</span></li>
+    <li><span class="m365-factor-number">04 / PEAK LOAD</span><strong>The workday got busy</strong><p>North American traffic approached its daily peak and exposed the connection bottleneck.</p><span class="m365-tag">Normally manageable</span></li>
+  </ol>
+  <div class="m365-equation"><span>Defect</span><b aria-hidden="true">+</b><span>Less capacity</span><b aria-hidden="true">+</b><span>Shifted traffic</span><b aria-hidden="true">+</b><span>Peak load</span><b aria-hidden="true">→</b><strong>Servers stop responding</strong></div>
+  <figcaption id="m365-factors-caption">These conditions are a combination, not four independent outages. Without the defect, Microsoft says the three operational conditions together were within normal operating parameters. Source: final report, pp. 6–7.</figcaption>
+</figure>

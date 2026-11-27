@@ -1,0 +1,13 @@
+<figure class="m365-figure m365-recovery" aria-labelledby="m365-recovery-caption">
+  <div class="m365-figure-heading"><span class="m365-eyebrow">Why recovery needed a different approach</span><p>Fix the server before giving it the queue.</p></div>
+  <div class="m365-restart-loop"><span>Restart without the fix</span><b aria-hidden="true">→</b><span>Waiting traffic returns</span><b aria-hidden="true">→</b><strong>Server fails again ↺</strong></div>
+  <p class="m365-small-label">The actual server repair sequence</p>
+  <ol class="m365-repair-steps">
+    <li><span>01</span><strong>Isolate</strong><p>Take the server out of traffic rotation.</p></li>
+    <li><span>02</span><strong>Restart</strong><p>Recover it from the unresponsive state.</p></li>
+    <li><span>03</span><strong>Patch</strong><p>Apply the update reverting the defect.</p></li>
+    <li><span>04</span><strong>Restart again</strong><p>Activate the corrective update.</p></li>
+    <li><span>05</span><strong>Rejoin</strong><p>Put the repaired server back into service.</p></li>
+  </ol>
+  <figcaption id="m365-recovery-caption">Microsoft applied this approach to large groups of capacity units, then expanded across regions. Gradual traffic ramp-up and admission control were listed as future improvements—not assumed features of this recovery. Source: final report, pp. 8–9, 15.</figcaption>
+</figure>
