@@ -1,108 +1,87 @@
 <figure class="m365-figure m365-player" data-m365-player aria-labelledby="m365-player-title">
   <div class="m365-player-head">
-    <div><span class="m365-eyebrow">The failure chain · 12–13 November 2026</span><p id="m365-player-title">How a backup path became a shared problem.</p></div>
+    <div><span class="m365-eyebrow">12–13 November 2026 · from your side of the screen</span><p id="m365-player-title">You open Outlook. Why won't your mail load?</p></div>
     <div class="m365-controls" hidden><button type="button" data-m365-play aria-pressed="false">▶ Play all</button><span data-m365-count>01 / 06</span></div>
   </div>
-  <div class="m365-tabs" role="tablist" aria-label="Outage stages" hidden>
-    <button type="button" role="tab" id="m365-tab-0" aria-controls="m365-scene-0" aria-selected="true" data-m365-tab="0"><span>01</span>Normal</button>
-    <button type="button" role="tab" id="m365-tab-1" aria-controls="m365-scene-1" aria-selected="false" tabindex="-1" data-m365-tab="1"><span>02</span>Failover</button>
-    <button type="button" role="tab" id="m365-tab-2" aria-controls="m365-scene-2" aria-selected="false" tabindex="-1" data-m365-tab="2"><span>03</span>Bottleneck</button>
-    <button type="button" role="tab" id="m365-tab-3" aria-controls="m365-scene-3" aria-selected="false" tabindex="-1" data-m365-tab="3"><span>04</span>Cascade</button>
-    <button type="button" role="tab" id="m365-tab-4" aria-controls="m365-scene-4" aria-selected="false" tabindex="-1" data-m365-tab="4"><span>05</span>Global</button>
-    <button type="button" role="tab" id="m365-tab-5" aria-controls="m365-scene-5" aria-selected="false" tabindex="-1" data-m365-tab="5"><span>06</span>Recovery</button>
+  <div class="m365-tabs" role="tablist" aria-label="Follow a person opening their mail" hidden>
+    <button type="button" role="tab" id="m365-tab-0" aria-controls="m365-scene-0" aria-selected="true" data-m365-tab="0"><span>01</span>Open Outlook</button>
+    <button type="button" role="tab" id="m365-tab-1" aria-controls="m365-scene-1" aria-selected="false" tabindex="-1" data-m365-tab="1"><span>02</span>A busier entrance</button>
+    <button type="button" role="tab" id="m365-tab-2" aria-controls="m365-scene-2" aria-selected="false" tabindex="-1" data-m365-tab="2"><span>03</span>Mail won't load</button>
+    <button type="button" role="tab" id="m365-tab-3" aria-controls="m365-scene-3" aria-selected="false" tabindex="-1" data-m365-tab="3"><span>04</span>Retry fails</button>
+    <button type="button" role="tab" id="m365-tab-4" aria-controls="m365-scene-4" aria-selected="false" tabindex="-1" data-m365-tab="4"><span>05</span>Elsewhere, too</button>
+    <button type="button" role="tab" id="m365-tab-5" aria-controls="m365-scene-5" aria-selected="false" tabindex="-1" data-m365-tab="5"><span>06</span>Mail returns</button>
   </div>
-  <p class="m365-swipe">On small screens, swipe the drawing to follow the connections →</p>
+
+  <div class="m365-storyboard" data-m365-board hidden role="img" aria-label="A simplified journey from your Outlook window, through Microsoft's connection gateway, to your stored mailbox.">
+    <div class="m365-story-time"><span data-m365-time>Before the outage</span><span class="m365-illustration-label">Illustrative user journey</span></div>
+    <div class="m365-journey" aria-hidden="true">
+      <div class="m365-your-side">
+        <div class="m365-area-label"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M4 22v-4a8 8 0 0 1 16 0v4"/></svg>You · opening your mail</div>
+        <div class="m365-browser">
+          <div class="m365-browser-bar"><i></i><i></i><i></i><span>outlook.office.com</span></div>
+          <div class="m365-browser-toolbar"><span class="m365-outlook-mark">O</span><strong>Outlook</strong><span class="m365-user-dot">You</span></div>
+          <div class="m365-inbox-body">
+            <span class="m365-inbox-label">Inbox</span>
+            <div class="m365-mail-list"><div><span>J</span><p><b>Project update</b><small>The latest notes…</small></p></div><div><span>S</span><p><b>This week's plan</b><small>Let's catch up…</small></p></div><div><span>A</span><p><b>Meeting notes</b><small>Here's a summary…</small></p></div></div>
+            <div class="m365-mail-wait"><span class="m365-wait-icon">···</span><strong data-m365-screen-title>Opening your mail…</strong><small data-m365-screen-detail>Waiting for a response</small></div>
+          </div>
+          <div class="m365-browser-status"><span class="m365-status-dot"></span><span data-m365-screen-status>Inbox loaded</span></div>
+        </div>
+        <p class="m365-under-screen" data-m365-user-result>Your mail arrives in the window.</p>
+      </div>
+
+      <div class="m365-hop" data-m365-hop="request"><span class="m365-hop-label">request →</span><div class="m365-rail"></div><i class="m365-envelope" data-m365-packet="request"></i><i class="m365-envelope m365-envelope-reply" data-m365-packet="reply"></i><span class="m365-return-label">← response</span></div>
+
+      <div class="m365-front-door">
+        <div class="m365-area-label">Microsoft's front door</div>
+        <div class="m365-gateway-box">
+          <div class="m365-gateway-symbol"><svg viewBox="0 0 60 60"><path d="M8 51h44M14 51V14h32v37M25 51V31h10v20M21 22h3m12 0h3"/><circle cx="31" cy="41" r="1"/></svg><span class="m365-gateway-state-icon" data-m365-gateway-icon>✓</span></div>
+          <strong>Connection gateway</strong><p data-m365-gateway-status>Lets your request through</p>
+          <div class="m365-request-queue"><span>✉</span><span>✉</span><span>✉</span><small>requests waiting</small></div>
+        </div>
+        <div class="m365-extra-traffic"><span class="m365-teams-mark">T</span><p><strong data-m365-extra-title>Teams takes another path</strong><small data-m365-extra-detail>Separate gateway</small></p><span class="m365-extra-arrow">↓</span></div>
+        <div class="m365-fallback"><div class="m365-fallback-route"><span>try another route ↓</span><i class="m365-envelope" data-m365-packet="fallback"></i></div><div class="m365-fallback-box"><strong data-m365-fallback-title>Another server</strong><span data-m365-fallback-status>Same hidden defect</span></div></div>
+        <div class="m365-repair-note">Repair away from traffic<br><strong>restart → patch → restart</strong></div>
+      </div>
+
+      <div class="m365-hop" data-m365-hop="mailbox"><span class="m365-hop-label">fetch mail →</span><div class="m365-rail"></div><i class="m365-envelope" data-m365-packet="fetch"></i><i class="m365-envelope m365-envelope-reply" data-m365-packet="mail"></i><span class="m365-return-label">← mail data</span><span class="m365-blocked-route">×</span></div>
+
+      <div class="m365-mailbox-side"><div class="m365-area-label">Your mailbox</div><div class="m365-mailbox-box"><svg viewBox="0 0 70 60"><rect x="8" y="11" width="54" height="38" rx="5"/><path d="m10 15 25 19 25-19M10 46l17-16m33 16L43 30"/></svg><strong>Your stored mail</strong><p>Still there.<br>Not deleted by the outage.</p></div><span class="m365-mailbox-state" data-m365-mailbox-status>Reachable</span></div>
+    </div>
+    <div class="m365-condition-line" data-m365-condition>Request goes through → mail comes back.</div>
+  </div>
+
+  <div class="m365-live-commentary" hidden><span class="m365-beat-number" data-m365-beat-number>01</span><p data-m365-beat-text>Press Play all to follow the request.</p></div>
+  <div class="m365-playback-track" hidden aria-hidden="true"><span data-m365-progress></span></div>
+  <p class="m365-motion-note" data-m365-motion-note hidden></p>
+
   <div class="m365-scenes">
     <section class="m365-scene" id="m365-scene-0" data-m365-scene>
-      <div class="m365-canvas" tabindex="0" role="region" aria-label="Normal routing diagram; scroll horizontally on small screens">
-        <svg viewBox="0 0 720 290" role="img" aria-labelledby="m365-svg-title-0 m365-svg-desc-0">
-          <title id="m365-svg-title-0">Normal operation: two gateway paths</title><desc id="m365-svg-desc-0">Teams uses one gateway. Exchange connections use another. These are simplified paths; many services can fail over between the two gateways.</desc>
-          <text x="28" y="30" class="m365-svg-label">BEFORE THE FAILOVER · SIMPLIFIED PATHS</text>
-          <g class="m365-draw" style="--delay:.1s"><path d="M175 97H285M470 97H570" class="m365-wire"/><path d="M175 217H285M470 217H570" class="m365-wire"/></g>
-          <g class="m365-pop"><rect x="28" y="65" width="147" height="64" rx="9"/><text x="101" y="103" text-anchor="middle">Teams users</text></g>
-          <g class="m365-pop" style="--delay:.15s"><rect x="285" y="57" width="185" height="80" rx="9" class="m365-good-box"/><text x="377" y="92" text-anchor="middle">Gateway A</text><text x="377" y="115" text-anchor="middle" class="m365-svg-note">accepts connections</text></g>
-          <g class="m365-pop" style="--delay:.3s"><rect x="570" y="65" width="122" height="64" rx="9"/><text x="631" y="103" text-anchor="middle">Teams</text></g>
-          <g class="m365-pop" style="--delay:.1s"><rect x="28" y="185" width="147" height="64" rx="9"/><text x="101" y="212" text-anchor="middle">Outlook / mail</text><text x="101" y="232" text-anchor="middle" class="m365-svg-note">clients &amp; APIs</text></g>
-          <g class="m365-pop" style="--delay:.25s"><rect x="285" y="177" width="185" height="80" rx="9" class="m365-good-box"/><text x="377" y="212" text-anchor="middle">Gateway B</text><text x="377" y="235" text-anchor="middle" class="m365-svg-note">accepts connections</text></g>
-          <g class="m365-pop" style="--delay:.4s"><rect x="570" y="185" width="122" height="64" rx="9"/><text x="631" y="212" text-anchor="middle">Exchange</text><text x="631" y="232" text-anchor="middle" class="m365-svg-note">mailboxes</text></g>
-        </svg>
-      </div>
-      <div class="m365-scene-caption"><span>01 / THE FRONT DOORS</span><h3>Mail can exist even when the entrance is broken.</h3><p>A gateway handles connections before they reach a service. Microsoft maintains two independent gateway systems; many services can switch paths if one has trouble. A and B are labels for this illustration, not Microsoft's product names.</p></div>
+      <div class="m365-static-route"><span>You open Outlook</span><b>→</b><span>Gateway accepts request</span><b>→</b><strong>Inbox loads ✓</strong></div>
+      <div class="m365-scene-caption"><span>01 / WHAT NORMALLY HAPPENS</span><h3>You open Outlook. Your inbox loads.</h3><p>Your app asks Microsoft for your mail. A connection gateway—the front door—lets that request reach Exchange Online. Your mailbox responds and Outlook displays your inbox. This is the successful journey the outage interrupted.</p></div>
     </section>
     <section class="m365-scene" id="m365-scene-1" data-m365-scene>
-      <div class="m365-canvas" tabindex="0" role="region" aria-label="Teams failover diagram; scroll horizontally on small screens">
-        <svg viewBox="0 0 720 290" role="img" aria-labelledby="m365-svg-title-1 m365-svg-desc-1">
-          <title id="m365-svg-title-1">Teams switches to the gateway shared with Exchange</title><desc id="m365-svg-desc-1">A routing issue in US East triggers Teams traffic worldwide to move to gateway B at 01:07 UTC. Exchange traffic is already using that gateway. Services do not broadly fail immediately.</desc>
-          <text x="28" y="30" class="m365-svg-label">12 NOV · 01:07 UTC · AUTOMATIC FAILOVER</text>
-          <g class="m365-pop"><rect x="28" y="64" width="170" height="62" rx="9"/><text x="113" y="101" text-anchor="middle">Teams traffic</text><rect x="285" y="56" width="183" height="78" rx="9" class="m365-bad-box"/><text x="376" y="89" text-anchor="middle">Gateway A</text><text x="376" y="112" text-anchor="middle" class="m365-svg-note">US East routing issue</text></g>
-          <path d="M198 95H285" class="m365-wire m365-muted-wire"/><text x="240" y="81" class="m365-bad-text" text-anchor="middle">×</text>
-          <path d="M198 105C265 105 232 210 330 210" class="m365-wire m365-warn-wire m365-draw" style="--delay:.3s"/>
-          <g class="m365-pop" style="--delay:.4s"><rect x="330" y="171" width="202" height="78" rx="9" class="m365-warn-box"/><text x="431" y="204" text-anchor="middle">Gateway B</text><text x="431" y="227" text-anchor="middle" class="m365-svg-note">now carries both workloads</text></g>
-          <g class="m365-pop" style="--delay:.2s"><rect x="28" y="185" width="170" height="62" rx="9"/><text x="113" y="222" text-anchor="middle">Exchange traffic</text></g><path d="M198 216H330M532 210H590" class="m365-wire"/>
-          <text x="235" y="155" class="m365-svg-note m365-warn-text">BACKUP PATH</text><text x="604" y="204">Teams +</text><text x="604" y="227">Exchange</text>
-        </svg>
-      </div>
-      <div class="m365-scene-caption"><span>02 / A NORMAL SAFETY MECHANISM</span><h3>Teams takes the backup route.</h3><p>A US East routing issue shifts Teams traffic worldwide onto the gateway also serving Exchange. A shift like this is normally safe. Broad failures come hours later, near North America's daily peak—not at the instant of failover.</p></div>
+      <div class="m365-static-route"><span>You can still read mail</span><b>←</b><span>Gateway now also carries Teams traffic</span><b>←</b><strong>Teams switches paths</strong></div>
+      <div class="m365-scene-caption"><span>02 / YOU DO NOT NOTICE THE CHANGE YET</span><h3>Your mail still works, but the entrance gets busier.</h3><p>At 01:07 UTC on 12 November, a routing problem in US East sends Teams traffic worldwide onto the gateway also serving Exchange. A shift like this is normally safe. Broad mail failures come hours later, near North America's daily peak—not at the instant of failover.</p></div>
     </section>
     <section class="m365-scene" id="m365-scene-2" data-m365-scene>
-      <div class="m365-canvas" tabindex="0" role="region" aria-label="Connection bottleneck diagram; scroll horizontally on small screens">
-        <svg viewBox="0 0 720 290" role="img" aria-labelledby="m365-svg-title-2 m365-svg-desc-2">
-          <title id="m365-svg-title-2">The combination exposes lock contention</title><desc id="m365-svg-desc-2">Peak traffic, shifted Teams connections, and reduced capacity meet a latent connection-processing defect. Work queues at a shared lock and affected servers exhaust CPU and memory. Request symbols are illustrative, not traffic measurements.</desc>
-          <text x="28" y="30" class="m365-svg-label">12 NOV · NEAR NORTH AMERICAN PEAK</text>
-          <g class="m365-pop"><rect x="28" y="62" width="175" height="47" rx="8"/><text x="115" y="91" text-anchor="middle">Daily peak traffic</text><rect x="28" y="124" width="175" height="47" rx="8"/><text x="115" y="153" text-anchor="middle">Shifted Teams load</text><rect x="28" y="186" width="175" height="47" rx="8" class="m365-warn-box"/><text x="115" y="215" text-anchor="middle">~14% out of service</text></g>
-          <path d="M203 85C242 85 233 147 270 147M203 147H270M203 209C242 209 233 147 270 147M270 147H340" class="m365-wire m365-draw" style="--delay:.2s"/>
-          <g class="m365-pop" style="--delay:.35s"><rect x="340" y="62" width="165" height="171" rx="10" class="m365-bad-box"/><text x="422" y="93" text-anchor="middle">Shared lock</text><rect x="365" y="121" width="18" height="18" rx="3"/><rect x="390" y="121" width="18" height="18" rx="3"/><rect x="415" y="121" width="18" height="18" rx="3"/><rect x="440" y="121" width="18" height="18" rx="3"/><text x="422" y="176" text-anchor="middle" class="m365-svg-note">more requests compete</text><text x="422" y="199" text-anchor="middle" class="m365-svg-note">less useful progress</text></g>
-          <path d="M505 147H555" class="m365-wire m365-bad-wire m365-draw" style="--delay:.5s"/><g class="m365-pop" style="--delay:.6s"><rect x="555" y="100" width="137" height="94" rx="10" class="m365-bad-box"/><text x="623" y="137" text-anchor="middle">CPU + memory</text><text x="623" y="161" text-anchor="middle" class="m365-bad-text">exhausted</text></g>
-          <text x="422" y="268" text-anchor="middle" class="m365-svg-note">SIMPLIFIED MODEL OF CONTENTION · NOT AN INTERNAL LOCK DIAGRAM</text>
-        </svg>
-      </div>
-      <div class="m365-scene-caption"><span>03 / THE HIDDEN BOTTLENECK</span><h3>More simultaneous work makes less progress.</h3><p>The July defect creates lock contention in connection processing. Newer machines allow more concurrency, which makes contention worse. With the combined conditions, requests pile up and affected servers stop responding.</p></div>
+      <div class="m365-static-route"><span>You open Outlook</span><b>→</b><span>Connection processing gets stuck ×</span><b>→</b><strong>No mailbox response reaches you</strong></div>
+      <div class="m365-scene-caption"><span>03 / NOW YOUR INBOX WILL NOT LOAD</span><h3>Your request reaches the front door—and stalls.</h3><p>Peak load, shifted Teams traffic, and reduced gateway capacity expose a July connection-handling defect on newer servers. Requests compete for a shared resource until servers stop responding. You see a failed or waiting connection, not a deleted mailbox.</p></div>
     </section>
     <section class="m365-scene" id="m365-scene-3" data-m365-scene>
-      <div class="m365-canvas" tabindex="0" role="region" aria-label="Regional cascading failure diagram; scroll horizontally on small screens">
-        <svg viewBox="0 0 720 290" role="img" aria-labelledby="m365-svg-title-3 m365-svg-desc-3">
-          <title id="m365-svg-title-3">Redistributing load triggers failures in more capacity units</title><desc id="m365-svg-desc-3">An unresponsive unit's traffic goes to healthier units in the same region. Those units share the defect and now absorb extra load, so more servers fail. Three boxes represent the mechanism, not the number of real capacity units.</desc>
-          <text x="28" y="30" class="m365-svg-label">WITHIN ONE REGION · THREE REPRESENTATIVE CAPACITY UNITS</text>
-          <g class="m365-pop"><rect x="28" y="83" width="180" height="115" rx="10" class="m365-bad-box"/><text x="118" y="117" text-anchor="middle">Unit 1</text><text x="118" y="145" text-anchor="middle" class="m365-bad-text">Unresponsive</text><text x="118" y="174" text-anchor="middle" class="m365-svg-note">traffic redirected</text></g>
-          <path d="M208 140H270" class="m365-wire m365-warn-wire m365-draw" style="--delay:.2s"/>
-          <g class="m365-pop" style="--delay:.3s"><rect x="270" y="83" width="180" height="115" rx="10" class="m365-warn-box"/><text x="360" y="117" text-anchor="middle">Unit 2</text><text x="360" y="145" text-anchor="middle" class="m365-warn-text">Extra connections</text><text x="360" y="174" text-anchor="middle" class="m365-svg-note">same latent defect</text></g>
-          <path d="M450 140H512" class="m365-wire m365-bad-wire m365-draw" style="--delay:.45s"/>
-          <g class="m365-pop" style="--delay:.55s"><rect x="512" y="83" width="180" height="115" rx="10" class="m365-bad-box"/><text x="602" y="117" text-anchor="middle">Unit 3</text><text x="602" y="145" text-anchor="middle" class="m365-bad-text">More servers fail</text><text x="602" y="174" text-anchor="middle" class="m365-svg-note">even less healthy capacity</text></g>
-          <path d="M602 198V235H118V198" class="m365-wire m365-bad-wire m365-draw" style="--delay:.7s"/><text x="360" y="264" text-anchor="middle" class="m365-bad-text">SAME TRAFFIC ÷ FEWER HEALTHY SERVERS = MORE PRESSURE</text>
-        </svg>
-      </div>
-      <div class="m365-scene-caption"><span>04 / FAILOVER BECOMES A FEEDBACK LOOP</span><h3>The escape route reaches the same defect.</h3><p>Traffic management moves connections away from unhealthy units. The remaining units absorb extra load and can hit the same bug. At the North American low point, more than 80% of gateway servers were unresponsive.</p></div>
+      <div class="m365-static-route"><span>You keep waiting</span><b>←</b><span>Traffic tries another server</span><b>→</b><strong>Same defect, extra load ×</strong></div>
+      <div class="m365-scene-caption"><span>04 / THE BACKUP DOES NOT SAVE THIS REQUEST</span><h3>Microsoft tries another server. That one can fail too.</h3><p>Traffic management sends connections to healthier capacity units in the same region. Those units have the same hidden defect and now absorb more work. More servers stop responding, so your mailbox is still hard to reach. The North American low point exceeds 80% of gateway servers unresponsive.</p></div>
     </section>
     <section class="m365-scene" id="m365-scene-4" data-m365-scene>
-      <div class="m365-canvas" tabindex="0" role="region" aria-label="Cross-region failure diagram; scroll horizontally on small screens">
-        <svg viewBox="0 0 720 290" role="img" aria-labelledby="m365-svg-title-4 m365-svg-desc-4">
-          <title id="m365-svg-title-4">The cascade crosses regional boundaries</title><desc id="m365-svg-desc-4">As North America runs low on healthy capacity, traffic is sent to other regions. The defect is already deployed worldwide. Within about two hours, servers in every region are affected. This is not a geographic map or a claim that every server fails.</desc>
-          <text x="28" y="30" class="m365-svg-label">REGIONAL CAPACITY RUNS LOW → CROSS-REGION REDIRECTION</text>
-          <g class="m365-pop"><rect x="28" y="96" width="190" height="108" rx="10" class="m365-bad-box"/><text x="123" y="131" text-anchor="middle">North America</text><text x="123" y="159" text-anchor="middle" class="m365-bad-text">Healthy capacity falls</text><text x="123" y="183" text-anchor="middle" class="m365-svg-note">connections redirected</text></g>
-          <path d="M218 150C310 150 300 96 425 96M218 150C310 150 300 216 425 216" class="m365-wire m365-bad-wire m365-draw" style="--delay:.25s"/>
-          <g class="m365-pop" style="--delay:.4s"><rect x="425" y="58" width="267" height="77" rx="10" class="m365-warn-box"/><text x="558" y="90" text-anchor="middle">Other regions</text><text x="558" y="114" text-anchor="middle" class="m365-svg-note">extra load + same defect</text></g>
-          <g class="m365-pop" style="--delay:.6s"><rect x="425" y="177" width="267" height="77" rx="10" class="m365-bad-box"/><text x="558" y="209" text-anchor="middle">Servers affected globally</text><text x="558" y="233" text-anchor="middle" class="m365-svg-note">within about two hours</text></g>
-          <text x="235" y="270" text-anchor="middle" class="m365-svg-note">A DIFFERENT REGION ≠ A DIFFERENT BUG</text>
-        </svg>
-      </div>
-      <div class="m365-scene-caption"><span>05 / SHARED SOFTWARE, SHARED FATE</span><h3>Geography does not isolate a fleet-wide bug.</h3><p>When a region runs short of healthy capacity, traffic moves to other regions. Those gateways have the same regression. Servers in every region are affected within about two hours of broad North American failures.</p></div>
+      <div class="m365-static-route"><span>You still cannot load mail</span><b>←</b><span>Connections move to other regions</span><b>→</b><strong>Same defect is there too ×</strong></div>
+      <div class="m365-scene-caption"><span>05 / PEOPLE ELSEWHERE START SEEING PROBLEMS</span><h3>A different region has the same hidden problem.</h3><p>When regional capacity runs short, connections move to other regions whose gateways carry the same regression. Within about two hours of broad North American failures, servers in every region are affected. This does not mean every server or every user's request failed.</p></div>
     </section>
     <section class="m365-scene" id="m365-scene-5" data-m365-scene>
-      <div class="m365-canvas" tabindex="0" role="region" aria-label="Recovery diagram; scroll horizontally on small screens">
-        <svg viewBox="0 0 720 290" role="img" aria-labelledby="m365-svg-title-5 m365-svg-desc-5">
-          <title id="m365-svg-title-5">Repair away from live traffic, then restore service</title><desc id="m365-svg-desc-5">Unfixed restarts fail again when queued connections return. The repair sequence takes servers out of rotation, restarts them, applies the update, restarts again, then returns them to service. Microsoft expands this across groups of capacity units worldwide.</desc>
-          <text x="28" y="30" class="m365-svg-label">13 NOV · 07:20 UTC · CORRECTIVE UPDATE FIRST APPLIED</text>
-          <g class="m365-pop"><rect x="28" y="68" width="183" height="80" rx="10" class="m365-warn-box"/><text x="119" y="101" text-anchor="middle">Queued connections</text><text x="119" y="125" text-anchor="middle" class="m365-svg-note">kept off recovering servers</text></g>
-          <path d="M211 108H270" class="m365-wire m365-muted-wire"/><text x="242" y="99" text-anchor="middle" class="m365-warn-text">Ⅱ</text>
-          <g class="m365-pop" style="--delay:.2s"><rect x="270" y="58" width="205" height="100" rx="10" class="m365-good-box"/><text x="372" y="91" text-anchor="middle">Repair outside rotation</text><text x="372" y="119" text-anchor="middle" class="m365-svg-note">restart → patch → restart</text><text x="372" y="141" text-anchor="middle" class="m365-svg-note">defective change reverted</text></g>
-          <path d="M475 108H536" class="m365-wire m365-draw" style="--delay:.4s"/><g class="m365-pop" style="--delay:.5s"><rect x="536" y="68" width="156" height="80" rx="10" class="m365-good-box"/><text x="614" y="101" text-anchor="middle">Return to service</text><text x="614" y="125" text-anchor="middle" class="m365-svg-note">repeat across the fleet</text></g>
-          <path d="M76 215H650" class="m365-wire"/><circle cx="76" cy="215" r="5" class="m365-marker"/><circle cx="363" cy="215" r="5" class="m365-marker"/><circle cx="650" cy="215" r="5" class="m365-marker"/>
-          <text x="76" y="245" text-anchor="middle" class="m365-svg-note">07:20 · first fix</text><text x="363" y="245" text-anchor="middle" class="m365-svg-note">14:17 · webmail normal</text><text x="650" y="245" text-anchor="middle" class="m365-svg-note">16:10 · impact ends</text><text x="363" y="274" text-anchor="middle" class="m365-svg-note">13 NOVEMBER · UTC · NOT TO SCALE</text>
-        </svg>
-      </div>
-      <div class="m365-scene-caption"><span>06 / REPAIR IS A PROCESS, NOT A REBOOT</span><h3>Isolate, repair, and restore—at fleet scale.</h3><p>Microsoft repairs groups of capacity units away from traffic, then returns them to service. The first corrective update is applied at 07:20 UTC; active impact ends at 16:10 UTC. Monitoring and email-backlog recovery continue afterward.</p></div>
+      <div class="m365-static-route"><span>Servers repaired away from traffic</span><b>→</b><span>Your connection gets through again</span><b>→</b><strong>Your inbox returns ✓</strong></div>
+      <div class="m365-scene-caption"><span>06 / YOU CAN REACH YOUR MAIL AGAIN</span><h3>The repaired gateway lets your request through.</h3><p>Microsoft removes groups of capacity units from traffic, restarts failed servers, applies the corrective update, restarts again, and returns them to service. The first update is applied at 07:20 UTC on 13 November. Global webmail availability is normal at 14:17; active impact ends at 16:10. Delayed-mail processing and monitoring continue.</p></div>
     </section>
   </div>
+  <div class="m365-story-navigation" hidden><button type="button" data-m365-prev>← Previous</button><span data-m365-playback-status>Ready · about 48 seconds for all six steps</span><button type="button" data-m365-next>Next →</button></div>
   <p class="m365-announcement sr-only" data-m365-status role="status" aria-live="polite"></p>
-  <figcaption class="m365-player-foot"><span>Original, simplified illustrations based on Microsoft's final report, pp. 6–9. Representative boxes and connections—not measured traffic, unit counts, or internal topology.</span><button type="button" data-m365-replay hidden>↻ Replay</button></figcaption>
+  <figcaption class="m365-player-foot"><span>Based on Microsoft's final report, pp. 6–9. Screen text, request movements, and mailbox contents are illustrative—not exact Outlook errors, a trace of one customer, or Microsoft's internal topology. The email-delivery caveat is explained below.</span><button type="button" data-m365-replay hidden>↻ Replay from start</button></figcaption>
 </figure>
